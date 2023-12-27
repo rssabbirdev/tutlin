@@ -59,12 +59,12 @@ body {
 
 ::selection {
   background: var(--color-dark-500);
-  color: var(--color-base-800);
+  color: var(--color-base-200);
 }
 
 ::-moz-selection {
-  background: var(--color-dark-50);
-  color: var(--color-base-800);
+  background: var(--color-dark-500);
+  color: var(--color-base-200);
 }
 
 img {
