@@ -1,6 +1,6 @@
 import React from 'react'
 
-function MobileNav() {
+function MobileNav({header}) {
   return <div>MobileNav</div>
 }
 
