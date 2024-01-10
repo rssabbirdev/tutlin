@@ -53,12 +53,13 @@ export const CollectionArchive: React.FC<Props> = props => {
   } = props
 
   const [results, setResults] = useState<Result>({
-    docs: (populateBy === 'collection'
-      ? populatedDocs
-      : populateBy === 'selection'
-      ? selectedDocs
-      : []
-    )?.map(doc => doc.value),
+    // docs: (populateBy === 'collection'
+    //   ? populatedDocs
+    //   : populateBy === 'selection'
+    //   ? selectedDocs
+    //   : []
+    // )?.map(doc => doc.value),
+    docs: (populatedDocs?.map(doc => doc.value) || []) as [],
     hasNextPage: false,
     hasPrevPage: false,
     nextPage: 1,
@@ -75,7 +76,7 @@ export const CollectionArchive: React.FC<Props> = props => {
   const isRequesting = useRef(false)
   const [page, setPage] = useState(1)
 
-  const categories = (categoryFilters || []).map((cat: string) => cat).join(',')
+  // const categories = (categoryFilters || []).map(cat => cat).join(',')
 
   const scrollToRef = useCallback(() => {
     const { current } = scrollRef
@@ -114,10 +115,13 @@ export const CollectionArchive: React.FC<Props> = props => {
           page,
           sort,
           where: {
-            ...(categories
+            ...(categoryFilters && categoryFilters?.length > 0
               ? {
                   categories: {
-                    in: categories,
+                    in:
+                      typeof categoryFilters === 'string'
+                        ? [categoryFilters]
+                        : categoryFilters.map((cat: string) => cat).join(','),
                   },
                 }
               : {}),
@@ -160,44 +164,36 @@ export const CollectionArchive: React.FC<Props> = props => {
     return () => {
       if (timer) clearTimeout(timer)
     }
-  }, [page, categories, relationTo, onResultChange, sort, limit, populateBy])
+  }, [page, relationTo, onResultChange, sort, limit, populateBy, categoryFilters])
 
   return (
     <div className={[classes.collectionArchive, className].filter(Boolean).join(' ')}>
       <div className={classes.scrollRef} ref={scrollRef} />
-      {!isLoading && error && <Gutter>{error}</Gutter>}
+      {!isLoading && error && <div>{error}</div>}
       <Fragment>
         {showPageRange !== false && populateBy !== 'selection' && (
-          <Gutter>
-            <div className={classes.pageRange}>
-              <PageRange
-                collection={relationTo}
-                currentPage={results.page}
-                limit={limit}
-                totalDocs={results.totalDocs}
-              />
-            </div>
-          </Gutter>
-        )}
-        <Gutter>
-          <div className={classes.grid}>
-            {results.docs?.map((result, index) => {
-              return (
-                <div className={classes.column} key={index}>
-                  <Card doc={result} relationTo={relationTo} showCategories />
-                </div>
-              )
-            })}
-          </div>
-          {results.totalPages > 1 && populateBy !== 'selection' && (
-            <Pagination
-              className={classes.pagination}
-              onClick={setPage}
-              page={results.page}
-              totalPages={results.totalPages}
+          <div className={classes.pageRange}>
+            <PageRange
+              collection={relationTo}
+              currentPage={results.page}
+              limit={limit}
+              totalDocs={results.totalDocs}
             />
-          )}
-        </Gutter>
+          </div>
+        )}
+        <div className={classes.grid}>
+          {results.docs?.map((result, index) => {
+            return <Card doc={result} relationTo={relationTo} showCategories />
+          })}
+        </div>
+        {results.totalPages > 1 && populateBy !== 'selection' && (
+          <Pagination
+            className={classes.pagination}
+            onClick={setPage}
+            page={results.page}
+            totalPages={results.totalPages}
+          />
+        )}
       </Fragment>
     </div>
   )
