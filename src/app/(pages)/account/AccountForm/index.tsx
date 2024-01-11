@@ -14,6 +14,9 @@ import classes from './index.module.scss'
 type FormData = {
   email: string
   name: string
+  phoneNumber: string
+  district: string
+  deliveryFullAddress: string
   password: string
   passwordConfirm: string
 }
@@ -59,6 +62,9 @@ const AccountForm: React.FC = () => {
           reset({
             email: json.doc.email,
             name: json.doc.name,
+            phoneNumber: json.doc.phoneNumber,
+            district: json.doc.district,
+            deliveryFullAddress: json.doc.deliveryFullAddress,
             password: '',
             passwordConfirm: '',
           })
@@ -84,6 +90,9 @@ const AccountForm: React.FC = () => {
       reset({
         email: user.email,
         name: user.name,
+        phoneNumber: user.phoneNumber,
+        district: user.district,
+        deliveryFullAddress: user.deliveryFullAddress,
         password: '',
         passwordConfirm: '',
       })
@@ -95,6 +104,40 @@ const AccountForm: React.FC = () => {
       <Message error={error} success={success} className={classes.message} />
       {!changePassword ? (
         <Fragment>
+          <Input name="name" label="Name" register={register} error={errors.name} />
+          <Input
+            name="email"
+            label="Email Address"
+            required
+            register={register}
+            error={errors.email}
+            type="email"
+          />
+          <Input
+            name="phoneNumber"
+            label="Phone Number"
+            required
+            register={register}
+            error={errors.phoneNumber}
+            type="text"
+          />
+          <Input
+            name="district"
+            label="District"
+            required
+            register={register}
+            error={errors.district}
+            type="text"
+          />
+          <Input
+            name="deliveryFullAddress"
+            label="Delivery Full Address"
+            required
+            register={register}
+            error={errors.deliveryFullAddress}
+            type="text"
+          />
+
           <p>
             {'Change your account details below, or '}
             <button
@@ -106,15 +149,6 @@ const AccountForm: React.FC = () => {
             </button>
             {' to change your password.'}
           </p>
-          <Input
-            name="email"
-            label="Email Address"
-            required
-            register={register}
-            error={errors.email}
-            type="email"
-          />
-          <Input name="name" label="Name" register={register} error={errors.name} />
         </Fragment>
       ) : (
         <Fragment>
