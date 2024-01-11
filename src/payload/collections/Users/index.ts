@@ -47,6 +47,21 @@ const Users: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'district',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'deliveryFullAddress',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'phoneNumber',
+      type: 'text',
+      required: true,
+    },
+    {
       name: 'roles',
       type: 'select',
       hasMany: true,
@@ -123,22 +138,22 @@ const Users: CollectionConfig = {
         // If you wanted to maintain a 'created on'
         // or 'last modified' date for the cart
         // you could do so here:
-        // {
-        //   name: 'createdOn',
-        //   label: 'Created On',
-        //   type: 'date',
-        //   admin: {
-        //     readOnly: true
-        //   }
-        // },
-        // {
-        //   name: 'lastModified',
-        //   label: 'Last Modified',
-        //   type: 'date',
-        //   admin: {
-        //     readOnly: true
-        //   }
-        // },
+        {
+          name: 'createdOn',
+          label: 'Created On',
+          type: 'date',
+          admin: {
+            readOnly: true,
+          },
+        },
+        {
+          name: 'lastModified',
+          label: 'Last Modified',
+          type: 'date',
+          admin: {
+            readOnly: true,
+          },
+        },
       ],
     },
     {
