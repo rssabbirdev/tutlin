@@ -407,17 +407,23 @@ export interface Order {
         id?: string | null;
       }[]
     | null;
+  orderStatus?: ('newOrder' | 'processing' | 'shipped' | 'delivered' | 'cancelled') | null;
   updatedAt: string;
   createdAt: string;
 }
 export interface User {
   id: string;
   name?: string | null;
+  district: string;
+  deliveryFullAddress: string;
+  phoneNumber: string;
   roles?: ('admin' | 'customer')[] | null;
   purchases?: (string | Product)[] | null;
   stripeCustomerID?: string | null;
   cart?: {
     items?: CartItems;
+    createdOn?: string | null;
+    lastModified?: string | null;
   };
   skipSync?: boolean | null;
   updatedAt: string;

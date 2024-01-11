@@ -5,6 +5,9 @@ export const ME_QUERY = `query {
     user {
       id
       email
+      phoneNumber
+      district
+      deliveryFullAddress
       name
       ${CART}
       roles

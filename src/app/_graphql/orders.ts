@@ -16,6 +16,7 @@ export const ORDER = `
       docs {
         id
         orderedBy
+        orderStatus
         items {
           product ${PRODUCT}
           title

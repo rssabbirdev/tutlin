@@ -4821,6 +4821,7 @@ type Order {
   stripePaymentIntentID: String
   total: Float!
   items: [Order_Items!]
+  orderStatus: Order_orderStatus
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -4828,6 +4829,9 @@ type Order {
 type User {
   id: String
   name: String
+  district: String!
+  deliveryFullAddress: String!
+  phoneNumber: String!
   roles: [User_roles!]
   purchases: [Product!]
   stripeCustomerID: String
@@ -4852,6 +4856,8 @@ enum User_roles {
 
 type User_Cart {
   items: [CartItems!]
+  createdOn: DateTime
+  lastModified: DateTime
 }
 
 type CartItems {
@@ -4870,6 +4876,14 @@ type Order_Items {
   price: Float
   quantity: Float
   id: String
+}
+
+enum Order_orderStatus {
+  newOrder
+  processing
+  shipped
+  delivered
+  cancelled
 }
 
 type Orders {
@@ -4894,6 +4908,7 @@ input Order_where {
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
+  orderStatus: Order_orderStatus_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -4969,6 +4984,23 @@ input Order_items__id_operator {
   exists: Boolean
 }
 
+input Order_orderStatus_operator {
+  equals: Order_orderStatus_Input
+  not_equals: Order_orderStatus_Input
+  in: [Order_orderStatus_Input]
+  not_in: [Order_orderStatus_Input]
+  all: [Order_orderStatus_Input]
+  exists: Boolean
+}
+
+enum Order_orderStatus_Input {
+  newOrder
+  processing
+  shipped
+  delivered
+  cancelled
+}
+
 input Order_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -5010,6 +5042,7 @@ input Order_where_and {
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
+  orderStatus: Order_orderStatus_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -5025,6 +5058,7 @@ input Order_where_or {
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
+  orderStatus: Order_orderStatus_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -5045,6 +5079,7 @@ type OrdersDocAccessFields {
   stripePaymentIntentID: OrdersDocAccessFields_stripePaymentIntentID
   total: OrdersDocAccessFields_total
   items: OrdersDocAccessFields_items
+  orderStatus: OrdersDocAccessFields_orderStatus
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
 }
@@ -5238,6 +5273,29 @@ type OrdersDocAccessFields_items_id_Update {
 }
 
 type OrdersDocAccessFields_items_id_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderStatus {
+  create: OrdersDocAccessFields_orderStatus_Create
+  read: OrdersDocAccessFields_orderStatus_Read
+  update: OrdersDocAccessFields_orderStatus_Update
+  delete: OrdersDocAccessFields_orderStatus_Delete
+}
+
+type OrdersDocAccessFields_orderStatus_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderStatus_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderStatus_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderStatus_Delete {
   permission: Boolean!
 }
 
@@ -6204,12 +6262,17 @@ type Users {
 
 input User_where {
   name: User_name_operator
+  district: User_district_operator
+  deliveryFullAddress: User_deliveryFullAddress_operator
+  phoneNumber: User_phoneNumber_operator
   roles: User_roles_operator
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
   cart__items__quantity: User_cart__items__quantity_operator
   cart__items__id: User_cart__items__id_operator
+  cart__createdOn: User_cart__createdOn_operator
+  cart__lastModified: User_cart__lastModified_operator
   skipSync: User_skipSync_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
@@ -6228,6 +6291,36 @@ input User_name_operator {
   not_in: [String]
   all: [String]
   exists: Boolean
+}
+
+input User_district_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input User_deliveryFullAddress_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input User_phoneNumber_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input User_roles_operator {
@@ -6294,6 +6387,28 @@ input User_cart__items__id_operator {
   exists: Boolean
 }
 
+input User_cart__createdOn_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input User_cart__lastModified_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
 input User_skipSync_operator {
   equals: Boolean
   not_equals: Boolean
@@ -6345,12 +6460,17 @@ input User_id_operator {
 
 input User_where_and {
   name: User_name_operator
+  district: User_district_operator
+  deliveryFullAddress: User_deliveryFullAddress_operator
+  phoneNumber: User_phoneNumber_operator
   roles: User_roles_operator
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
   cart__items__quantity: User_cart__items__quantity_operator
   cart__items__id: User_cart__items__id_operator
+  cart__createdOn: User_cart__createdOn_operator
+  cart__lastModified: User_cart__lastModified_operator
   skipSync: User_skipSync_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
@@ -6362,12 +6482,17 @@ input User_where_and {
 
 input User_where_or {
   name: User_name_operator
+  district: User_district_operator
+  deliveryFullAddress: User_deliveryFullAddress_operator
+  phoneNumber: User_phoneNumber_operator
   roles: User_roles_operator
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
   cart__items__quantity: User_cart__items__quantity_operator
   cart__items__id: User_cart__items__id_operator
+  cart__createdOn: User_cart__createdOn_operator
+  cart__lastModified: User_cart__lastModified_operator
   skipSync: User_skipSync_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
@@ -6388,6 +6513,9 @@ type usersDocAccess {
 
 type UsersDocAccessFields {
   name: UsersDocAccessFields_name
+  district: UsersDocAccessFields_district
+  deliveryFullAddress: UsersDocAccessFields_deliveryFullAddress
+  phoneNumber: UsersDocAccessFields_phoneNumber
   roles: UsersDocAccessFields_roles
   purchases: UsersDocAccessFields_purchases
   stripeCustomerID: UsersDocAccessFields_stripeCustomerID
@@ -6419,6 +6547,75 @@ type UsersDocAccessFields_name_Update {
 }
 
 type UsersDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_district {
+  create: UsersDocAccessFields_district_Create
+  read: UsersDocAccessFields_district_Read
+  update: UsersDocAccessFields_district_Update
+  delete: UsersDocAccessFields_district_Delete
+}
+
+type UsersDocAccessFields_district_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_district_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_district_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_district_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_deliveryFullAddress {
+  create: UsersDocAccessFields_deliveryFullAddress_Create
+  read: UsersDocAccessFields_deliveryFullAddress_Read
+  update: UsersDocAccessFields_deliveryFullAddress_Update
+  delete: UsersDocAccessFields_deliveryFullAddress_Delete
+}
+
+type UsersDocAccessFields_deliveryFullAddress_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_deliveryFullAddress_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_deliveryFullAddress_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_deliveryFullAddress_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phoneNumber {
+  create: UsersDocAccessFields_phoneNumber_Create
+  read: UsersDocAccessFields_phoneNumber_Read
+  update: UsersDocAccessFields_phoneNumber_Update
+  delete: UsersDocAccessFields_phoneNumber_Delete
+}
+
+type UsersDocAccessFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phoneNumber_Delete {
   permission: Boolean!
 }
 
@@ -6517,6 +6714,8 @@ type UsersDocAccessFields_cart_Delete {
 
 type UsersDocAccessFields_cart_Fields {
   items: UsersDocAccessFields_cart_items
+  createdOn: UsersDocAccessFields_cart_createdOn
+  lastModified: UsersDocAccessFields_cart_lastModified
 }
 
 type UsersDocAccessFields_cart_items {
@@ -6615,6 +6814,52 @@ type UsersDocAccessFields_cart_items_id_Update {
 }
 
 type UsersDocAccessFields_cart_items_id_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_createdOn {
+  create: UsersDocAccessFields_cart_createdOn_Create
+  read: UsersDocAccessFields_cart_createdOn_Read
+  update: UsersDocAccessFields_cart_createdOn_Update
+  delete: UsersDocAccessFields_cart_createdOn_Delete
+}
+
+type UsersDocAccessFields_cart_createdOn_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_createdOn_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_createdOn_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_createdOn_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_lastModified {
+  create: UsersDocAccessFields_cart_lastModified_Create
+  read: UsersDocAccessFields_cart_lastModified_Read
+  update: UsersDocAccessFields_cart_lastModified_Update
+  delete: UsersDocAccessFields_cart_lastModified_Delete
+}
+
+type UsersDocAccessFields_cart_lastModified_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_lastModified_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_lastModified_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_lastModified_Delete {
   permission: Boolean!
 }
 
@@ -9756,6 +10001,7 @@ type OrdersFields {
   stripePaymentIntentID: OrdersFields_stripePaymentIntentID
   total: OrdersFields_total
   items: OrdersFields_items
+  orderStatus: OrdersFields_orderStatus
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
 }
@@ -9949,6 +10195,29 @@ type OrdersFields_items_id_Update {
 }
 
 type OrdersFields_items_id_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_orderStatus {
+  create: OrdersFields_orderStatus_Create
+  read: OrdersFields_orderStatus_Read
+  update: OrdersFields_orderStatus_Update
+  delete: OrdersFields_orderStatus_Delete
+}
+
+type OrdersFields_orderStatus_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_orderStatus_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_orderStatus_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_orderStatus_Delete {
   permission: Boolean!
 }
 
@@ -10575,6 +10844,9 @@ type usersAccess {
 
 type UsersFields {
   name: UsersFields_name
+  district: UsersFields_district
+  deliveryFullAddress: UsersFields_deliveryFullAddress
+  phoneNumber: UsersFields_phoneNumber
   roles: UsersFields_roles
   purchases: UsersFields_purchases
   stripeCustomerID: UsersFields_stripeCustomerID
@@ -10606,6 +10878,75 @@ type UsersFields_name_Update {
 }
 
 type UsersFields_name_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_district {
+  create: UsersFields_district_Create
+  read: UsersFields_district_Read
+  update: UsersFields_district_Update
+  delete: UsersFields_district_Delete
+}
+
+type UsersFields_district_Create {
+  permission: Boolean!
+}
+
+type UsersFields_district_Read {
+  permission: Boolean!
+}
+
+type UsersFields_district_Update {
+  permission: Boolean!
+}
+
+type UsersFields_district_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_deliveryFullAddress {
+  create: UsersFields_deliveryFullAddress_Create
+  read: UsersFields_deliveryFullAddress_Read
+  update: UsersFields_deliveryFullAddress_Update
+  delete: UsersFields_deliveryFullAddress_Delete
+}
+
+type UsersFields_deliveryFullAddress_Create {
+  permission: Boolean!
+}
+
+type UsersFields_deliveryFullAddress_Read {
+  permission: Boolean!
+}
+
+type UsersFields_deliveryFullAddress_Update {
+  permission: Boolean!
+}
+
+type UsersFields_deliveryFullAddress_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_phoneNumber {
+  create: UsersFields_phoneNumber_Create
+  read: UsersFields_phoneNumber_Read
+  update: UsersFields_phoneNumber_Update
+  delete: UsersFields_phoneNumber_Delete
+}
+
+type UsersFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type UsersFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type UsersFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type UsersFields_phoneNumber_Delete {
   permission: Boolean!
 }
 
@@ -10704,6 +11045,8 @@ type UsersFields_cart_Delete {
 
 type UsersFields_cart_Fields {
   items: UsersFields_cart_items
+  createdOn: UsersFields_cart_createdOn
+  lastModified: UsersFields_cart_lastModified
 }
 
 type UsersFields_cart_items {
@@ -10802,6 +11145,52 @@ type UsersFields_cart_items_id_Update {
 }
 
 type UsersFields_cart_items_id_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_createdOn {
+  create: UsersFields_cart_createdOn_Create
+  read: UsersFields_cart_createdOn_Read
+  update: UsersFields_cart_createdOn_Update
+  delete: UsersFields_cart_createdOn_Delete
+}
+
+type UsersFields_cart_createdOn_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_createdOn_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_createdOn_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_createdOn_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_lastModified {
+  create: UsersFields_cart_lastModified_Create
+  read: UsersFields_cart_lastModified_Read
+  update: UsersFields_cart_lastModified_Update
+  delete: UsersFields_cart_lastModified_Delete
+}
+
+type UsersFields_cart_lastModified_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_lastModified_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_lastModified_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_lastModified_Delete {
   permission: Boolean!
 }
 
@@ -12234,6 +12623,7 @@ input mutationOrderInput {
   stripePaymentIntentID: String
   total: Float!
   items: [mutationOrder_ItemsInput]
+  orderStatus: Order_orderStatus_MutationInput
   updatedAt: String
   createdAt: String
 }
@@ -12245,11 +12635,20 @@ input mutationOrder_ItemsInput {
   id: String
 }
 
+enum Order_orderStatus_MutationInput {
+  newOrder
+  processing
+  shipped
+  delivered
+  cancelled
+}
+
 input mutationOrderUpdateInput {
   orderedBy: String
   stripePaymentIntentID: String
   total: Float
   items: [mutationOrderUpdate_ItemsInput]
+  orderStatus: OrderUpdate_orderStatus_MutationInput
   updatedAt: String
   createdAt: String
 }
@@ -12259,6 +12658,14 @@ input mutationOrderUpdate_ItemsInput {
   price: Float
   quantity: Float
   id: String
+}
+
+enum OrderUpdate_orderStatus_MutationInput {
+  newOrder
+  processing
+  shipped
+  delivered
+  cancelled
 }
 
 input mutationMediaInput {
@@ -12321,6 +12728,9 @@ input mutationCategoryUpdate_BreadcrumbsInput {
 
 input mutationUserInput {
   name: String
+  district: String!
+  deliveryFullAddress: String!
+  phoneNumber: String!
   roles: [User_roles_MutationInput]
   purchases: [String]
   stripeCustomerID: String
@@ -12345,6 +12755,8 @@ enum User_roles_MutationInput {
 
 input mutationUser_CartInput {
   items: [mutationUser_Cart_ItemsInput]
+  createdOn: String
+  lastModified: String
 }
 
 input mutationUser_Cart_ItemsInput {
@@ -12355,6 +12767,9 @@ input mutationUser_Cart_ItemsInput {
 
 input mutationUserUpdateInput {
   name: String
+  district: String
+  deliveryFullAddress: String
+  phoneNumber: String
   roles: [UserUpdate_roles_MutationInput]
   purchases: [String]
   stripeCustomerID: String
@@ -12379,6 +12794,8 @@ enum UserUpdate_roles_MutationInput {
 
 input mutationUserUpdate_CartInput {
   items: [mutationUserUpdate_Cart_ItemsInput]
+  createdOn: String
+  lastModified: String
 }
 
 input mutationUserUpdate_Cart_ItemsInput {
