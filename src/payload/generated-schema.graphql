@@ -4879,11 +4879,11 @@ type Order_Items {
 }
 
 enum Order_orderStatus {
-  newOrder
-  processing
-  shipped
-  delivered
-  cancelled
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
 }
 
 type Orders {
@@ -4994,11 +4994,11 @@ input Order_orderStatus_operator {
 }
 
 enum Order_orderStatus_Input {
-  newOrder
-  processing
-  shipped
-  delivered
-  cancelled
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
 }
 
 input Order_updatedAt_operator {
@@ -12636,11 +12636,11 @@ input mutationOrder_ItemsInput {
 }
 
 enum Order_orderStatus_MutationInput {
-  newOrder
-  processing
-  shipped
-  delivered
-  cancelled
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
 }
 
 input mutationOrderUpdateInput {
@@ -12661,11 +12661,11 @@ input mutationOrderUpdate_ItemsInput {
 }
 
 enum OrderUpdate_orderStatus_MutationInput {
-  newOrder
-  processing
-  shipped
-  delivered
-  cancelled
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
 }
 
 input mutationMediaInput {

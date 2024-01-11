@@ -2,7 +2,6 @@ import type { CollectionConfig } from 'payload/types'
 
 import { admins } from '../../access/admins'
 import { adminsOrLoggedIn } from '../../access/adminsOrLoggedIn'
-import { isAdminFieldLevel } from '../../access/isAdminFieldLevel'
 import { adminsOrOrderedBy } from './access/adminsOrOrderedBy'
 import { clearUserCart } from './hooks/clearUserCart'
 import { populateOrderedBy } from './hooks/populateOrderedBy'
@@ -13,7 +12,7 @@ export const Orders: CollectionConfig = {
   slug: 'orders',
   admin: {
     useAsTitle: 'createdAt',
-    defaultColumns: ['createdAt', 'orderedBy'],
+    defaultColumns: ['createdAt', 'orderedBy', 'orderStatus', 'total'],
     preview: doc => `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/orders/${doc.id}`,
   },
   hooks: {
@@ -77,10 +76,7 @@ export const Orders: CollectionConfig = {
       name: 'orderStatus',
       label: 'Order Status',
       type: 'select',
-      access: {
-        update: isAdminFieldLevel,
-      },
-      defaultValue: ['Pending'],
+      defaultValue: 'Pending',
       options: [
         {
           label: 'Pending',
@@ -92,15 +88,15 @@ export const Orders: CollectionConfig = {
         },
         {
           label: 'Shipped',
-          value: 'Processing',
+          value: 'Shipped',
         },
         {
           label: 'Delivered',
-          value: 'Processing',
+          value: 'Delivered',
         },
         {
           label: 'Cancelled',
-          value: 'Processing',
+          value: 'Cancelled',
         },
       ],
     },

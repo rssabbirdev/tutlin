@@ -407,7 +407,7 @@ export interface Order {
         id?: string | null;
       }[]
     | null;
-  orderStatus?: ('newOrder' | 'processing' | 'shipped' | 'delivered' | 'cancelled') | null;
+  orderStatus?: ('Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled') | null;
   updatedAt: string;
   createdAt: string;
 }
