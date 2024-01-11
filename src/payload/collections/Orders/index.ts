@@ -80,27 +80,27 @@ export const Orders: CollectionConfig = {
       access: {
         update: isAdminFieldLevel,
       },
-      defaultValue: ['pending'],
+      defaultValue: ['Pending'],
       options: [
         {
           label: 'Pending',
-          value: 'pending',
+          value: 'Pending',
         },
         {
           label: 'Processing',
-          value: 'processing',
+          value: 'Processing',
         },
         {
           label: 'Shipped',
-          value: 'shipped',
+          value: 'Processing',
         },
         {
           label: 'Delivered',
-          value: 'delivered',
+          value: 'Processing',
         },
         {
           label: 'Cancelled',
-          value: 'cancelled',
+          value: 'Processing',
         },
       ],
     },
