@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 
-import { Category, Page } from '../../../payload/payload-types'
+import { Category, Page, Product } from '../../../payload/payload-types'
 import { staticHome } from '../../../payload/seed/home-static'
 import { fetchDoc } from '../../_api/fetchDoc'
 import { fetchDocs } from '../../_api/fetchDocs'
@@ -13,6 +13,7 @@ import { Gutter } from '../../_components/Gutter'
 import { Hero } from '../../_components/Hero'
 import Promotion from '../../_components/Promotion'
 import { generateMeta } from '../../_utilities/generateMeta'
+import HomeProducts from './HomeProducts'
 
 import classes from './index.module.scss'
 
@@ -30,7 +31,22 @@ export default async function Page({ params: { slug = 'home' } }) {
   let page: Page | null = null
   let categories: Category[] | null = null
 
+  let products: Product[] | null = null
+
   try {
+    products = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/products`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      ?.then(async res => {
+        if (!res.ok) notFound()
+        const json = await res.json()
+        if ('error' in json && json.error) notFound()
+        if ('errors' in json && json.errors) notFound()
+        return json
+      })
+      ?.then(json => json.docs)
     page = await fetchDoc<Page>({
       collection: 'pages',
       slug,
@@ -65,6 +81,7 @@ export default async function Page({ params: { slug = 'home' } }) {
           <Gutter className={classes.home}>
             <Categories categories={categories} />
             {/* <Promotion /> */}
+            <HomeProducts products={products} />
           </Gutter>
         </section>
       ) : (
