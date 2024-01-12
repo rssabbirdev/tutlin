@@ -39,7 +39,7 @@ function FooterComponent({ footer }: { footer: Footer }) {
           <div className={classes.wrap}>
             <Link href="/">
               <Image src="/logo-white.svg" alt="logo" width={170} height={50} />
-              <p>{footer.copyright}</p>
+              <p className={classes.copyright}>{footer.copyright}</p>
             </Link>
           </div>
           <div className={classes.socialLinks}>
@@ -63,6 +63,16 @@ function FooterComponent({ footer }: { footer: Footer }) {
                 // </Button>
               )
             })}
+          </div>
+        </Gutter>
+        <Gutter>
+          <div className={classes.payment}>
+            <Image
+              src="/assets/images/sslcommerz-payment-options.png"
+              alt="sslcommerz payment options"
+              width={500}
+              height={200}
+            />
           </div>
         </Gutter>
       </div>
