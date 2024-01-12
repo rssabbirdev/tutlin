@@ -46,7 +46,7 @@ const Products: CollectionConfig = {
       required: true,
     },
     {
-      name: 'price',
+      name: 'productPrice',
       label: 'Product Price',
       type: 'number',
       required: true,

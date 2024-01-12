@@ -8,29 +8,23 @@ import { RemoveFromCartButton } from '../RemoveFromCartButton'
 
 import classes from './index.module.scss'
 
-export const priceFromJSON = (priceJSON: string, quantity: number = 1, raw?: boolean): string => {
+export const priceFromJSON = (
+  productPrice: number,
+  quantity: number = 1,
+  raw?: boolean,
+): string => {
   let price = ''
 
-  if (priceJSON) {
+  if (productPrice) {
     try {
-      const parsed = JSON.parse(priceJSON)?.data[0]
-      const priceValue = parsed.unit_amount * quantity
-      const priceType = parsed.type
+      const priceValue = productPrice * quantity
 
       if (raw) return priceValue.toString()
 
-      price = (priceValue / 100).toLocaleString('en-US', {
+      price = priceValue.toLocaleString('en-US', {
         style: 'currency',
-        currency: 'USD', // TODO: use `parsed.currency`
+        currency: 'BDT', // TODO: use `parsed.currency`
       })
-
-      if (priceType === 'recurring') {
-        price += `/${
-          parsed.recurring.interval_count > 1
-            ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
-            : parsed.recurring.interval
-        }`
-      }
     } catch (e) {
       console.error(`Cannot parse priceJSON`) // eslint-disable-line no-console
     }
@@ -44,22 +38,26 @@ export const Price: React.FC<{
   quantity?: number
   button?: 'addToCart' | 'removeFromCart' | false
 }> = props => {
-  const { product, product: { priceJSON } = {}, button = 'addToCart', quantity } = props
+  const { product, product: { productPrice = 0 } = {}, button = 'addToCart', quantity } = props
 
+  console.log(productPrice)
   const [price, setPrice] = useState<{
     actualPrice: string
     withQuantity: string
   }>(() => ({
-    actualPrice: priceFromJSON(priceJSON),
-    withQuantity: priceFromJSON(priceJSON, quantity),
+    actualPrice: priceFromJSON(productPrice),
+    withQuantity: priceFromJSON(productPrice, quantity),
   }))
 
   useEffect(() => {
     setPrice({
-      actualPrice: priceFromJSON(priceJSON),
-      withQuantity: priceFromJSON(priceJSON, quantity),
+      actualPrice: priceFromJSON(productPrice),
+      withQuantity: priceFromJSON(productPrice, quantity),
     })
-  }, [priceJSON, quantity])
+  }, [productPrice, quantity])
+
+  console.log('actualPrice: ', priceFromJSON(productPrice))
+  console.log('withQuantity', priceFromJSON(productPrice, quantity))
 
   return (
     <div className={classes.actions}>
