@@ -20,7 +20,7 @@ function FooterComponent({ footer }: { footer: Footer }) {
       <Gutter>
         <ul className={classes.inclusions}>
           {inclusions.map((inclusion, index) => (
-            <li key={inclusion.title}>
+            <li key={inclusion.title} className={classes.box}>
               <Image
                 src={inclusion.icon}
                 alt={inclusion.title}
