@@ -12,6 +12,7 @@ import classes from './index.module.scss'
 export const AddToCartButton: React.FC<{
   product: Product
   quantity?: number
+  productPrice?: number
   className?: string
   appearance?: Props['appearance']
 }> = props => {

@@ -98,13 +98,13 @@ export const CartPage: React.FC<{
                   <h6 className={classes.cartTotal}>Summary</h6>
                 </div>
 
-                <div className={classes.row}>
+                {/* <div className={classes.row}>
                   <p className={classes.cartTotal}>Delivery Charge</p>
                   <p className={classes.cartTotal}>$0</p>
-                </div>
+                </div> */}
 
                 <div className={classes.row}>
-                  <p className={classes.cartTotal}>Grand Total</p>
+                  <p className={classes.cartTotal}>Subtotal</p>
                   <p className={classes.cartTotal}>{cartTotal.formatted}</p>
                 </div>
 
