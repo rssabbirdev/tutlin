@@ -21,19 +21,6 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
     return
   }
   try {
-    // const orderProducts = fullUser?.cart?.items?.map(async item => {
-    //   const databaseItem = await payload.findByID({
-    //     collection: 'products',
-    //     id: item?.id,
-    //   })
-    //   let orderItem: {
-    //     product?: string | Product
-    //     price: number | null
-    //     quantity?: number | null
-    //   } = { ...item, price: databaseItem?.productPrice * item?.quantity }
-
-    //   return orderItem
-    // })
     interface OrderProductsType {
       product: string | Product
       quantity?: number | null
@@ -56,10 +43,9 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         return null
       }),
     )
-    console.log('orderProducts', orderProducts)
     // create order data
     // The created order document is returned
-    const order = await payload.create({
+    await payload.create({
       collection: 'orders',
       data: {
         orderedBy: fullUser.id,

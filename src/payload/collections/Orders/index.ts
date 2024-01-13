@@ -59,6 +59,20 @@ export const Orders: CollectionConfig = {
       min: 0,
     },
     {
+      label: 'Payment Amount',
+      name: 'paidAmount',
+      type: 'number',
+      required: true,
+      min: 0,
+    },
+    {
+      label: 'Due Amount',
+      name: 'dueAmount',
+      type: 'number',
+      required: true,
+      min: 0,
+    },
+    {
       name: 'items',
       type: 'array',
       fields: [
@@ -85,6 +99,9 @@ export const Orders: CollectionConfig = {
       label: 'Order Status',
       type: 'select',
       defaultValue: 'Pending',
+      admin: {
+        position: 'sidebar',
+      },
       options: [
         {
           label: 'Pending',
@@ -105,6 +122,29 @@ export const Orders: CollectionConfig = {
         {
           label: 'Cancelled',
           value: 'Cancelled',
+        },
+      ],
+    },
+    {
+      name: 'paymentStatus',
+      label: 'Payment Status',
+      type: 'select',
+      defaultValue: 'Unpaid',
+      admin: {
+        position: 'sidebar',
+      },
+      options: [
+        {
+          label: 'Unpaid',
+          value: 'Unpaid',
+        },
+        {
+          label: 'Partial Paid',
+          value: 'Partial Paid',
+        },
+        {
+          label: 'Paid',
+          value: 'Paid',
         },
       ],
     },

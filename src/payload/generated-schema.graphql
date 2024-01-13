@@ -4870,8 +4870,11 @@ type Order {
   orderedBy: User
   stripePaymentIntentID: String
   total: Float!
+  paidAmount: Float!
+  dueAmount: Float!
   items: [Order_Items!]
   orderStatus: Order_orderStatus
+  paymentStatus: Order_paymentStatus
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -4936,6 +4939,12 @@ enum Order_orderStatus {
   Cancelled
 }
 
+enum Order_paymentStatus {
+  Unpaid
+  PartialPaid
+  Paid
+}
+
 type Orders {
   docs: [Order]
   hasNextPage: Boolean
@@ -4954,11 +4963,14 @@ input Order_where {
   orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   total: Order_total_operator
+  paidAmount: Order_paidAmount_operator
+  dueAmount: Order_dueAmount_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
   orderStatus: Order_orderStatus_operator
+  paymentStatus: Order_paymentStatus_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -4987,6 +4999,24 @@ input Order_stripePaymentIntentID_operator {
 }
 
 input Order_total_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Order_paidAmount_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Order_dueAmount_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -5051,6 +5081,21 @@ enum Order_orderStatus_Input {
   Cancelled
 }
 
+input Order_paymentStatus_operator {
+  equals: Order_paymentStatus_Input
+  not_equals: Order_paymentStatus_Input
+  in: [Order_paymentStatus_Input]
+  not_in: [Order_paymentStatus_Input]
+  all: [Order_paymentStatus_Input]
+  exists: Boolean
+}
+
+enum Order_paymentStatus_Input {
+  Unpaid
+  PartialPaid
+  Paid
+}
+
 input Order_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -5088,11 +5133,14 @@ input Order_where_and {
   orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   total: Order_total_operator
+  paidAmount: Order_paidAmount_operator
+  dueAmount: Order_dueAmount_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
   orderStatus: Order_orderStatus_operator
+  paymentStatus: Order_paymentStatus_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -5104,11 +5152,14 @@ input Order_where_or {
   orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   total: Order_total_operator
+  paidAmount: Order_paidAmount_operator
+  dueAmount: Order_dueAmount_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
   orderStatus: Order_orderStatus_operator
+  paymentStatus: Order_paymentStatus_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -5128,8 +5179,11 @@ type OrdersDocAccessFields {
   orderedBy: OrdersDocAccessFields_orderedBy
   stripePaymentIntentID: OrdersDocAccessFields_stripePaymentIntentID
   total: OrdersDocAccessFields_total
+  paidAmount: OrdersDocAccessFields_paidAmount
+  dueAmount: OrdersDocAccessFields_dueAmount
   items: OrdersDocAccessFields_items
   orderStatus: OrdersDocAccessFields_orderStatus
+  paymentStatus: OrdersDocAccessFields_paymentStatus
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
 }
@@ -5200,6 +5254,52 @@ type OrdersDocAccessFields_total_Update {
 }
 
 type OrdersDocAccessFields_total_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paidAmount {
+  create: OrdersDocAccessFields_paidAmount_Create
+  read: OrdersDocAccessFields_paidAmount_Read
+  update: OrdersDocAccessFields_paidAmount_Update
+  delete: OrdersDocAccessFields_paidAmount_Delete
+}
+
+type OrdersDocAccessFields_paidAmount_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paidAmount_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paidAmount_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paidAmount_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dueAmount {
+  create: OrdersDocAccessFields_dueAmount_Create
+  read: OrdersDocAccessFields_dueAmount_Read
+  update: OrdersDocAccessFields_dueAmount_Update
+  delete: OrdersDocAccessFields_dueAmount_Delete
+}
+
+type OrdersDocAccessFields_dueAmount_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dueAmount_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dueAmount_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dueAmount_Delete {
   permission: Boolean!
 }
 
@@ -5346,6 +5446,29 @@ type OrdersDocAccessFields_orderStatus_Update {
 }
 
 type OrdersDocAccessFields_orderStatus_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paymentStatus {
+  create: OrdersDocAccessFields_paymentStatus_Create
+  read: OrdersDocAccessFields_paymentStatus_Read
+  update: OrdersDocAccessFields_paymentStatus_Update
+  delete: OrdersDocAccessFields_paymentStatus_Delete
+}
+
+type OrdersDocAccessFields_paymentStatus_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paymentStatus_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paymentStatus_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paymentStatus_Delete {
   permission: Boolean!
 }
 
@@ -10074,8 +10197,11 @@ type OrdersFields {
   orderedBy: OrdersFields_orderedBy
   stripePaymentIntentID: OrdersFields_stripePaymentIntentID
   total: OrdersFields_total
+  paidAmount: OrdersFields_paidAmount
+  dueAmount: OrdersFields_dueAmount
   items: OrdersFields_items
   orderStatus: OrdersFields_orderStatus
+  paymentStatus: OrdersFields_paymentStatus
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
 }
@@ -10146,6 +10272,52 @@ type OrdersFields_total_Update {
 }
 
 type OrdersFields_total_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_paidAmount {
+  create: OrdersFields_paidAmount_Create
+  read: OrdersFields_paidAmount_Read
+  update: OrdersFields_paidAmount_Update
+  delete: OrdersFields_paidAmount_Delete
+}
+
+type OrdersFields_paidAmount_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_paidAmount_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_paidAmount_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_paidAmount_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_dueAmount {
+  create: OrdersFields_dueAmount_Create
+  read: OrdersFields_dueAmount_Read
+  update: OrdersFields_dueAmount_Update
+  delete: OrdersFields_dueAmount_Delete
+}
+
+type OrdersFields_dueAmount_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_dueAmount_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_dueAmount_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_dueAmount_Delete {
   permission: Boolean!
 }
 
@@ -10292,6 +10464,29 @@ type OrdersFields_orderStatus_Update {
 }
 
 type OrdersFields_orderStatus_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_paymentStatus {
+  create: OrdersFields_paymentStatus_Create
+  read: OrdersFields_paymentStatus_Read
+  update: OrdersFields_paymentStatus_Update
+  delete: OrdersFields_paymentStatus_Delete
+}
+
+type OrdersFields_paymentStatus_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_paymentStatus_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_paymentStatus_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_paymentStatus_Delete {
   permission: Boolean!
 }
 
@@ -12698,8 +12893,11 @@ input mutationOrderInput {
   orderedBy: String
   stripePaymentIntentID: String
   total: Float!
+  paidAmount: Float!
+  dueAmount: Float!
   items: [mutationOrder_ItemsInput]
   orderStatus: Order_orderStatus_MutationInput
+  paymentStatus: Order_paymentStatus_MutationInput
   updatedAt: String
   createdAt: String
 }
@@ -12719,12 +12917,21 @@ enum Order_orderStatus_MutationInput {
   Cancelled
 }
 
+enum Order_paymentStatus_MutationInput {
+  Unpaid
+  PartialPaid
+  Paid
+}
+
 input mutationOrderUpdateInput {
   orderedBy: String
   stripePaymentIntentID: String
   total: Float
+  paidAmount: Float
+  dueAmount: Float
   items: [mutationOrderUpdate_ItemsInput]
   orderStatus: OrderUpdate_orderStatus_MutationInput
+  paymentStatus: OrderUpdate_paymentStatus_MutationInput
   updatedAt: String
   createdAt: String
 }
@@ -12742,6 +12949,12 @@ enum OrderUpdate_orderStatus_MutationInput {
   Shipped
   Delivered
   Cancelled
+}
+
+enum OrderUpdate_paymentStatus_MutationInput {
+  Unpaid
+  PartialPaid
+  Paid
 }
 
 input mutationMediaInput {

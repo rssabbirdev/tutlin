@@ -17,6 +17,10 @@ export const ORDER = `
         id
         orderedBy
         orderStatus
+        paymentStatus
+        paidAmount
+        dueAmount
+        total
         items {
           product ${PRODUCT}
           title

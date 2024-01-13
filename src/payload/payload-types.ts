@@ -400,6 +400,8 @@ export interface Order {
   orderedBy?: (string | null) | User;
   stripePaymentIntentID?: string | null;
   total: number;
+  paidAmount: number;
+  dueAmount: number;
   items?:
     | {
         product: string | Product;
@@ -409,6 +411,7 @@ export interface Order {
       }[]
     | null;
   orderStatus?: ('Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled') | null;
+  paymentStatus?: ('Unpaid' | 'Partial Paid' | 'Paid') | null;
   updatedAt: string;
   createdAt: string;
 }
