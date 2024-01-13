@@ -96,11 +96,11 @@ export default buildConfig({
     Boolean,
   ),
   endpoints: [
-    {
-      path: '/create-payment-intent',
-      method: 'post',
-      handler: createPaymentIntent,
-    },
+    // {
+    //   path: '/create-payment-intent',
+    //   method: 'post',
+    //   handler: createPaymentIntent,
+    // },
     {
       path: '/stripe/customers',
       method: 'get',

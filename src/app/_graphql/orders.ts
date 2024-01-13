@@ -20,7 +20,7 @@ export const ORDER = `
         items {
           product ${PRODUCT}
           title
-          priceJSON
+          productPrice
         }
       }
     }
