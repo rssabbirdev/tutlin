@@ -195,7 +195,6 @@ export interface Category {
 export interface Product {
   id: string;
   title: string;
-  productPrice: number;
   publishedOn?: string | null;
   layout?:
     | (
