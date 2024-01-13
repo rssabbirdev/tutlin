@@ -7,9 +7,11 @@ import { Content } from '../../blocks/Content'
 import { MediaBlock } from '../../blocks/MediaBlock'
 import { slugField } from '../../fields/slug'
 import { populateArchiveBlock } from '../../hooks/populateArchiveBlock'
+import { checkUserPurchases } from './access/checkUserPurchases'
 import { beforeProductChange } from './hooks/beforeChange'
 import { deleteProductFromCarts } from './hooks/deleteProductFromCarts'
 import { revalidateProduct } from './hooks/revalidateProduct'
+import { ProductSelect } from './ui/ProductSelect'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -84,7 +86,42 @@ const Products: CollectionConfig = {
         },
         {
           label: 'Product Details',
-          fields: [],
+          fields: [
+            {
+              name: 'stripeProductID',
+              label: 'Stripe Product',
+              type: 'text',
+              admin: {
+                components: {
+                  Field: ProductSelect,
+                },
+              },
+            },
+            {
+              name: 'priceJSON',
+              label: 'Price JSON',
+              type: 'textarea',
+              admin: {
+                readOnly: true,
+                hidden: true,
+                rows: 10,
+              },
+            },
+            {
+              name: 'enablePaywall',
+              label: 'Enable Paywall',
+              type: 'checkbox',
+            },
+            {
+              name: 'paywall',
+              label: 'Paywall',
+              type: 'blocks',
+              access: {
+                read: checkUserPurchases,
+              },
+              blocks: [CallToAction, Content, MediaBlock, Archive],
+            },
+          ],
         },
       ],
     },
