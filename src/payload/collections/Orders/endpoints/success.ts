@@ -67,7 +67,9 @@ export const successHandler: PayloadHandler = async (req, res): Promise<void> =>
   })
 
   res.redirect(
-    `http://localhost:3000/orders/success?order_id=${order_id}&transaction_id=${transaction_id}&order_status=${
+    `${
+      process.env.PAYLOAD_PUBLIC_SERVER_URL
+    }/order-confirmation?order_id=${order_id}&transaction_id=${transaction_id}&order_status=${
       Number(order.paidAmount) ? order.orderStatus : 'Processing'
     }&payment_status=${
       Number(order.total) - (Number(order.paidAmount) + Number(amount)) === 0

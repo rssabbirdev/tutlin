@@ -1,7 +1,7 @@
 import orderIdGenerator from 'order-id'
 import type { PayloadHandler } from 'payload/config'
 
-import type { CartItems, Order, Product } from '../../../payload-types'
+import type { Product } from '../../../payload-types'
 import { sslcz } from '../../../sslcommerz/sslcz'
 
 interface OrderProductsType {
@@ -36,6 +36,7 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
       fullUser?.cart?.items?.map(async item => {
         const databaseItem = await payload.findByID({
           collection: 'products',
+          // @ts-expect-error
           id: item?.product?.id,
         })
         orderProducts.push({
@@ -74,6 +75,7 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/cancel`,
       ipn_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/ipn`,
       shipping_method: 'Courier',
+      // @ts-expect-error
       product_name: orderProducts.reduce((acc, product) => acc + `${product?.product?.title},`, ''),
       product_category: 'Electronic',
       product_profile: 'general',

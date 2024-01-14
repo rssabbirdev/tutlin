@@ -12,6 +12,8 @@ type Props = {
   type?: 'text' | 'number' | 'password' | 'email'
   validate?: (value: string) => boolean | string
   disabled?: boolean
+  placeholder?: string
+  hideLabel?: boolean
 }
 
 export const Input: React.FC<Props> = ({
@@ -23,13 +25,16 @@ export const Input: React.FC<Props> = ({
   type = 'text',
   validate,
   disabled,
+  placeholder,
+  hideLabel,
 }) => {
   return (
     <div className={classes.inputWrap}>
       <label htmlFor="name" className={classes.label}>
-        {label}
-        {required ? <span className={classes.asterisk}>&nbsp;*</span> : ''}
+        {!hideLabel && label}
+        {!hideLabel && required ? <span className={classes.asterisk}>&nbsp;*</span> : ''}
       </label>
+
       <input
         className={[classes.input, error && classes.error].filter(Boolean).join(' ')}
         {...{ type }}
@@ -45,6 +50,7 @@ export const Input: React.FC<Props> = ({
               }
             : {}),
         })}
+        placeholder={placeholder}
         disabled={disabled}
       />
       {error && (

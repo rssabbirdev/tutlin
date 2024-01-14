@@ -12,6 +12,9 @@ import classes from './index.module.scss'
 export const OrderConfirmationPage: React.FC<{}> = () => {
   const searchParams = useSearchParams()
   const orderID = searchParams.get('order_id')
+  const transactionId = searchParams.get('transaction_id')
+  const paymentStatus = searchParams.get('payment_status')
+  const orderStatus = searchParams.get('order_status')
   const error = searchParams.get('error')
 
   const { clearCart } = useCart()
@@ -38,11 +41,19 @@ export const OrderConfirmationPage: React.FC<{}> = () => {
           </div>
         </Fragment>
       ) : (
-        <Fragment>
+        <div style={{ textAlign: 'center' }}>
           <h1>Thank you for your order!</h1>
+          <p>{`We received your payment`}</p>
           <p>
-            {`Your order has been confirmed. You will receive an email confirmation shortly. Your order ID is ${orderID}.`}
+            {`Your order has been ${orderStatus.toLowerCase()}. You will receive an email confirmation shortly.`}
           </p>
+          <div>
+            <h4>Order Details</h4>
+            <p>Order ID : {orderID}</p>
+            <p>Transaction ID : {transactionId}</p>
+            <p>Payment Status : {paymentStatus}</p>
+            <p>Order Status : {orderStatus}</p>
+          </div>
           <div className={classes.actions}>
             <Button href={`/account/orders/${orderID}`} label="View order" appearance="primary" />
             <Button
@@ -51,7 +62,7 @@ export const OrderConfirmationPage: React.FC<{}> = () => {
               appearance="secondary"
             />
           </div>
-        </Fragment>
+        </div>
       )}
     </div>
   )

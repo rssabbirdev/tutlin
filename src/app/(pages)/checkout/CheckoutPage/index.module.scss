@@ -50,3 +50,15 @@
 .error {
   margin-top: calc(var(--block-padding) - var(--base));
 }
+.paymentButton{
+  width: 100%
+}
+.shippingInputs{
+  display:grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 20px;
+
+  @include small-break {
+    display: block;
+  }
+}
