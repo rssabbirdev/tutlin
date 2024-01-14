@@ -126,6 +126,14 @@ export const Orders: CollectionConfig = {
       ],
     },
     {
+      name: 'transactionId',
+      label: 'Transaction Id',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'paymentStatus',
       label: 'Payment Status',
       type: 'select',

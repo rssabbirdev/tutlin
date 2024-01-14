@@ -411,6 +411,7 @@ export interface Order {
       }[]
     | null;
   orderStatus?: ('Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled') | null;
+  transactionId?: string | null;
   paymentStatus?: ('Unpaid' | 'Partial Paid' | 'Paid') | null;
   updatedAt: string;
   createdAt: string;

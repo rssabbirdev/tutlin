@@ -1,11 +1,15 @@
 import type { PayloadHandler } from 'payload/config'
+import SSLCommerzPayment from 'sslcommerz-lts'
 
 import type { CartItems, Order, Product } from '../../../payload-types'
 
-// this endpoint creates a `PaymentIntent` with the items in the cart
-// to do this, we loop through the items in the cart and lookup the product in Stripe
-// we then add the price of the product to the total
-// once completed, we pass the `client_secret` of the `PaymentIntent` back to the client which can process the payment
+interface OrderProductsType {
+  product: string | Product
+  quantity?: number | null
+  id?: string | null
+  price?: number | null
+}
+
 export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
   const { user, payload } = req
   if (!user) {
@@ -20,12 +24,11 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
     res.status(404).json({ error: 'User not found' })
     return
   }
+
   try {
-    interface OrderProductsType {
-      product: string | Product
-      quantity?: number | null
-      id?: string | null
-      price?: number | null
+    const hasItems = fullUser?.cart?.items?.length > 0
+    if (!hasItems) {
+      throw new Error('No items in cart')
     }
     let orderProducts: OrderProductsType[] = []
     await Promise.all(
@@ -52,50 +55,55 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         items: orderProducts,
         orderStatus: 'Pending',
         total: orderProducts.reduce((acc, item) => acc + item.price, 0),
+        paymentStatus: 'Unpaid',
+        paidAmount: 0,
+        dueAmount: orderProducts.reduce((acc, item) => acc + item.price, 0),
       },
     })
 
-    console.log('orderData', {
-      orderedBy: fullUser.id,
-      items: orderProducts,
-      orderStatus: 'Pending',
-      total: orderProducts.reduce((acc, item) => acc + item.price, 0),
-    })
-
-    // let total = 0
-    const hasItems = fullUser?.cart?.items?.length > 0
-    if (!hasItems) {
-      throw new Error('No items in cart')
+    const paymentData = {
+      total_amount: orderProducts.reduce((acc, item) => acc + item.price, 0),
+      currency: 'BDT',
+      tran_id: crypto.randomUUID(), // use unique tran_id for each api call
+      success_url: 'http://localhost:3030/success',
+      fail_url: 'http://localhost:3030/fail',
+      cancel_url: 'http://localhost:3030/cancel',
+      ipn_url: 'http://localhost:3030/ipn',
+      shipping_method: 'Courier',
+      product_name: 'Gadgets',
+      product_category: 'Electronic',
+      product_profile: 'general',
+      cus_name: fullUser.name,
+      cus_email: fullUser.email,
+      cus_add1: fullUser.deliveryFullAddress,
+      cus_add2: '',
+      cus_city: fullUser.district,
+      cus_state: '',
+      cus_postcode: '1000',
+      cus_country: 'Bangladesh',
+      cus_phone: fullUser.phoneNumber,
+      cus_fax: 'fullUser.phoneNumber',
+      ship_name: fullUser.name,
+      ship_add1: 'Dhaka',
+      ship_add2: 'Dhaka',
+      ship_city: 'Dhaka',
+      ship_state: 'Dhaka',
+      ship_postcode: 1000,
+      ship_country: 'Bangladesh',
     }
-    // for each item in cart, lookup the product in Stripe and add its price to the total
-    // await Promise.all(
-    //   fullUser?.cart?.items?.map(async (item: CartItems[0]): Promise<null> => {
-    //     const { product, quantity } = item
-    //     if (!quantity) {
-    //       return null
-    //     }
-    //     if (typeof product === 'string' || !product?.stripeProductID) {
-    //       throw new Error('No Stripe Product ID')
-    //     }
-    //     const prices = await stripe.prices.list({
-    //       product: product.stripeProductID,
-    //       limit: 100,
-    //       expand: ['data.product'],
-    //     })
-    //     if (prices.data.length === 0) {
-    //       res.status(404).json({ error: 'There are no items in your cart to checkout with' })
-    //       return null
-    //     }
-    //     const price = prices.data[0]
-    //     total += price.unit_amount * quantity
-    //     return null
-    //   }),
-    // )
-    // if (total === 0) {
-    //   throw new Error('There is nothing to pay for, add some items to your cart and try again.')
-    // }
 
-    res.send({ client_secret: '' })
+    const sslcz = new SSLCommerzPayment(
+      process.env.SSLCOMMERZ_STORE_ID,
+      process.env.SSLCOMMERZ_STORE_PASSWD,
+      false,
+    )
+    await sslcz.init(paymentData).then(apiResponse => {
+      // Redirect the user to payment gateway
+      let GatewayPageURL = apiResponse.GatewayPageURL
+      // res.redirect(GatewayPageURL)
+      console.log('Redirecting to: ', GatewayPageURL)
+      res.send({ GatewayPageURL })
+    })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Unknown error'
     payload.logger.error(message)

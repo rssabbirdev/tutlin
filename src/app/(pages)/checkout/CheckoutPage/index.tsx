@@ -38,7 +38,10 @@ export const CheckoutPage: React.FC<{
       credentials: 'include',
     })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+        window.location.href = data.GatewayPageURL
+      })
   }
 
   useEffect(() => {
