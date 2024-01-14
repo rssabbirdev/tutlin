@@ -1,7 +1,8 @@
+import orderIdGenerator from 'order-id'
 import type { PayloadHandler } from 'payload/config'
-import SSLCommerzPayment from 'sslcommerz-lts'
 
 import type { CartItems, Order, Product } from '../../../payload-types'
+import { sslcz } from '../../../sslcommerz/sslcz'
 
 interface OrderProductsType {
   product: string | Product
@@ -48,10 +49,13 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
     )
     // create order data
     // The created order document is returned
+    const generateOrderId = orderIdGenerator('order').generate()
+    const orderId = orderIdGenerator('order').getTime(generateOrderId)
     await payload.create({
       collection: 'orders',
       data: {
         orderedBy: fullUser.id,
+        orderId: orderId.toString(),
         items: orderProducts,
         orderStatus: 'Pending',
         total: orderProducts.reduce((acc, item) => acc + item.price, 0),
@@ -60,17 +64,17 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         dueAmount: orderProducts.reduce((acc, item) => acc + item.price, 0),
       },
     })
-
+    const transactionId = crypto.randomUUID()
     const paymentData = {
       total_amount: orderProducts.reduce((acc, item) => acc + item.price, 0),
       currency: 'BDT',
-      tran_id: crypto.randomUUID(), // use unique tran_id for each api call
-      success_url: 'http://localhost:3030/success',
-      fail_url: 'http://localhost:3030/fail',
-      cancel_url: 'http://localhost:3030/cancel',
-      ipn_url: 'http://localhost:3030/ipn',
+      tran_id: transactionId, // use unique tran_id for each api call
+      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/success?user_id=${fullUser?.id}&order_id=${orderId}&transaction_id=${transactionId}`,
+      fail_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/fail`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/cancel`,
+      ipn_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/ipn`,
       shipping_method: 'Courier',
-      product_name: 'Gadgets',
+      product_name: orderProducts.reduce((acc, product) => acc + `${product?.product?.title},`, ''),
       product_category: 'Electronic',
       product_profile: 'general',
       cus_name: fullUser.name,
@@ -82,21 +86,16 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
       cus_postcode: '1000',
       cus_country: 'Bangladesh',
       cus_phone: fullUser.phoneNumber,
-      cus_fax: 'fullUser.phoneNumber',
+      cus_fax: '',
       ship_name: fullUser.name,
-      ship_add1: 'Dhaka',
+      ship_add1: fullUser.deliveryFullAddress,
       ship_add2: 'Dhaka',
-      ship_city: 'Dhaka',
+      ship_city: fullUser.district,
       ship_state: 'Dhaka',
       ship_postcode: 1000,
       ship_country: 'Bangladesh',
     }
 
-    const sslcz = new SSLCommerzPayment(
-      process.env.SSLCOMMERZ_STORE_ID,
-      process.env.SSLCOMMERZ_STORE_PASSWD,
-      false,
-    )
     await sslcz.init(paymentData).then(apiResponse => {
       // Redirect the user to payment gateway
       let GatewayPageURL = apiResponse.GatewayPageURL

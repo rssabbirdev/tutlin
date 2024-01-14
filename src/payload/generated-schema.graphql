@@ -4875,6 +4875,8 @@ type Order {
   items: [Order_Items!]
   orderStatus: Order_orderStatus
   transactionId: String
+  orderId: String!
+  valId: String
   paymentStatus: Order_paymentStatus
   updatedAt: DateTime
   createdAt: DateTime
@@ -4972,6 +4974,8 @@ input Order_where {
   items__id: Order_items__id_operator
   orderStatus: Order_orderStatus_operator
   transactionId: Order_transactionId_operator
+  orderId: Order_orderId_operator
+  valId: Order_valId_operator
   paymentStatus: Order_paymentStatus_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
@@ -5094,6 +5098,27 @@ input Order_transactionId_operator {
   exists: Boolean
 }
 
+input Order_orderId_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_valId_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
 input Order_paymentStatus_operator {
   equals: Order_paymentStatus_Input
   not_equals: Order_paymentStatus_Input
@@ -5154,6 +5179,8 @@ input Order_where_and {
   items__id: Order_items__id_operator
   orderStatus: Order_orderStatus_operator
   transactionId: Order_transactionId_operator
+  orderId: Order_orderId_operator
+  valId: Order_valId_operator
   paymentStatus: Order_paymentStatus_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
@@ -5174,6 +5201,8 @@ input Order_where_or {
   items__id: Order_items__id_operator
   orderStatus: Order_orderStatus_operator
   transactionId: Order_transactionId_operator
+  orderId: Order_orderId_operator
+  valId: Order_valId_operator
   paymentStatus: Order_paymentStatus_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
@@ -5199,6 +5228,8 @@ type OrdersDocAccessFields {
   items: OrdersDocAccessFields_items
   orderStatus: OrdersDocAccessFields_orderStatus
   transactionId: OrdersDocAccessFields_transactionId
+  orderId: OrdersDocAccessFields_orderId
+  valId: OrdersDocAccessFields_valId
   paymentStatus: OrdersDocAccessFields_paymentStatus
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
@@ -5485,6 +5516,52 @@ type OrdersDocAccessFields_transactionId_Update {
 }
 
 type OrdersDocAccessFields_transactionId_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderId {
+  create: OrdersDocAccessFields_orderId_Create
+  read: OrdersDocAccessFields_orderId_Read
+  update: OrdersDocAccessFields_orderId_Update
+  delete: OrdersDocAccessFields_orderId_Delete
+}
+
+type OrdersDocAccessFields_orderId_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderId_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderId_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderId_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_valId {
+  create: OrdersDocAccessFields_valId_Create
+  read: OrdersDocAccessFields_valId_Read
+  update: OrdersDocAccessFields_valId_Update
+  delete: OrdersDocAccessFields_valId_Delete
+}
+
+type OrdersDocAccessFields_valId_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_valId_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_valId_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_valId_Delete {
   permission: Boolean!
 }
 
@@ -10241,6 +10318,8 @@ type OrdersFields {
   items: OrdersFields_items
   orderStatus: OrdersFields_orderStatus
   transactionId: OrdersFields_transactionId
+  orderId: OrdersFields_orderId
+  valId: OrdersFields_valId
   paymentStatus: OrdersFields_paymentStatus
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
@@ -10527,6 +10606,52 @@ type OrdersFields_transactionId_Update {
 }
 
 type OrdersFields_transactionId_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_orderId {
+  create: OrdersFields_orderId_Create
+  read: OrdersFields_orderId_Read
+  update: OrdersFields_orderId_Update
+  delete: OrdersFields_orderId_Delete
+}
+
+type OrdersFields_orderId_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_orderId_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_orderId_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_orderId_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_valId {
+  create: OrdersFields_valId_Create
+  read: OrdersFields_valId_Read
+  update: OrdersFields_valId_Update
+  delete: OrdersFields_valId_Delete
+}
+
+type OrdersFields_valId_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_valId_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_valId_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_valId_Delete {
   permission: Boolean!
 }
 
@@ -12961,6 +13086,8 @@ input mutationOrderInput {
   items: [mutationOrder_ItemsInput]
   orderStatus: Order_orderStatus_MutationInput
   transactionId: String
+  orderId: String!
+  valId: String
   paymentStatus: Order_paymentStatus_MutationInput
   updatedAt: String
   createdAt: String
@@ -12996,6 +13123,8 @@ input mutationOrderUpdateInput {
   items: [mutationOrderUpdate_ItemsInput]
   orderStatus: OrderUpdate_orderStatus_MutationInput
   transactionId: String
+  orderId: String
+  valId: String
   paymentStatus: OrderUpdate_paymentStatus_MutationInput
   updatedAt: String
   createdAt: String

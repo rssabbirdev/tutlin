@@ -22,6 +22,8 @@ export const ORDER = `
         dueAmount
         total
         transactionId
+        orderId
+        valId
         items {
           product ${PRODUCT}
           title

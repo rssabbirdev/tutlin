@@ -3,7 +3,9 @@ import type { CollectionConfig } from 'payload/types'
 import { admins } from '../../access/admins'
 import { adminsOrLoggedIn } from '../../access/adminsOrLoggedIn'
 import { adminsOrOrderedBy } from './access/adminsOrOrderedBy'
+import { ipnHandler } from './endpoints/ipn'
 import { submitOrder } from './endpoints/submit-order'
+import { successHandler } from './endpoints/success'
 import { clearUserCart } from './hooks/clearUserCart'
 import { populateOrderedBy } from './hooks/populateOrderedBy'
 import { updateUserPurchases } from './hooks/updateUserPurchases'
@@ -16,6 +18,16 @@ export const Orders: CollectionConfig = {
       path: '/submit-order',
       method: 'post',
       handler: submitOrder,
+    },
+    {
+      path: '/ipn',
+      method: 'post',
+      handler: ipnHandler,
+    },
+    {
+      path: '/success',
+      method: 'post',
+      handler: successHandler,
     },
   ],
   admin: {
@@ -55,13 +67,15 @@ export const Orders: CollectionConfig = {
     {
       name: 'total',
       type: 'number',
+      defaultValue: 0,
       required: true,
       min: 0,
     },
     {
-      label: 'Payment Amount',
+      label: 'Paid Amount',
       name: 'paidAmount',
       type: 'number',
+      defaultValue: 0,
       required: true,
       min: 0,
     },
@@ -69,6 +83,7 @@ export const Orders: CollectionConfig = {
       label: 'Due Amount',
       name: 'dueAmount',
       type: 'number',
+      defaultValue: 0,
       required: true,
       min: 0,
     },
@@ -128,6 +143,23 @@ export const Orders: CollectionConfig = {
     {
       name: 'transactionId',
       label: 'Transaction Id',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'orderId',
+      label: 'Order Id',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
+      required: true,
+    },
+    {
+      name: 'valId',
+      label: 'Val Id',
       type: 'text',
       admin: {
         position: 'sidebar',
