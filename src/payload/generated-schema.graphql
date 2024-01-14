@@ -7942,6 +7942,8 @@ type PayloadPreferencesDeleteDocAccess {
 
 type Settings {
   productsPage: Page
+  insideDhaka: Float!
+  outsideDhaka: Float!
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -7954,6 +7956,8 @@ type settingsDocAccess {
 
 type SettingsDocAccessFields {
   productsPage: SettingsDocAccessFields_productsPage
+  insideDhaka: SettingsDocAccessFields_insideDhaka
+  outsideDhaka: SettingsDocAccessFields_outsideDhaka
   updatedAt: SettingsDocAccessFields_updatedAt
   createdAt: SettingsDocAccessFields_createdAt
 }
@@ -7978,6 +7982,52 @@ type SettingsDocAccessFields_productsPage_Update {
 }
 
 type SettingsDocAccessFields_productsPage_Delete {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_insideDhaka {
+  create: SettingsDocAccessFields_insideDhaka_Create
+  read: SettingsDocAccessFields_insideDhaka_Read
+  update: SettingsDocAccessFields_insideDhaka_Update
+  delete: SettingsDocAccessFields_insideDhaka_Delete
+}
+
+type SettingsDocAccessFields_insideDhaka_Create {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_insideDhaka_Read {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_insideDhaka_Update {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_insideDhaka_Delete {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_outsideDhaka {
+  create: SettingsDocAccessFields_outsideDhaka_Create
+  read: SettingsDocAccessFields_outsideDhaka_Read
+  update: SettingsDocAccessFields_outsideDhaka_Update
+  delete: SettingsDocAccessFields_outsideDhaka_Delete
+}
+
+type SettingsDocAccessFields_outsideDhaka_Create {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_outsideDhaka_Read {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_outsideDhaka_Update {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_outsideDhaka_Delete {
   permission: Boolean!
 }
 
@@ -12153,6 +12203,8 @@ type settingsAccess {
 
 type SettingsFields {
   productsPage: SettingsFields_productsPage
+  insideDhaka: SettingsFields_insideDhaka
+  outsideDhaka: SettingsFields_outsideDhaka
   updatedAt: SettingsFields_updatedAt
   createdAt: SettingsFields_createdAt
 }
@@ -12177,6 +12229,52 @@ type SettingsFields_productsPage_Update {
 }
 
 type SettingsFields_productsPage_Delete {
+  permission: Boolean!
+}
+
+type SettingsFields_insideDhaka {
+  create: SettingsFields_insideDhaka_Create
+  read: SettingsFields_insideDhaka_Read
+  update: SettingsFields_insideDhaka_Update
+  delete: SettingsFields_insideDhaka_Delete
+}
+
+type SettingsFields_insideDhaka_Create {
+  permission: Boolean!
+}
+
+type SettingsFields_insideDhaka_Read {
+  permission: Boolean!
+}
+
+type SettingsFields_insideDhaka_Update {
+  permission: Boolean!
+}
+
+type SettingsFields_insideDhaka_Delete {
+  permission: Boolean!
+}
+
+type SettingsFields_outsideDhaka {
+  create: SettingsFields_outsideDhaka_Create
+  read: SettingsFields_outsideDhaka_Read
+  update: SettingsFields_outsideDhaka_Update
+  delete: SettingsFields_outsideDhaka_Delete
+}
+
+type SettingsFields_outsideDhaka_Create {
+  permission: Boolean!
+}
+
+type SettingsFields_outsideDhaka_Read {
+  permission: Boolean!
+}
+
+type SettingsFields_outsideDhaka_Update {
+  permission: Boolean!
+}
+
+type SettingsFields_outsideDhaka_Delete {
   permission: Boolean!
 }
 
@@ -13391,6 +13489,8 @@ enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
 
 input mutationSettingsInput {
   productsPage: String
+  insideDhaka: Float!
+  outsideDhaka: Float!
   updatedAt: String
   createdAt: String
 }

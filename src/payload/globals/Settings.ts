@@ -18,5 +18,20 @@ export const Settings: GlobalConfig = {
       relationTo: 'pages',
       label: 'Products page',
     },
+
+    {
+      name: 'insideDhaka',
+      label: 'Inside Dhaka',
+      type: 'number',
+      required: true,
+      defaultValue: 60,
+    },
+    {
+      name: 'outsideDhaka',
+      label: 'Outside Dhaka',
+      type: 'number',
+      required: true,
+      defaultValue: 120,
+    },
   ],
 }

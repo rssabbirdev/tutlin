@@ -14,6 +14,12 @@ type Props = {
   disabled?: boolean
   placeholder?: string
   hideLabel?: boolean
+  errorMsg?: string
+  maxLength?: number
+  maxLengthErrorMsg?: string
+  minLength?: number
+  minLengthErrorMsg?: string
+  defaultValue?: string
 }
 
 export const Input: React.FC<Props> = ({
@@ -27,6 +33,12 @@ export const Input: React.FC<Props> = ({
   disabled,
   placeholder,
   hideLabel,
+  errorMsg,
+  maxLength,
+  maxLengthErrorMsg,
+  minLength,
+  minLengthErrorMsg,
+  defaultValue,
 }) => {
   return (
     <div className={classes.inputWrap}>
@@ -36,10 +48,22 @@ export const Input: React.FC<Props> = ({
       </label>
 
       <input
+        defaultValue={defaultValue}
         className={[classes.input, error && classes.error].filter(Boolean).join(' ')}
         {...{ type }}
         {...register(name, {
-          required,
+          required: {
+            value: required,
+            message: errorMsg ? `${errorMsg}` : 'This field is required',
+          },
+          minLength: {
+            value: minLength ? minLength : 3,
+            message: minLengthErrorMsg ? minLengthErrorMsg : 'নুন্যতম ৩ অক্ষরে লিখতে হবে',
+          },
+          maxLength: {
+            value: maxLength ? maxLength : 100,
+            message: maxLengthErrorMsg ? `${maxLengthErrorMsg}` : '১০০ অক্ষরের বেশি লিখা যাবে নাহ',
+          },
           validate,
           ...(type === 'email'
             ? {

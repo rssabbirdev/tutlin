@@ -413,6 +413,7 @@ export interface Order {
   orderStatus?: ('Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled') | null;
   transactionId?: string | null;
   orderId: string;
+  valId?: string | null;
   paymentStatus?: ('Unpaid' | 'Partial Paid' | 'Paid') | null;
   updatedAt: string;
   createdAt: string;
@@ -491,6 +492,8 @@ export interface PayloadMigration {
 export interface Settings {
   id: string;
   productsPage?: (string | null) | Page;
+  insideDhaka: number;
+  outsideDhaka: number;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

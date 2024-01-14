@@ -31,6 +31,8 @@ query Footer {
 
 export const SETTINGS = `
   Settings {
+    outsideDhaka
+    insideDhaka
     productsPage {
       slug
     }
