@@ -402,6 +402,12 @@ export interface Order {
   total: number;
   paidAmount: number;
   dueAmount: number;
+  phoneNumber: string;
+  district: string;
+  deliveryFullAddress: string;
+  deliveryOption: string;
+  deliveryFee: number;
+  paymentOption: string;
   items?:
     | {
         product: string | Product;
@@ -494,6 +500,8 @@ export interface Settings {
   productsPage?: (string | null) | Page;
   insideDhaka: number;
   outsideDhaka: number;
+  freeShippingAmount?: number | null;
+  paymentOptions?: ('Cash On Delivery' | 'SSLCommerz' | 'Bkash')[] | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

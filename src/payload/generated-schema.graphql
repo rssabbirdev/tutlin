@@ -4872,6 +4872,12 @@ type Order {
   total: Float!
   paidAmount: Float!
   dueAmount: Float!
+  phoneNumber: String!
+  district: String!
+  deliveryFullAddress: String!
+  deliveryOption: String!
+  deliveryFee: Float!
+  paymentOption: String!
   items: [Order_Items!]
   orderStatus: Order_orderStatus
   transactionId: String
@@ -4968,6 +4974,12 @@ input Order_where {
   total: Order_total_operator
   paidAmount: Order_paidAmount_operator
   dueAmount: Order_dueAmount_operator
+  phoneNumber: Order_phoneNumber_operator
+  district: Order_district_operator
+  deliveryFullAddress: Order_deliveryFullAddress_operator
+  deliveryOption: Order_deliveryOption_operator
+  deliveryFee: Order_deliveryFee_operator
+  paymentOption: Order_paymentOption_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
@@ -5029,6 +5041,65 @@ input Order_dueAmount_operator {
   greater_than: Float
   less_than_equal: Float
   less_than: Float
+}
+
+input Order_phoneNumber_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_district_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_deliveryFullAddress_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_deliveryOption_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_deliveryFee_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Order_paymentOption_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input Order_items__product_operator {
@@ -5173,6 +5244,12 @@ input Order_where_and {
   total: Order_total_operator
   paidAmount: Order_paidAmount_operator
   dueAmount: Order_dueAmount_operator
+  phoneNumber: Order_phoneNumber_operator
+  district: Order_district_operator
+  deliveryFullAddress: Order_deliveryFullAddress_operator
+  deliveryOption: Order_deliveryOption_operator
+  deliveryFee: Order_deliveryFee_operator
+  paymentOption: Order_paymentOption_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
@@ -5195,6 +5272,12 @@ input Order_where_or {
   total: Order_total_operator
   paidAmount: Order_paidAmount_operator
   dueAmount: Order_dueAmount_operator
+  phoneNumber: Order_phoneNumber_operator
+  district: Order_district_operator
+  deliveryFullAddress: Order_deliveryFullAddress_operator
+  deliveryOption: Order_deliveryOption_operator
+  deliveryFee: Order_deliveryFee_operator
+  paymentOption: Order_paymentOption_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
@@ -5225,6 +5308,12 @@ type OrdersDocAccessFields {
   total: OrdersDocAccessFields_total
   paidAmount: OrdersDocAccessFields_paidAmount
   dueAmount: OrdersDocAccessFields_dueAmount
+  phoneNumber: OrdersDocAccessFields_phoneNumber
+  district: OrdersDocAccessFields_district
+  deliveryFullAddress: OrdersDocAccessFields_deliveryFullAddress
+  deliveryOption: OrdersDocAccessFields_deliveryOption
+  deliveryFee: OrdersDocAccessFields_deliveryFee
+  paymentOption: OrdersDocAccessFields_paymentOption
   items: OrdersDocAccessFields_items
   orderStatus: OrdersDocAccessFields_orderStatus
   transactionId: OrdersDocAccessFields_transactionId
@@ -5347,6 +5436,144 @@ type OrdersDocAccessFields_dueAmount_Update {
 }
 
 type OrdersDocAccessFields_dueAmount_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phoneNumber {
+  create: OrdersDocAccessFields_phoneNumber_Create
+  read: OrdersDocAccessFields_phoneNumber_Read
+  update: OrdersDocAccessFields_phoneNumber_Update
+  delete: OrdersDocAccessFields_phoneNumber_Delete
+}
+
+type OrdersDocAccessFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_district {
+  create: OrdersDocAccessFields_district_Create
+  read: OrdersDocAccessFields_district_Read
+  update: OrdersDocAccessFields_district_Update
+  delete: OrdersDocAccessFields_district_Delete
+}
+
+type OrdersDocAccessFields_district_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_district_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_district_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_district_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryFullAddress {
+  create: OrdersDocAccessFields_deliveryFullAddress_Create
+  read: OrdersDocAccessFields_deliveryFullAddress_Read
+  update: OrdersDocAccessFields_deliveryFullAddress_Update
+  delete: OrdersDocAccessFields_deliveryFullAddress_Delete
+}
+
+type OrdersDocAccessFields_deliveryFullAddress_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryFullAddress_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryFullAddress_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryFullAddress_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryOption {
+  create: OrdersDocAccessFields_deliveryOption_Create
+  read: OrdersDocAccessFields_deliveryOption_Read
+  update: OrdersDocAccessFields_deliveryOption_Update
+  delete: OrdersDocAccessFields_deliveryOption_Delete
+}
+
+type OrdersDocAccessFields_deliveryOption_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryOption_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryOption_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryOption_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryFee {
+  create: OrdersDocAccessFields_deliveryFee_Create
+  read: OrdersDocAccessFields_deliveryFee_Read
+  update: OrdersDocAccessFields_deliveryFee_Update
+  delete: OrdersDocAccessFields_deliveryFee_Delete
+}
+
+type OrdersDocAccessFields_deliveryFee_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryFee_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryFee_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryFee_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paymentOption {
+  create: OrdersDocAccessFields_paymentOption_Create
+  read: OrdersDocAccessFields_paymentOption_Read
+  update: OrdersDocAccessFields_paymentOption_Update
+  delete: OrdersDocAccessFields_paymentOption_Delete
+}
+
+type OrdersDocAccessFields_paymentOption_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paymentOption_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paymentOption_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_paymentOption_Delete {
   permission: Boolean!
 }
 
@@ -7944,8 +8171,15 @@ type Settings {
   productsPage: Page
   insideDhaka: Float!
   outsideDhaka: Float!
+  paymentOptions: [Settings_paymentOptions!]
   updatedAt: DateTime
   createdAt: DateTime
+}
+
+enum Settings_paymentOptions {
+  CashOnDelivery
+  SSLCommerz
+  Bkash
 }
 
 type settingsDocAccess {
@@ -7958,6 +8192,7 @@ type SettingsDocAccessFields {
   productsPage: SettingsDocAccessFields_productsPage
   insideDhaka: SettingsDocAccessFields_insideDhaka
   outsideDhaka: SettingsDocAccessFields_outsideDhaka
+  paymentOptions: SettingsDocAccessFields_paymentOptions
   updatedAt: SettingsDocAccessFields_updatedAt
   createdAt: SettingsDocAccessFields_createdAt
 }
@@ -8028,6 +8263,29 @@ type SettingsDocAccessFields_outsideDhaka_Update {
 }
 
 type SettingsDocAccessFields_outsideDhaka_Delete {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_paymentOptions {
+  create: SettingsDocAccessFields_paymentOptions_Create
+  read: SettingsDocAccessFields_paymentOptions_Read
+  update: SettingsDocAccessFields_paymentOptions_Update
+  delete: SettingsDocAccessFields_paymentOptions_Delete
+}
+
+type SettingsDocAccessFields_paymentOptions_Create {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_paymentOptions_Read {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_paymentOptions_Update {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_paymentOptions_Delete {
   permission: Boolean!
 }
 
@@ -10365,6 +10623,12 @@ type OrdersFields {
   total: OrdersFields_total
   paidAmount: OrdersFields_paidAmount
   dueAmount: OrdersFields_dueAmount
+  phoneNumber: OrdersFields_phoneNumber
+  district: OrdersFields_district
+  deliveryFullAddress: OrdersFields_deliveryFullAddress
+  deliveryOption: OrdersFields_deliveryOption
+  deliveryFee: OrdersFields_deliveryFee
+  paymentOption: OrdersFields_paymentOption
   items: OrdersFields_items
   orderStatus: OrdersFields_orderStatus
   transactionId: OrdersFields_transactionId
@@ -10487,6 +10751,144 @@ type OrdersFields_dueAmount_Update {
 }
 
 type OrdersFields_dueAmount_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_phoneNumber {
+  create: OrdersFields_phoneNumber_Create
+  read: OrdersFields_phoneNumber_Read
+  update: OrdersFields_phoneNumber_Update
+  delete: OrdersFields_phoneNumber_Delete
+}
+
+type OrdersFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_district {
+  create: OrdersFields_district_Create
+  read: OrdersFields_district_Read
+  update: OrdersFields_district_Update
+  delete: OrdersFields_district_Delete
+}
+
+type OrdersFields_district_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_district_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_district_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_district_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryFullAddress {
+  create: OrdersFields_deliveryFullAddress_Create
+  read: OrdersFields_deliveryFullAddress_Read
+  update: OrdersFields_deliveryFullAddress_Update
+  delete: OrdersFields_deliveryFullAddress_Delete
+}
+
+type OrdersFields_deliveryFullAddress_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryFullAddress_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryFullAddress_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryFullAddress_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryOption {
+  create: OrdersFields_deliveryOption_Create
+  read: OrdersFields_deliveryOption_Read
+  update: OrdersFields_deliveryOption_Update
+  delete: OrdersFields_deliveryOption_Delete
+}
+
+type OrdersFields_deliveryOption_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryOption_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryOption_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryOption_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryFee {
+  create: OrdersFields_deliveryFee_Create
+  read: OrdersFields_deliveryFee_Read
+  update: OrdersFields_deliveryFee_Update
+  delete: OrdersFields_deliveryFee_Delete
+}
+
+type OrdersFields_deliveryFee_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryFee_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryFee_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryFee_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_paymentOption {
+  create: OrdersFields_paymentOption_Create
+  read: OrdersFields_paymentOption_Read
+  update: OrdersFields_paymentOption_Update
+  delete: OrdersFields_paymentOption_Delete
+}
+
+type OrdersFields_paymentOption_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_paymentOption_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_paymentOption_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_paymentOption_Delete {
   permission: Boolean!
 }
 
@@ -12205,6 +12607,7 @@ type SettingsFields {
   productsPage: SettingsFields_productsPage
   insideDhaka: SettingsFields_insideDhaka
   outsideDhaka: SettingsFields_outsideDhaka
+  paymentOptions: SettingsFields_paymentOptions
   updatedAt: SettingsFields_updatedAt
   createdAt: SettingsFields_createdAt
 }
@@ -12275,6 +12678,29 @@ type SettingsFields_outsideDhaka_Update {
 }
 
 type SettingsFields_outsideDhaka_Delete {
+  permission: Boolean!
+}
+
+type SettingsFields_paymentOptions {
+  create: SettingsFields_paymentOptions_Create
+  read: SettingsFields_paymentOptions_Read
+  update: SettingsFields_paymentOptions_Update
+  delete: SettingsFields_paymentOptions_Delete
+}
+
+type SettingsFields_paymentOptions_Create {
+  permission: Boolean!
+}
+
+type SettingsFields_paymentOptions_Read {
+  permission: Boolean!
+}
+
+type SettingsFields_paymentOptions_Update {
+  permission: Boolean!
+}
+
+type SettingsFields_paymentOptions_Delete {
   permission: Boolean!
 }
 
@@ -13181,6 +13607,12 @@ input mutationOrderInput {
   total: Float!
   paidAmount: Float!
   dueAmount: Float!
+  phoneNumber: String!
+  district: String!
+  deliveryFullAddress: String!
+  deliveryOption: String!
+  deliveryFee: Float!
+  paymentOption: String!
   items: [mutationOrder_ItemsInput]
   orderStatus: Order_orderStatus_MutationInput
   transactionId: String
@@ -13218,6 +13650,12 @@ input mutationOrderUpdateInput {
   total: Float
   paidAmount: Float
   dueAmount: Float
+  phoneNumber: String
+  district: String
+  deliveryFullAddress: String
+  deliveryOption: String
+  deliveryFee: Float
+  paymentOption: String
   items: [mutationOrderUpdate_ItemsInput]
   orderStatus: OrderUpdate_orderStatus_MutationInput
   transactionId: String
@@ -13491,8 +13929,15 @@ input mutationSettingsInput {
   productsPage: String
   insideDhaka: Float!
   outsideDhaka: Float!
+  paymentOptions: [Settings_paymentOptions_MutationInput]
   updatedAt: String
   createdAt: String
+}
+
+enum Settings_paymentOptions_MutationInput {
+  CashOnDelivery
+  SSLCommerz
+  Bkash
 }
 
 input mutationHeaderInput {

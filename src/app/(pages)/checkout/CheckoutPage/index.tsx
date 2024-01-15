@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { Settings } from '../../../../payload/payload-types'
+import { calculateDeliveryFee } from '../../../../payload/utilities/calculateDeliveryFee'
 import { Button } from '../../../_components/Button'
 import { Input } from '../../../_components/Input'
 import { LoadingShimmer } from '../../../_components/LoadingShimmer'
@@ -14,7 +15,6 @@ import { useAuth } from '../../../_providers/Auth'
 import { useCart } from '../../../_providers/Cart'
 import { useTheme } from '../../../_providers/Theme'
 import cssVariables from '../../../cssVariables'
-import { CheckoutForm } from '../CheckoutForm'
 import { CheckoutItem } from '../CheckoutItem'
 
 import classes from './index.module.scss'
@@ -30,7 +30,7 @@ export const CheckoutPage: React.FC<{
   settings: Settings
 }> = props => {
   const {
-    settings: { productsPage, outsideDhaka, insideDhaka },
+    settings: { productsPage, outsideDhaka, insideDhaka, paymentOptions, freeShippingAmount },
   } = props
   const { user } = useAuth()
   const {
@@ -43,28 +43,41 @@ export const CheckoutPage: React.FC<{
   const [error, setError] = React.useState<string | null>(null)
   const hasMadePaymentIntent = React.useRef(false)
   const [deliveryOption, setDeliveryOption] = useState<{ key: string; value: number }>({
-    key: 'inside',
+    key: 'insideDhaka',
     value: insideDhaka,
   })
+  const [paymentOption, setPaymentOption] = useState<string>('CashOnDelivery')
   const { theme } = useTheme()
 
   const { cart, cartIsEmpty, cartTotal } = useCart()
   const [loading, setLoading] = useState(false)
 
   const handleOrderSubmit = (data: FormData) => {
-    console.log(data)
+    const order = { ...data, deliveryOption, paymentOption }
     setLoading(true)
     fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/submit-order`, {
       method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
       credentials: 'include',
+      body: JSON.stringify(order),
     })
       .then(res => res.json())
       .then(data => {
-        setLoading(false)
-        window.location.href = data.GatewayPageURL
+        if (paymentOption === 'CashOnDelivery') {
+          router.push(
+            `order-confirmation?order_id=${data?.orderId}&transaction_id=${'null'}&order_status=${
+              data?.orderStatus
+            }&payment_status=${data?.paymentStatus}&total=${data?.total}`,
+          )
+        } else if (paymentOption === 'SSLCommerz') {
+          window.location.href = data.GatewayPageURL
+        } else if (paymentOption === 'Bkash') {
+        }
       })
   }
-
+  const deliveryFee = calculateDeliveryFee({ deliveryOption }, props.settings, cartTotal.raw)
   useEffect(() => {
     if (user !== null && cartIsEmpty) {
       router.push('/cart')
@@ -197,20 +210,37 @@ export const CheckoutPage: React.FC<{
                 return null
               })}
               <div className={classes.deliveryOption}>
+                <h5>Delivery Option</h5>
                 <RadioButton
                   groupName="deliveryOption"
-                  isSelected={deliveryOption.key === 'inside'}
+                  isSelected={deliveryOption.key === 'insideDhaka'}
                   label={`Inside Dhaka : ${insideDhaka} ৳`}
-                  value="inside"
-                  onRadioChange={() => setDeliveryOption({ key: 'inside', value: insideDhaka })}
+                  value="insideDhaka"
+                  onRadioChange={() =>
+                    setDeliveryOption({ key: 'insideDhaka', value: insideDhaka })
+                  }
                 />
                 <RadioButton
                   groupName="deliveryOption"
-                  isSelected={deliveryOption.key === 'outside'}
+                  isSelected={deliveryOption.key === 'outsideDhaka'}
                   label={`Outside Dhaka : ${outsideDhaka} ৳`}
-                  value="outside"
-                  onRadioChange={() => setDeliveryOption({ key: 'outside', value: outsideDhaka })}
+                  value="outsideDhaka"
+                  onRadioChange={() =>
+                    setDeliveryOption({ key: 'outsideDhaka', value: outsideDhaka })
+                  }
                 />
+              </div>
+              <div className={classes.deliveryOption}>
+                <h5>Payment Option</h5>
+                {paymentOptions?.map(option => (
+                  <RadioButton
+                    groupName="paymentOptions"
+                    isSelected={paymentOption === option}
+                    label={option}
+                    value={option}
+                    onRadioChange={() => setPaymentOption(option)}
+                  />
+                ))}
               </div>
               <div className={classes.billing}>
                 <div className={classes.orderTotal}>
@@ -219,11 +249,11 @@ export const CheckoutPage: React.FC<{
                 </div>
                 <div className={classes.orderTotal}>
                   <p>Delivery Charge</p>
-                  <p>{Number(deliveryOption.value)} ৳</p>
+                  <p>{deliveryFee} ৳</p>
                 </div>
                 <div className={`${classes.orderTotal} ${classes.grandTotal}`}>
                   <p>Grand Total</p>
-                  <p>{Number(cartTotal.raw) + Number(deliveryOption.value)} ৳</p>
+                  <p>{Number(cartTotal.raw) + deliveryFee} ৳</p>
                 </div>
               </div>
             </ul>
@@ -236,7 +266,11 @@ export const CheckoutPage: React.FC<{
               label={
                 loading
                   ? 'Processing'
-                  : `Pay ${Number(cartTotal.raw) + Number(deliveryOption.value)} ৳ with SSLCommerz`
+                  : `${
+                      paymentOption === 'CashOnDelivery'
+                        ? `Place Order ${Number(cartTotal.raw) + deliveryFee} ৳`
+                        : `Pay ${Number(cartTotal.raw) + deliveryFee} ৳ with ${paymentOption}`
+                    }`
               }
               disabled={loading}
               appearance="primary"

@@ -33,6 +33,8 @@ export const SETTINGS = `
   Settings {
     outsideDhaka
     insideDhaka
+    paymentOptions
+    freeShippingAmount
     productsPage {
       slug
     }

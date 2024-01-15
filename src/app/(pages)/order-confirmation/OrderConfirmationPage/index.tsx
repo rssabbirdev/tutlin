@@ -43,14 +43,14 @@ export const OrderConfirmationPage: React.FC<{}> = () => {
       ) : (
         <div style={{ textAlign: 'center' }}>
           <h1>Thank you for your order!</h1>
-          <p>{`We received your payment`}</p>
+          {paymentStatus !== 'Unpaid' && <p>{`We received your payment`}</p>}
           <p>
             {`Your order has been ${orderStatus.toLowerCase()}. You will receive an email confirmation shortly.`}
           </p>
           <div>
             <h4>Order Details</h4>
             <p>Order ID : {orderID}</p>
-            <p>Transaction ID : {transactionId}</p>
+            {transactionId !== 'null' && <p>Transaction ID : {transactionId}</p>}
             <p>Payment Status : {paymentStatus}</p>
             <p>Order Status : {orderStatus}</p>
           </div>

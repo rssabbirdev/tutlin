@@ -88,6 +88,42 @@ export const Orders: CollectionConfig = {
       min: 0,
     },
     {
+      label: 'Phone Number',
+      name: 'phoneNumber',
+      type: 'text',
+      required: true,
+    },
+    {
+      label: 'District',
+      name: 'district',
+      type: 'text',
+      required: true,
+    },
+    {
+      label: 'Delivery Full Address',
+      name: 'deliveryFullAddress',
+      type: 'text',
+      required: true,
+    },
+    {
+      label: 'Delivery Option',
+      name: 'deliveryOption',
+      type: 'text',
+      required: true,
+    },
+    {
+      label: 'Delivery Fee',
+      name: 'deliveryFee',
+      type: 'number',
+      required: true,
+    },
+    {
+      label: 'Payment Option',
+      name: 'paymentOption',
+      type: 'text',
+      required: true,
+    },
+    {
       name: 'items',
       type: 'array',
       fields: [

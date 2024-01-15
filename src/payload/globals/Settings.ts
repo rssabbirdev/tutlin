@@ -18,7 +18,6 @@ export const Settings: GlobalConfig = {
       relationTo: 'pages',
       label: 'Products page',
     },
-
     {
       name: 'insideDhaka',
       label: 'Inside Dhaka',
@@ -32,6 +31,31 @@ export const Settings: GlobalConfig = {
       type: 'number',
       required: true,
       defaultValue: 120,
+    },
+    {
+      label: 'Free Shipping Amount',
+      name: 'freeShippingAmount',
+      type: 'number',
+    },
+    {
+      name: 'paymentOptions',
+      label: 'Payment Options',
+      type: 'select',
+      hasMany: true,
+      options: [
+        {
+          label: 'Cash On Delivery',
+          value: 'Cash On Delivery',
+        },
+        {
+          label: 'SSLCommerz',
+          value: 'SSLCommerz',
+        },
+        {
+          label: 'Bkash',
+          value: 'Bkash',
+        },
+      ],
     },
   ],
 }

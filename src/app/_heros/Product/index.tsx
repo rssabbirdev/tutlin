@@ -37,6 +37,7 @@ export const ProductHero: React.FC<{
         <div className={classes.categoryWrapper}>
           <div className={classes.categories}>
             {categories?.map((category, index) => {
+              // @ts-expect-error
               const { title: categoryTitle } = category
 
               const titleToUse = categoryTitle || 'Untitled category'
