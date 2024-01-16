@@ -25,7 +25,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <InitTheme />
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <GoogleTagManager gtmId="GTM-PRVSW5N3" />
       </head>
       <body className={jost.variable}>
         <Providers>
@@ -37,6 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Footer />
         </Providers>
       </body>
+      <GoogleTagManager gtmId="GTM-PRVSW5N3" />
     </html>
   )
 }
