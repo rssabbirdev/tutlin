@@ -1,6 +1,5 @@
 import React from 'react'
-// @ts-expect-error
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleTagManager } from '@next/third-parties/dist/google'
 import { Metadata } from 'next'
 import { Jost } from 'next/font/google'
 
