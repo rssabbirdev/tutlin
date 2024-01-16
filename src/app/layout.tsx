@@ -1,5 +1,6 @@
 import React from 'react'
-import { GoogleTagManager } from '@next/third-parties/dist/google'
+import { GoogleTagManager } from '@next/third-parties/google'
+// eslint-disable-next-line
 import { Metadata } from 'next'
 import { Jost } from 'next/font/google'
 
