@@ -5,7 +5,7 @@ export const calculateDeliveryFee = (b, s: Settings, t: number): number => {
   // s = settings
   // t = total
   let sum = 0
-  if (t <= Number(s.freeShippingAmount) && Number(s.freeShippingAmount) !== 0) {
+  if (Number(t) >= Number(s.freeShippingAmount) && Number(s.freeShippingAmount) === 0) {
     sum = 0
   } else {
     if (b?.deliveryOption?.key === 'insideDhaka') {

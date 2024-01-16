@@ -1,4 +1,6 @@
 import React from 'react'
+// @ts-expect-error
+import { GoogleTagManager } from '@next/third-parties/google'
 import { Metadata } from 'next'
 import { Jost } from 'next/font/google'
 
@@ -23,6 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <InitTheme />
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <GoogleTagManager gtmId="GTM-PRVSW5N3" />
       </head>
       <body className={jost.variable}>
         <Providers>
