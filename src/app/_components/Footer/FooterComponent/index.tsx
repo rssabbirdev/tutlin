@@ -68,7 +68,7 @@ function FooterComponent({ footer }: { footer: Footer }) {
         <Gutter>
           <div className={classes.payment}>
             <Image
-              src="/assets/images/sslcommerz-payment-options.png"
+              src={`${process.env.PAYLOAD_PUBLIC_SERVER_URL}/assets/images/sslcommerz-payment-options.png`}
               alt="sslcommerz payment options"
               width={500}
               height={200}
