@@ -47,18 +47,41 @@ export default async function Order({ params: { id } }) {
     <div>
       <h5>
         {`Order`}
-        <span className={classes.id}>{` ${order.id}`}</span>
+        <span className={classes.id}>{` ${order.orderId}`}</span>
       </h5>
       <div className={classes.itemMeta}>
-        <p>{`ID: ${order.id}`}</p>
-        <p>{`Payment Intent: ${order.stripePaymentIntentID}`}</p>
+        <p>{`Customer Name: ${
+          // @ts-expect-error
+          order.orderedBy?.name
+        }`}</p>
+        <p>{`Order ID: ${order.orderId}`}</p>
+        {order?.transactionId && <p>{`Transaction ID: ${order.transactionId}`}</p>}
+        <p>{`Order Status: ${order.orderStatus}`}</p>
+        <p>{`Payment Status: ${order.paymentStatus}`}</p>
+        <p>{`Payment Method: ${order.paymentOption}`}</p>
+        <p>{`Phone Number: ${order.phoneNumber}`}</p>
+        <p>{`Delivery Address: ${order.deliveryFullAddress}`}</p>
         <p>{`Ordered On: ${formatDateTime(order.createdAt)}`}</p>
         <p className={classes.total}>
-          {'Total: '}
+          {'Billed Amount: '}
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
-            currency: 'usd',
-          }).format(order.total / 100)}
+            currency: 'BDT',
+          }).format(order.total)}
+        </p>
+        <p className={classes.total}>
+          {'Paid Amount: '}
+          {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'BDT',
+          }).format(order.paidAmount)}
+        </p>
+        <p className={classes.total}>
+          {'Due Amount: '}
+          {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'BDT',
+          }).format(order.dueAmount)}
         </p>
       </div>
 

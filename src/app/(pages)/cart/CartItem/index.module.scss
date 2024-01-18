@@ -87,6 +87,11 @@
   @include small-break {
     flex-direction: column;
     justify-content: space-between;
-    align-items: end;
+    align-items: start;
+  }
+}
+.deleteBtn{
+  @include small-break {
+    margin-bottom: 14px;
   }
 }

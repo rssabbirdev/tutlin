@@ -29,8 +29,14 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
       {navItems.map(({ link }, i) => {
         return <CMSLink key={i} {...link} appearance="none" />
       })}
-      <CartLink />
-      {user && <Link href="/account">Account</Link>}
+      {!user && <CartLink />}
+      {user && (
+        <Link href="/account">
+          {/* <Image src="/assets/icons/profile.svg" height={24} width={24} alt="person_icon" /> */}
+          Dashboard
+        </Link>
+      )}
+      {user && <CartLink />}
       {!user && (
         <Button
           el="link"
@@ -40,7 +46,6 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
           onClick={() => (window.location.href = '/login')}
         />
       )}
-      {/* {user && <CartLink />} */}
     </nav>
   )
 }

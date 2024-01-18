@@ -38,7 +38,7 @@ function CartItem({ product, title, metaImage, qty, addItemToCart, index }) {
       <div className={classes.itemDetails}>
         <div className={classes.titleWrapper}>
           <h6>{title}</h6>
-          <Price product={product} button={false} />
+          <Price product={product} button={false} quantity={quantity} />
         </div>
         <div className={classes.quantity}>
           <div className={classes.quantityBtn} onClick={decrementQty}>
@@ -68,8 +68,8 @@ function CartItem({ product, title, metaImage, qty, addItemToCart, index }) {
         </div>
       </div>
       <div className={classes.subtotalWrapper}>
-        <Price product={product} button={false} quantity={quantity} />
-        <RemoveFromCartButton product={product} />
+        <div></div>
+        <RemoveFromCartButton product={product} className={classes.deleteBtn} />
       </div>
     </li>
   )

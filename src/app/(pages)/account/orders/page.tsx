@@ -54,14 +54,14 @@ export default async function Orders() {
             <li key={order.id} className={classes.order}>
               <Link className={classes.item} href={`/account/orders/${order.id}`}>
                 <div className={classes.itemContent}>
-                  <h6 className={classes.itemTitle}>{`Order ${order.id}`}</h6>
+                  <h6 className={classes.itemTitle}>{`Order ${order.orderId}`}</h6>
                   <div className={classes.itemMeta}>
                     <p>
                       {'Total: '}
                       {new Intl.NumberFormat('en-US', {
                         style: 'currency',
-                        currency: 'usd',
-                      }).format(order.total / 100)}
+                        currency: 'BDT',
+                      }).format(order.total)}
                     </p>
                     <p className={classes.orderDate}>{`Ordered On: ${formatDateTime(
                       order.createdAt,
