@@ -7,7 +7,7 @@ import { AddToCartButton } from '../AddToCartButton'
 import { RemoveFromCartButton } from '../RemoveFromCartButton'
 
 import classes from './index.module.scss'
-
+export const dynamic = 'force-dynamic'
 export const priceFromJSON = (
   productPrice: number = 0,
   quantity: number = 1,

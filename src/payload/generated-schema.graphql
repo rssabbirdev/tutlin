@@ -1079,7 +1079,7 @@ enum Archive_relationTo {
 type Category {
   id: String
   title: String!
-  media(where: Category_Media_where): Media!
+  media(where: Category_Media_where): Media
   parent: Category
   breadcrumbs: [Category_Breadcrumbs!]
   updatedAt: DateTime
@@ -6370,6 +6370,7 @@ input Category_title_operator {
 input Category_media_operator {
   equals: String
   not_equals: String
+  exists: Boolean
 }
 
 input Category_parent_operator {
@@ -13763,7 +13764,7 @@ input mutationMediaUpdateInput {
 
 input mutationCategoryInput {
   title: String!
-  media: String!
+  media: String
   parent: String
   breadcrumbs: [mutationCategory_BreadcrumbsInput]
   updatedAt: String
