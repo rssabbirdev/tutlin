@@ -1079,7 +1079,7 @@ enum Archive_relationTo {
 type Category {
   id: String
   title: String!
-  media(where: Category_Media_where): Media
+  media(where: Category_Media_where): Media!
   parent: Category
   breadcrumbs: [Category_Breadcrumbs!]
   updatedAt: DateTime
@@ -6370,7 +6370,6 @@ input Category_title_operator {
 input Category_media_operator {
   equals: String
   not_equals: String
-  exists: Boolean
 }
 
 input Category_parent_operator {
@@ -8171,6 +8170,7 @@ type Settings {
   productsPage: Page
   insideDhaka: Float!
   outsideDhaka: Float!
+  freeShippingAmount: Float
   paymentOptions: [Settings_paymentOptions!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -8192,6 +8192,7 @@ type SettingsDocAccessFields {
   productsPage: SettingsDocAccessFields_productsPage
   insideDhaka: SettingsDocAccessFields_insideDhaka
   outsideDhaka: SettingsDocAccessFields_outsideDhaka
+  freeShippingAmount: SettingsDocAccessFields_freeShippingAmount
   paymentOptions: SettingsDocAccessFields_paymentOptions
   updatedAt: SettingsDocAccessFields_updatedAt
   createdAt: SettingsDocAccessFields_createdAt
@@ -8263,6 +8264,29 @@ type SettingsDocAccessFields_outsideDhaka_Update {
 }
 
 type SettingsDocAccessFields_outsideDhaka_Delete {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_freeShippingAmount {
+  create: SettingsDocAccessFields_freeShippingAmount_Create
+  read: SettingsDocAccessFields_freeShippingAmount_Read
+  update: SettingsDocAccessFields_freeShippingAmount_Update
+  delete: SettingsDocAccessFields_freeShippingAmount_Delete
+}
+
+type SettingsDocAccessFields_freeShippingAmount_Create {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_freeShippingAmount_Read {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_freeShippingAmount_Update {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_freeShippingAmount_Delete {
   permission: Boolean!
 }
 
@@ -12607,6 +12631,7 @@ type SettingsFields {
   productsPage: SettingsFields_productsPage
   insideDhaka: SettingsFields_insideDhaka
   outsideDhaka: SettingsFields_outsideDhaka
+  freeShippingAmount: SettingsFields_freeShippingAmount
   paymentOptions: SettingsFields_paymentOptions
   updatedAt: SettingsFields_updatedAt
   createdAt: SettingsFields_createdAt
@@ -12678,6 +12703,29 @@ type SettingsFields_outsideDhaka_Update {
 }
 
 type SettingsFields_outsideDhaka_Delete {
+  permission: Boolean!
+}
+
+type SettingsFields_freeShippingAmount {
+  create: SettingsFields_freeShippingAmount_Create
+  read: SettingsFields_freeShippingAmount_Read
+  update: SettingsFields_freeShippingAmount_Update
+  delete: SettingsFields_freeShippingAmount_Delete
+}
+
+type SettingsFields_freeShippingAmount_Create {
+  permission: Boolean!
+}
+
+type SettingsFields_freeShippingAmount_Read {
+  permission: Boolean!
+}
+
+type SettingsFields_freeShippingAmount_Update {
+  permission: Boolean!
+}
+
+type SettingsFields_freeShippingAmount_Delete {
   permission: Boolean!
 }
 
@@ -13715,7 +13763,7 @@ input mutationMediaUpdateInput {
 
 input mutationCategoryInput {
   title: String!
-  media: String
+  media: String!
   parent: String
   breadcrumbs: [mutationCategory_BreadcrumbsInput]
   updatedAt: String
@@ -13929,6 +13977,7 @@ input mutationSettingsInput {
   productsPage: String
   insideDhaka: Float!
   outsideDhaka: Float!
+  freeShippingAmount: Float
   paymentOptions: [Settings_paymentOptions_MutationInput]
   updatedAt: String
   createdAt: String

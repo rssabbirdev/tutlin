@@ -1,9 +1,9 @@
 // Keep these in sync with the breakpoints exported in '../cssVariables.js'
 
 $breakpoint-xs-width: 400px;
-$breakpoint-s-width: 768px;
-$breakpoint-m-width: 1024px;
-$breakpoint-l-width: 1440px;
+$breakpoint-s-width: 576px;
+$breakpoint-m-width: 992px;
+$breakpoint-l-width: 1200px;
 
 @mixin extra-small-break {
   @media (max-width: #{$breakpoint-xs-width}) {

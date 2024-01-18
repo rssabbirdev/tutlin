@@ -22,7 +22,8 @@ function HeaderComponent({ header }: { header: Header }) {
     >
       <Gutter className={classes.wrap}>
         <Link href="/">
-          <Image src="/logo-black.svg" alt="logo" height={50} width={170} />
+          {/* <Image src="/logo-black.svg" alt="logo" height={50} width={170} /> */}
+          <h3>TUTLIN</h3>
         </Link>
         <HeaderNav header={header} />
       </Gutter>

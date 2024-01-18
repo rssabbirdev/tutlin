@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 
 import { Footer, Media } from '../../../../payload/payload-types'
 import { inclusions, noHeaderFooterUrls } from '../../../constants'
+import { Button } from '../../Button'
 import { Gutter } from '../../Gutter'
 
 import classes from './index.module.scss'
@@ -38,7 +39,8 @@ function FooterComponent({ footer }: { footer: Footer }) {
         <Gutter>
           <div className={classes.wrap}>
             <Link href="/">
-              <Image src="/logo-white.svg" alt="logo" width={170} height={50} />
+              {/* <Image src="/logo-white.svg" alt="logo" width={170} height={50} /> */}
+              <h3 style={{ color: 'white' }}>TUTLIN</h3>
               <p className={classes.copyright}>{footer?.copyright}</p>
             </Link>
           </div>
@@ -46,21 +48,21 @@ function FooterComponent({ footer }: { footer: Footer }) {
             {navItems.map(item => {
               const icon = item?.link?.icon as Media
               return (
-                // <Button
-                //   key={item.link.label}
-                //   el="link"
-                //   href={item.link.url}
-                //   newTab={true}
-                //   className={classes.socialLinkItem}
-                // >
-                <Image
-                  src={icon?.url}
-                  alt={icon?.alt}
-                  height={24}
-                  width={24}
-                  className={classes.socialIcon}
-                />
-                // </Button>
+                <Button
+                  key={item.link.label}
+                  el="link"
+                  href={item.link.url}
+                  newTab={true}
+                  className={classes.socialLinkItem}
+                >
+                  <Image
+                    src={icon?.url}
+                    alt={icon?.alt}
+                    height={24}
+                    width={24}
+                    className={classes.socialIcon}
+                  />
+                </Button>
               )
             })}
           </div>
@@ -68,7 +70,7 @@ function FooterComponent({ footer }: { footer: Footer }) {
         <Gutter>
           <div className={classes.payment}>
             <Image
-              src={`${process.env.PAYLOAD_PUBLIC_SERVER_URL}/assets/images/sslcommerz-payment-options.png`}
+              src={`/assets/images/sslcommerz-payment-options.png`}
               alt="sslcommerz payment options"
               width={500}
               height={200}

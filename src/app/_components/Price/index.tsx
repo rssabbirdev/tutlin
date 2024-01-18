@@ -66,10 +66,10 @@ export const Price: React.FC<{
           )}
         </div>
       )}
-      {button && button === 'addToCart' && (
+      {/* {button && button === 'addToCart' && (
         <AddToCartButton product={product} appearance="default" />
       )}
-      {button && button === 'removeFromCart' && <RemoveFromCartButton product={product} />}
+      {button && button === 'removeFromCart' && <RemoveFromCartButton product={product} />} */}
     </div>
   )
 }
