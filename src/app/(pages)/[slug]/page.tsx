@@ -38,6 +38,7 @@ export default async function Page({ params: { slug = 'home' } }) {
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-store',
     })
       ?.then(async res => {
         if (!res.ok) notFound()
