@@ -49,17 +49,14 @@ const Users: CollectionConfig = {
     {
       name: 'district',
       type: 'text',
-      required: true,
     },
     {
       name: 'deliveryFullAddress',
       type: 'text',
-      required: true,
     },
     {
       name: 'phoneNumber',
       type: 'text',
-      required: true,
     },
     {
       name: 'roles',

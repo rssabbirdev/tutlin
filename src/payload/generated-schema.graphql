@@ -4891,9 +4891,9 @@ type Order {
 type User {
   id: String
   name: String
-  district: String!
-  deliveryFullAddress: String!
-  phoneNumber: String!
+  district: String
+  deliveryFullAddress: String
+  phoneNumber: String
   roles: [User_roles!]
   purchases: [Product!]
   stripeCustomerID: String
@@ -6817,6 +6817,7 @@ input User_district_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input User_deliveryFullAddress_operator {
@@ -6827,6 +6828,7 @@ input User_deliveryFullAddress_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input User_phoneNumber_operator {
@@ -6837,6 +6839,7 @@ input User_phoneNumber_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input User_roles_operator {
@@ -13796,9 +13799,9 @@ input mutationCategoryUpdate_BreadcrumbsInput {
 
 input mutationUserInput {
   name: String
-  district: String!
-  deliveryFullAddress: String!
-  phoneNumber: String!
+  district: String
+  deliveryFullAddress: String
+  phoneNumber: String
   roles: [User_roles_MutationInput]
   purchases: [String]
   stripeCustomerID: String

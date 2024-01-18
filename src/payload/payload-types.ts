@@ -427,9 +427,9 @@ export interface Order {
 export interface User {
   id: string;
   name?: string | null;
-  district: string;
-  deliveryFullAddress: string;
-  phoneNumber: string;
+  district?: string | null;
+  deliveryFullAddress?: string | null;
+  phoneNumber?: string | null;
   roles?: ('admin' | 'customer')[] | null;
   purchases?: (string | Product)[] | null;
   stripeCustomerID?: string | null;
