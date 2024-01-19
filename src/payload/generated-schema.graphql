@@ -43,7 +43,7 @@ type Page {
   title: String
   publishedOn: DateTime
   hero: Page_Hero
-  layout: [Page_Layout!]!
+  layout: [Page_Layout!]
   slug: String
   meta: Page_Meta
   updatedAt: DateTime
@@ -2673,7 +2673,7 @@ type PageVersion_Version {
   title: String
   publishedOn: DateTime
   hero: PageVersion_Version_Hero
-  layout: [PageVersion_Version_Layout!]!
+  layout: [PageVersion_Version_Layout!]
   slug: String
   meta: PageVersion_Version_Meta
   updatedAt: DateTime

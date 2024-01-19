@@ -83,6 +83,7 @@ export default async function Page({ params: { slug = 'home' } }) {
             {/* <Categories categories={categories} /> */}
             {/* <Promotion /> */}
             <HomeProducts products={products} />
+            <Blocks blocks={layout} />
           </Gutter>
         </section>
       ) : (
