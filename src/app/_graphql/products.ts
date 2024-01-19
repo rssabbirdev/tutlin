@@ -17,6 +17,9 @@ export const PRODUCT = `
     Products(where: { slug: { equals: $slug}}, limit: 1, draft: $draft) {
       docs {
         slug
+        sku
+        stock
+        warranty 
         id
         title
         productPrice

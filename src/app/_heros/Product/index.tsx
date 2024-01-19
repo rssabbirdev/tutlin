@@ -21,6 +21,8 @@ export const ProductHero: React.FC<{
     title,
     categories,
     layout,
+    sku,
+    warranty,
     meta: { image: metaImage, description } = {},
   } = product
 
@@ -63,6 +65,10 @@ export const ProductHero: React.FC<{
           <div className={classes.description}>
             <h6>Description</h6>
             <p>{description}</p>
+          </div>
+          <div className={classes.sku}>
+            <p style={{ fontSize: '15px' }}>Warranty : {warranty}</p>
+            <p style={{ fontSize: '15px' }}>SKU : {sku}</p>
           </div>
 
           <AddToCartButton product={product} className={classes.addToCartButton} />

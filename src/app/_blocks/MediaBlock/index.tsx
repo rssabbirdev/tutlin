@@ -28,7 +28,7 @@ export const MediaBlock: React.FC<Props> = props => {
       )}
       {position === 'default' && (
         <Gutter>
-          <Media resource={media} src={staticImage} />
+          <Media resource={media} src={staticImage} loading="lazy" />
         </Gutter>
       )}
       {caption && (
