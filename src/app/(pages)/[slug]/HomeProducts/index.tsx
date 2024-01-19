@@ -12,7 +12,7 @@ function HomeProducts({ products }: { products: Product[] }) {
     <div>
       <div className={classes.titleWrapper}>
         <h3>Features Products</h3>
-        <Link href="/products">See More</Link>
+        <Link href="/products">Explore products</Link>
       </div>
       <HR />
       <div className={classes.products}>
