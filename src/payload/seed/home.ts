@@ -5,8 +5,9 @@ export const home: Partial<Page> = {
   slug: 'home',
   _status: 'published',
   meta: {
-    title: 'Payload E-Commerce Template',
-    description: 'An open-source e-commerce store built with Payload and Next.js.',
+    title: 'Tutlin - We feel your needs',
+    description:
+      'Welcome to Tutlin, your best online store in Bangladesh! Find trendy fashion, cool electronics, and home essentials. Discover the latest styles and top-notch gadgets at affordable prices. We promise quick and safe delivery to make your shopping experience smooth. Tutlin is your trusted E-commerce shop in Bangladesh. Join us for a hassle-free and enjoyable shopping adventure Start exploring Tutlin today!',
     image: '{{PRODUCT1_IMAGE}}',
   },
   hero: {
@@ -15,7 +16,7 @@ export const home: Partial<Page> = {
       {
         children: [
           {
-            text: 'Payload E-Commerce Store',
+            text: 'Tutlin - We feel your needs',
           },
         ],
         type: 'h1',
