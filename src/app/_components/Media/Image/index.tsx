@@ -20,6 +20,7 @@ export const Image: React.FC<MediaProps> = props => {
     fill,
     src: srcFromProps,
     alt: altFromProps,
+    loading,
   } = props
 
   const [isLoading, setIsLoading] = React.useState(true)
@@ -53,6 +54,7 @@ export const Image: React.FC<MediaProps> = props => {
 
   return (
     <NextImage
+      loading={loading ? loading : undefined}
       className={[isLoading && classes.placeholder, classes.image, imgClassName]
         .filter(Boolean)
         .join(' ')}

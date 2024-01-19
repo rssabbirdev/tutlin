@@ -23,7 +23,7 @@ export const MediaBlock: React.FC<Props> = props => {
     <div className={classes.mediaBlock}>
       {position === 'fullscreen' && (
         <div className={classes.fullscreen}>
-          <Media resource={media} src={staticImage} />
+          <Media resource={media} src={staticImage} loading="lazy" />
         </div>
       )}
       {position === 'default' && (

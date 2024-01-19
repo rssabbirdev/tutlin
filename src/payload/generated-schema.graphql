@@ -1269,6 +1269,9 @@ union Archive_SelectedDocs = Product
 type Product {
   id: String
   title: String
+  warranty: String
+  stock: Float
+  sku: String
   productPrice: Float
   publishedOn: DateTime
   layout: [Product_Layout!]
@@ -3598,6 +3601,9 @@ type Products {
 
 input Product_where {
   title: Product_title_operator
+  warranty: Product_warranty_operator
+  stock: Product_stock_operator
+  sku: Product_sku_operator
   productPrice: Product_productPrice_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
@@ -3626,6 +3632,38 @@ input Product_title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input Product_warranty_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Product_stock_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Product_sku_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
 }
 
 input Product_productPrice_operator {
@@ -3782,6 +3820,9 @@ input Product_id_operator {
 
 input Product_where_and {
   title: Product_title_operator
+  warranty: Product_warranty_operator
+  stock: Product_stock_operator
+  sku: Product_sku_operator
   productPrice: Product_productPrice_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
@@ -3804,6 +3845,9 @@ input Product_where_and {
 
 input Product_where_or {
   title: Product_title_operator
+  warranty: Product_warranty_operator
+  stock: Product_stock_operator
+  sku: Product_sku_operator
   productPrice: Product_productPrice_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
@@ -3835,6 +3879,9 @@ type productsDocAccess {
 
 type ProductsDocAccessFields {
   title: ProductsDocAccessFields_title
+  warranty: ProductsDocAccessFields_warranty
+  stock: ProductsDocAccessFields_stock
+  sku: ProductsDocAccessFields_sku
   productPrice: ProductsDocAccessFields_productPrice
   publishedOn: ProductsDocAccessFields_publishedOn
   layout: ProductsDocAccessFields_layout
@@ -3872,6 +3919,75 @@ type ProductsDocAccessFields_title_Update {
 }
 
 type ProductsDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_warranty {
+  create: ProductsDocAccessFields_warranty_Create
+  read: ProductsDocAccessFields_warranty_Read
+  update: ProductsDocAccessFields_warranty_Update
+  delete: ProductsDocAccessFields_warranty_Delete
+}
+
+type ProductsDocAccessFields_warranty_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_warranty_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_warranty_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_warranty_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_stock {
+  create: ProductsDocAccessFields_stock_Create
+  read: ProductsDocAccessFields_stock_Read
+  update: ProductsDocAccessFields_stock_Update
+  delete: ProductsDocAccessFields_stock_Delete
+}
+
+type ProductsDocAccessFields_stock_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_stock_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_stock_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_stock_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sku {
+  create: ProductsDocAccessFields_sku_Create
+  read: ProductsDocAccessFields_sku_Read
+  update: ProductsDocAccessFields_sku_Update
+  delete: ProductsDocAccessFields_sku_Delete
+}
+
+type ProductsDocAccessFields_sku_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sku_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sku_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sku_Delete {
   permission: Boolean!
 }
 
@@ -4380,6 +4496,9 @@ type ProductVersion {
 
 type ProductVersion_Version {
   title: String
+  warranty: String
+  stock: Float
+  sku: String
   productPrice: Float
   publishedOn: DateTime
   layout: [ProductVersion_Version_Layout!]
@@ -4591,6 +4710,9 @@ type versionsProducts {
 input versionsProduct_where {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
+  version__warranty: versionsProduct_version__warranty_operator
+  version__stock: versionsProduct_version__stock_operator
+  version__sku: versionsProduct_version__sku_operator
   version__productPrice: versionsProduct_version__productPrice_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
@@ -4631,6 +4753,38 @@ input versionsProduct_version__title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input versionsProduct_version__warranty_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input versionsProduct_version__stock_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input versionsProduct_version__sku_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
 }
 
 input versionsProduct_version__productPrice_operator {
@@ -4816,6 +4970,9 @@ input versionsProduct_id_operator {
 input versionsProduct_where_and {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
+  version__warranty: versionsProduct_version__warranty_operator
+  version__stock: versionsProduct_version__stock_operator
+  version__sku: versionsProduct_version__sku_operator
   version__productPrice: versionsProduct_version__productPrice_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
@@ -4842,6 +4999,9 @@ input versionsProduct_where_and {
 input versionsProduct_where_or {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
+  version__warranty: versionsProduct_version__warranty_operator
+  version__stock: versionsProduct_version__stock_operator
+  version__sku: versionsProduct_version__sku_operator
   version__productPrice: versionsProduct_version__productPrice_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
@@ -10103,6 +10263,9 @@ type productsAccess {
 
 type ProductsFields {
   title: ProductsFields_title
+  warranty: ProductsFields_warranty
+  stock: ProductsFields_stock
+  sku: ProductsFields_sku
   productPrice: ProductsFields_productPrice
   publishedOn: ProductsFields_publishedOn
   layout: ProductsFields_layout
@@ -10140,6 +10303,75 @@ type ProductsFields_title_Update {
 }
 
 type ProductsFields_title_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_warranty {
+  create: ProductsFields_warranty_Create
+  read: ProductsFields_warranty_Read
+  update: ProductsFields_warranty_Update
+  delete: ProductsFields_warranty_Delete
+}
+
+type ProductsFields_warranty_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_warranty_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_warranty_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_warranty_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_stock {
+  create: ProductsFields_stock_Create
+  read: ProductsFields_stock_Read
+  update: ProductsFields_stock_Update
+  delete: ProductsFields_stock_Delete
+}
+
+type ProductsFields_stock_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_stock_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_stock_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_stock_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_sku {
+  create: ProductsFields_sku_Create
+  read: ProductsFields_sku_Read
+  update: ProductsFields_sku_Update
+  delete: ProductsFields_sku_Delete
+}
+
+type ProductsFields_sku_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_sku_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_sku_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_sku_Delete {
   permission: Boolean!
 }
 
@@ -13595,6 +13827,9 @@ enum PageUpdate__status_MutationInput {
 
 input mutationProductInput {
   title: String!
+  warranty: String
+  stock: Float
+  sku: String
   productPrice: Float!
   publishedOn: String
   layout: JSON
@@ -13625,6 +13860,9 @@ enum Product__status_MutationInput {
 
 input mutationProductUpdateInput {
   title: String
+  warranty: String
+  stock: Float
+  sku: String
   productPrice: Float
   publishedOn: String
   layout: JSON

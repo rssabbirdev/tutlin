@@ -46,6 +46,18 @@ const Products: CollectionConfig = {
       required: true,
     },
     {
+      name: 'warranty',
+      type: 'text',
+    },
+    {
+      name: 'stock',
+      type: 'number',
+    },
+    {
+      name: 'sku',
+      type: 'text',
+    },
+    {
       name: 'productPrice',
       type: 'number',
       required: true,

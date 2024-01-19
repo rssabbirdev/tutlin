@@ -195,6 +195,9 @@ export interface Category {
 export interface Product {
   id: string;
   title: string;
+  warranty?: string | null;
+  stock?: number | null;
+  sku?: string | null;
   productPrice: number;
   publishedOn?: string | null;
   layout?:
