@@ -194,7 +194,7 @@ export const CheckoutPage: React.FC<{
                   if (!quantity) return null
 
                   const metaImage = meta?.image
-
+                  console.log(product)
                   return (
                     <Fragment key={index}>
                       <CheckoutItem
@@ -210,7 +210,7 @@ export const CheckoutPage: React.FC<{
                 return null
               })}
               <div className={classes.deliveryOption}>
-                <h5>Delivery Option</h5>
+                <h6>Delivery Option</h6>
                 <RadioButton
                   groupName="deliveryOption"
                   isSelected={deliveryOption.key === 'insideDhaka'}
@@ -231,7 +231,7 @@ export const CheckoutPage: React.FC<{
                 />
               </div>
               <div className={classes.deliveryOption}>
-                <h5>Payment Option</h5>
+                <h6>Payment Option</h6>
                 {paymentOptions?.map(option => (
                   <RadioButton
                     groupName="paymentOptions"

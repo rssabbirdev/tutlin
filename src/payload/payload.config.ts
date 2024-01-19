@@ -1,6 +1,6 @@
 import { webpackBundler } from '@payloadcms/bundler-webpack' // bundler-import
 import { mongooseAdapter } from '@payloadcms/db-mongodb' // database-adapter-import
-import { payloadCloud } from '@payloadcms/plugin-cloud'
+// import { payloadCloud } from '@payloadcms/plugin-cloud'
 import nestedDocs from '@payloadcms/plugin-nested-docs'
 import redirects from '@payloadcms/plugin-redirects'
 import seo from '@payloadcms/plugin-seo'
@@ -88,10 +88,10 @@ export default buildConfig({
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
-  cors: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || '', '*'].filter(
+  cors: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
     Boolean,
   ),
-  csrf: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || '', '*'].filter(
+  csrf: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
     Boolean,
   ),
   endpoints: [
@@ -141,6 +141,6 @@ export default buildConfig({
       generateTitle,
       uploadsCollection: 'media',
     }),
-    payloadCloud(),
+    // payloadCloud(),
   ],
 })

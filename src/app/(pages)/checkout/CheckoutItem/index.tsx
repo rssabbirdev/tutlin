@@ -18,13 +18,14 @@ export const CheckoutItem = ({ product, title, metaImage, quantity, index }) => 
       <div className={classes.itemDetails}>
         <div className={classes.titleWrapper}>
           <h6>{title}</h6>
-          <Price product={product} button={false} />
+          {/* <Price product={product} button={false} /> */}
+          <Price product={product} button={false} quantity={quantity} />
         </div>
-        <p className={classes.quantity}>x{quantity}</p>
+        {/* <p className={classes.quantity}>x{quantity}</p> */}
       </div>
 
       <div className={classes.subtotal}>
-        <Price product={product} button={false} quantity={quantity} />
+        {/* <Price product={product} button={false} quantity={quantity} /> */}
       </div>
     </li>
   )
