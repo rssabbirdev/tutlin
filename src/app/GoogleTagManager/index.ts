@@ -1,4 +1,4 @@
-import { sendGTMEvent } from '@next/third-parties/dist/google'
+import { sendGTMEvent } from '@next/third-parties/google'
 
 interface GoogleTagManagerEventDataProps {
   eventName: string
