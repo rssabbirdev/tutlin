@@ -1,4 +1,5 @@
 import React from 'react'
+import { sendGTMEvent } from '@next/third-parties/dist/google'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
@@ -25,6 +26,16 @@ export default async function Product({ params: { slug } }) {
       collection: 'products',
       slug,
       draft: isDraftMode,
+    })
+    sendGTMEvent({
+      event: 'ViewContent',
+      content_ids: product.sku,
+      content_category: product.categories,
+      content_name: product.title,
+      content_type: 'product',
+      contents: [{ id: product.sku, quantity: 1 }],
+      currency: 'BDT',
+      value: product.productPrice,
     })
   } catch (error) {
     console.error(error) // eslint-disable-line no-console
