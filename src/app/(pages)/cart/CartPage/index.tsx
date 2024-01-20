@@ -33,17 +33,22 @@ export const CartPage: React.FC<{
       // @ts-expect-error
       content_ids: cart?.items?.map(p => p.product?.sku),
       contents: cart?.items?.map(p => {
-        // @ts-expect-error
-        content_name: p?.product?.title
-        num_items: p?.quantity
-        currency: 'BDT'
-        // @ts-expect-error
-        value: p?.product?.productPrice
+        return {
+          // @ts-expect-error
+          content_name: p?.product?.title,
+          num_items: p?.quantity,
+          currency: 'BDT',
+          // @ts-expect-error
+          value: p?.product?.productPrice,
+        }
       }),
       currency: 'BDT',
       num_items: cart?.items?.reduce((acc, item) => acc + item?.quantity, 0),
-      // @ts-expect-error
-      value: cart?.items?.reduce((acc, item) => acc + item?.product?.productPrice, 0),
+      value: cart?.items?.reduce(
+        // @ts-expect-error
+        (acc, item) => acc + item?.product?.productPrice * item?.quantity,
+        0,
+      ),
     })
     if (user) {
       router.push('/checkout')
