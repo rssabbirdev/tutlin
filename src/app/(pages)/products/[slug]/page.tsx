@@ -1,5 +1,5 @@
 import React from 'react'
-import { sendGTMEvent } from '@next/third-parties/dist/google'
+import { sendGTMEvent } from '@next/third-parties/google'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'

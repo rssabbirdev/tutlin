@@ -19,7 +19,8 @@
     "generate:graphQLSchema": "PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts payload generate:graphQLSchema",
     "lint": "eslint src",
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
-    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts payload"
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts payload",
+    "rebuild": "pm2 stop tutlin && git pull && yarn build && pm2 start tutlin"
   },
   "dependencies": {
     "@next/third-parties": "^14.0.4",
