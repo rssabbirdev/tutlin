@@ -1,10 +1,10 @@
 'use client'
 
 import React, { Fragment, useEffect, useState } from 'react'
-import { sendGTMEvent } from '@next/third-parties/google'
 import Link from 'next/link'
 
 import { Product } from '../../../payload/payload-types'
+import { sendGoogleTagManagerEvent } from '../../GoogleTagManager'
 import { Media } from '../Media'
 import { Price } from '../Price'
 
@@ -47,7 +47,7 @@ export const Card: React.FC<{
     showCategories,
     title: titleFromProps,
     doc,
-    doc: { slug, title, categories, meta, priceJSON } = {},
+    doc: { slug, title, categories, meta, priceJSON, productPrice } = {},
     className,
   } = props
 
@@ -71,7 +71,7 @@ export const Card: React.FC<{
     <Link
       href={href}
       className={[classes.card, className].filter(Boolean).join(' ')}
-      onClick={() => sendGTMEvent(doc)}
+      onClick={() => sendGoogleTagManagerEvent({ eventName: 'ViewContent', value: productPrice })}
     >
       <div className={classes.mediaWrapper}>
         {!metaImage && <div className={classes.placeholder}>No image</div>}
