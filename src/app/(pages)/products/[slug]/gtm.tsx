@@ -6,17 +6,8 @@ import { Product } from '../../../../payload/payload-types'
 
 function ProductGTM({ product }: { product: Product }) {
   useEffect(() => {
-    if (window?.google_tag_manager?.dataLayer?.gtmLoad === true) {
-      window.fbq('track', 'ViewContent', {
-        event: 'ViewContent',
-        content_ids: product.sku,
-        content_category: product.categories,
-        content_name: product.title,
-        content_type: 'product',
-        contents: [{ id: product.sku, quantity: 1 }],
-        currency: 'BDT',
-        value: product.productPrice,
-      })
+    // Call the sendGTMEvent function after 5 seconds
+    setTimeout(function () {
       sendGTMEvent({
         event: 'ViewContent',
         content_ids: product.sku,
@@ -27,7 +18,7 @@ function ProductGTM({ product }: { product: Product }) {
         currency: 'BDT',
         value: product.productPrice,
       })
-    }
+    }, 5000) // 5000 milliseconds = 5 seconds
   }, [product.categories, product.productPrice, product.sku, product.title])
   return <div></div>
 }
