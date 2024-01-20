@@ -17,7 +17,7 @@ function ProductGTM({ product }: { product: Product }) {
       value: product.productPrice,
     })
   }, [product.categories, product.productPrice, product.sku, product.title])
-  return <div style={{ display: 'none' }}></div>
+  return <div></div>
 }
 
 export default ProductGTM
