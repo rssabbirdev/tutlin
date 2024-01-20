@@ -6,7 +6,7 @@ import { Product } from '../../../../payload/payload-types'
 
 function ProductGTM({ product }: { product: Product }) {
   useEffect(() => {
-    if (window.google_tag_manager) {
+    if (window?.google_tag_manager?.dataLayer?.gtmLoad === true) {
       sendGTMEvent({
         event: 'ViewContent',
         content_ids: product.sku,
