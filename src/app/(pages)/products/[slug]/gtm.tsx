@@ -7,6 +7,16 @@ import { Product } from '../../../../payload/payload-types'
 function ProductGTM({ product }: { product: Product }) {
   useEffect(() => {
     if (window?.google_tag_manager?.dataLayer?.gtmLoad === true) {
+      window.fbq('track', 'ViewContent', {
+        event: 'ViewContent',
+        content_ids: product.sku,
+        content_category: product.categories,
+        content_name: product.title,
+        content_type: 'product',
+        contents: [{ id: product.sku, quantity: 1 }],
+        currency: 'BDT',
+        value: product.productPrice,
+      })
       sendGTMEvent({
         event: 'ViewContent',
         content_ids: product.sku,
