@@ -2,6 +2,7 @@
 
 import React, { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { sendGTMEvent } from '@next/third-parties/google'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -66,6 +67,34 @@ export const CheckoutPage: React.FC<{
       .then(res => res.json())
       .then(data => {
         if (paymentOption === 'CashOnDelivery') {
+          sendGTMEvent({
+            event: 'Purchase',
+            content_category: cart?.items?.map(
+              // @ts-expect-error
+              (p, i) => p.product?.categories?.map(c => c?.title)[i],
+            ),
+            // @ts-expect-error
+            content_ids: cart?.items?.map(p => p.product?.sku),
+            // @ts-expect-error
+            content_name: cart?.items?.map(p => p.product?.title),
+            contents: cart?.items?.map(p => {
+              return {
+                // @ts-expect-error
+                content_name: p?.product?.title,
+                num_items: p?.quantity,
+                currency: 'BDT',
+                // @ts-expect-error
+                value: p?.product?.productPrice,
+              }
+            }),
+            currency: 'BDT',
+            num_items: cart?.items?.reduce((acc, item) => acc + item?.quantity, 0),
+            value: cart?.items?.reduce(
+              // @ts-expect-error
+              (acc, item) => acc + item?.product?.productPrice * item?.quantity,
+              0,
+            ),
+          })
           router.push(
             `order-confirmation?order_id=${data?.orderId}&transaction_id=${'null'}&order_status=${
               data?.orderStatus
