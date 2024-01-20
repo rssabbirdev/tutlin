@@ -18,7 +18,7 @@ function ProductGTM({ product }: { product: Product }) {
         currency: 'BDT',
         value: product.productPrice,
       })
-    }, 5000) // 5000 milliseconds = 5 seconds
+    }, 3000) // 5000 milliseconds = 5 seconds
   }, [product.categories, product.productPrice, product.sku, product.title])
   return <div></div>
 }

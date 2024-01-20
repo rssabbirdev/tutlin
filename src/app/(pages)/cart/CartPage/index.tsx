@@ -1,6 +1,7 @@
 'use client'
 
 import React, { Fragment } from 'react'
+import { sendGTMEvent } from '@next/third-parties/google'
 import Link from 'next/link'
 
 import { Page, Settings } from '../../../../payload/payload-types'
@@ -22,6 +23,27 @@ export const CartPage: React.FC<{
   const { user } = useAuth()
 
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart()
+  const InitiateCheckout = () => {
+    sendGTMEvent({
+      event: 'InitiateCheckout',
+      // @ts-expect-error
+      content_category: cart?.items?.map((p, i) => p.product?.categories?.map(c => c?.title)[i]),
+      // @ts-expect-error
+      content_ids: cart?.items?.map(p => p.product?.sku),
+      contents: cart?.items?.map(p => {
+        // @ts-expect-error
+        content_name: p?.product?.title
+        num_items: p?.quantity
+        currency: 'BDT'
+        // @ts-expect-error
+        value: p?.product?.productPrice
+      }),
+      currency: 'BDT',
+      num_items: cart?.items?.reduce((acc, item) => acc + item?.quantity, 0),
+      // @ts-expect-error
+      value: cart?.items?.reduce((acc, item) => acc + item?.product?.productPrice, 0),
+    })
+  }
 
   return (
     <Fragment>
@@ -109,6 +131,7 @@ export const CartPage: React.FC<{
                 </div>
 
                 <Button
+                  onClick={InitiateCheckout}
                   className={classes.checkoutButton}
                   href={user ? '/checkout' : '/login?redirect=%2Fcheckout'}
                   label={user ? 'Checkout' : 'Login to checkout'}

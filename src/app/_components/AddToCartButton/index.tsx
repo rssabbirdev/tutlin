@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { sendGTMEvent } from '@next/third-parties/google'
 import { useRouter } from 'next/navigation'
 
 import { Product } from '../../../payload/payload-types'
@@ -23,6 +24,22 @@ export const AddToCartButton: React.FC<{
   const [isInCart, setIsInCart] = useState<boolean>()
   const router = useRouter()
 
+  const handleAddToCart = () => {
+    addItemToCart({
+      product,
+      quantity,
+    })
+    sendGTMEvent({
+      event: 'AddToCart',
+      content_ids: product?.sku,
+      content_name: product?.title,
+      content_type: 'product',
+      currency: 'BDT',
+      value: product?.productPrice,
+    })
+    // router.push('/cart')
+  }
+
   useEffect(() => {
     setIsInCart(isProductInCart(product))
   }, [isProductInCart, product, cart])
@@ -42,18 +59,7 @@ export const AddToCartButton: React.FC<{
       ]
         .filter(Boolean)
         .join(' ')}
-      onClick={
-        !isInCart
-          ? () => {
-              addItemToCart({
-                product,
-                quantity,
-              })
-
-              router.push('/cart')
-            }
-          : undefined
-      }
+      onClick={!isInCart ? handleAddToCart : undefined}
     />
   )
 }
