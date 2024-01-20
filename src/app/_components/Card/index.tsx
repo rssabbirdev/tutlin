@@ -1,7 +1,7 @@
 'use client'
 
 import React, { Fragment, useEffect, useState } from 'react'
-import { sendGTMEvent } from '@next/third-parties/dist/google'
+import { sendGTMEvent } from '@next/third-parties/google'
 import Link from 'next/link'
 
 import { Product } from '../../../payload/payload-types'
