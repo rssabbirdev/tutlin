@@ -3,6 +3,7 @@
 import React, { Fragment } from 'react'
 import { sendGTMEvent } from '@next/third-parties/google'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 import { Page, Settings } from '../../../../payload/payload-types'
 import { Button } from '../../../_components/Button'
@@ -21,6 +22,7 @@ export const CartPage: React.FC<{
   const { productsPage } = settings || {}
 
   const { user } = useAuth()
+  const router = useRouter()
 
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart()
   const InitiateCheckout = () => {
@@ -43,6 +45,11 @@ export const CartPage: React.FC<{
       // @ts-expect-error
       value: cart?.items?.reduce((acc, item) => acc + item?.product?.productPrice, 0),
     })
+    if (user) {
+      router.push('/checkout')
+    } else {
+      router.push('/login?redirect=%2Fcheckout')
+    }
   }
 
   return (
@@ -132,8 +139,8 @@ export const CartPage: React.FC<{
 
                 <Button
                   onClick={InitiateCheckout}
+                  el="button"
                   className={classes.checkoutButton}
-                  href={user ? '/checkout' : '/login?redirect=%2Fcheckout'}
                   label={user ? 'Checkout' : 'Login to checkout'}
                   appearance="primary"
                 />
