@@ -34,7 +34,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {/* @ts-expect-error */}
           <Footer />
         </Providers>
-        <GoogleTagManager gtmId="GTM-PRVSW5N3" />
+        <GoogleTagManager gtmId={process.env.GTM_ID} />
       </body>
     </html>
   )
