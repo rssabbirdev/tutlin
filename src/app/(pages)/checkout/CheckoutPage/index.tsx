@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 
 import { Settings } from '../../../../payload/payload-types'
 import { calculateDeliveryFee } from '../../../../payload/utilities/calculateDeliveryFee'
+import { getFirstNameLastName } from '../../../../payload/utilities/getFirstNameLastName'
 import { Button } from '../../../_components/Button'
 import { Input } from '../../../_components/Input'
 import { LoadingShimmer } from '../../../_components/LoadingShimmer'
@@ -94,6 +95,11 @@ export const CheckoutPage: React.FC<{
               (acc, item) => acc + item?.product?.productPrice * item?.quantity,
               0,
             ),
+            city: order?.district,
+            email: user?.email,
+            firstName: getFirstNameLastName(user?.name, 0),
+            lastName: getFirstNameLastName(user?.name, 1),
+            phoneNumber: order?.phoneNumber,
           })
           router.push(
             `order-confirmation?order_id=${data?.orderId}&transaction_id=${'null'}&order_status=${
