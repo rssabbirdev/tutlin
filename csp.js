@@ -10,6 +10,7 @@ const policies = {
     'https://www.googletagmanager.com',
     'https://*.facebook.net',
     'https://*.facebook.com',
+    'https://tutlin.com',
   ],
   'child-src': ["'self'"],
   'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
@@ -18,6 +19,7 @@ const policies = {
     'https://*.stripe.com',
     'https://raw.githubusercontent.com',
     'https://*.facebook.com',
+    'https://tutlin.com',
   ],
   'font-src': ["'self'"],
   'frame-src': [

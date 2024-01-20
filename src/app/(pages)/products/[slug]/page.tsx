@@ -1,5 +1,4 @@
 import React from 'react'
-import { sendGTMEvent } from '@next/third-parties/google'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
@@ -11,6 +10,7 @@ import { Blocks } from '../../../_components/Blocks'
 import { PaywallBlocks } from '../../../_components/PaywallBlocks'
 import { ProductHero } from '../../../_heros/Product'
 import { generateMeta } from '../../../_utilities/generateMeta'
+import ProductGTM from './gtm'
 
 // Force this page to be dynamic so that Next.js does not cache it
 // See the note in '../../../[slug]/page.tsx' about this
@@ -27,16 +27,6 @@ export default async function Product({ params: { slug } }) {
       slug,
       draft: isDraftMode,
     })
-    sendGTMEvent({
-      event: 'ViewContent',
-      content_ids: product.sku,
-      content_category: product.categories,
-      content_name: product.title,
-      content_type: 'product',
-      contents: [{ id: product.sku, quantity: 1 }],
-      currency: 'BDT',
-      value: product.productPrice,
-    })
   } catch (error) {
     console.error(error) // eslint-disable-line no-console
   }
@@ -50,6 +40,7 @@ export default async function Product({ params: { slug } }) {
   return (
     <>
       <ProductHero product={product} />
+      <ProductGTM product={product} />
       {product?.enablePaywall && <PaywallBlocks productSlug={slug as string} disableTopPadding />}
       <Blocks
         disableTopPadding
