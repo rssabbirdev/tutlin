@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { sendGTMEvent } from '@next/third-parties/google'
 import Link from 'next/link'
 
 import { Product } from '../../../payload/payload-types'
@@ -23,8 +24,18 @@ export const ProductHero: React.FC<{
     layout,
     sku,
     warranty,
+    productPrice,
     meta: { image: metaImage, description } = {},
   } = product
+  sendGTMEvent({
+    content_ids: sku,
+    content_category: categories,
+    content_name: title,
+    content_type: 'product',
+    contents: [{ id: sku, quantity: 1 }],
+    currency: 'BDT',
+    value: productPrice,
+  })
 
   return (
     <section>

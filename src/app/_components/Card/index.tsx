@@ -1,7 +1,6 @@
 'use client'
 
 import React, { Fragment, useEffect, useState } from 'react'
-import { sendGTMEvent } from '@next/third-parties/google'
 import Link from 'next/link'
 
 import { Product } from '../../../payload/payload-types'
@@ -68,21 +67,7 @@ export const Card: React.FC<{
   }, [priceJSON])
 
   return (
-    <Link
-      href={href}
-      className={[classes.card, className].filter(Boolean).join(' ')}
-      onClick={() =>
-        sendGTMEvent({
-          content_ids: sku,
-          content_category: categories,
-          content_name: titleToUse,
-          content_type: 'product',
-          contents: [{ id: sku, quantity: 1 }],
-          currency: 'BDT',
-          value: productPrice,
-        })
-      }
-    >
+    <Link href={href} className={[classes.card, className].filter(Boolean).join(' ')}>
       <div className={classes.mediaWrapper}>
         {!metaImage && <div className={classes.placeholder}>No image</div>}
         {metaImage && typeof metaImage !== 'string' && (
