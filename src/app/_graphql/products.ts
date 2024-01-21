@@ -23,6 +23,7 @@ export const PRODUCT = `
         id
         title
         productPrice
+        originalProductPrice
         stripeProductID
         ${PRODUCT_CATEGORIES}
         layout {

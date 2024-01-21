@@ -43,11 +43,21 @@
   gap: var(--base);
 }
 
-.price {
-  font-weight: 600;
-  margin: 0;
-}
 
+.priceSection{
+  display: flex;
+  // justify-content: space-between;
+  gap:5px;
+  font-weight: 200;
+  margin:0px;
+  padding:0px;
+}
+.price {
+  font-size: 14px;
+  color:red;
+  margin:0px;
+  padding:0px;
+}
 .leader {
   @extend %label;
   display: flex;

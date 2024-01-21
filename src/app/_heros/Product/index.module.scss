@@ -61,3 +61,17 @@
 .sku{
   padding-bottom: 30px;
 }
+.priceSection{
+  display: flex;
+  // justify-content: space-between;
+  gap:5px;
+  font-weight: 200;
+  margin:0px;
+  padding:0px;
+}
+.price {
+  font-size: 14px;
+  color:red;
+  margin:0px;
+  padding:0px;
+}

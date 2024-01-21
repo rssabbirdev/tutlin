@@ -1273,6 +1273,7 @@ type Product {
   stock: Float
   sku: String
   productPrice: Float
+  originalProductPrice: Float
   publishedOn: DateTime
   layout: [Product_Layout!]
   stripeProductID: String
@@ -3605,6 +3606,7 @@ input Product_where {
   stock: Product_stock_operator
   sku: Product_sku_operator
   productPrice: Product_productPrice_operator
+  originalProductPrice: Product_originalProductPrice_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
@@ -3667,6 +3669,15 @@ input Product_sku_operator {
 }
 
 input Product_productPrice_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Product_originalProductPrice_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -3824,6 +3835,7 @@ input Product_where_and {
   stock: Product_stock_operator
   sku: Product_sku_operator
   productPrice: Product_productPrice_operator
+  originalProductPrice: Product_originalProductPrice_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
@@ -3849,6 +3861,7 @@ input Product_where_or {
   stock: Product_stock_operator
   sku: Product_sku_operator
   productPrice: Product_productPrice_operator
+  originalProductPrice: Product_originalProductPrice_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
@@ -3883,6 +3896,7 @@ type ProductsDocAccessFields {
   stock: ProductsDocAccessFields_stock
   sku: ProductsDocAccessFields_sku
   productPrice: ProductsDocAccessFields_productPrice
+  originalProductPrice: ProductsDocAccessFields_originalProductPrice
   publishedOn: ProductsDocAccessFields_publishedOn
   layout: ProductsDocAccessFields_layout
   stripeProductID: ProductsDocAccessFields_stripeProductID
@@ -4011,6 +4025,29 @@ type ProductsDocAccessFields_productPrice_Update {
 }
 
 type ProductsDocAccessFields_productPrice_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_originalProductPrice {
+  create: ProductsDocAccessFields_originalProductPrice_Create
+  read: ProductsDocAccessFields_originalProductPrice_Read
+  update: ProductsDocAccessFields_originalProductPrice_Update
+  delete: ProductsDocAccessFields_originalProductPrice_Delete
+}
+
+type ProductsDocAccessFields_originalProductPrice_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_originalProductPrice_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_originalProductPrice_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_originalProductPrice_Delete {
   permission: Boolean!
 }
 
@@ -4500,6 +4537,7 @@ type ProductVersion_Version {
   stock: Float
   sku: String
   productPrice: Float
+  originalProductPrice: Float
   publishedOn: DateTime
   layout: [ProductVersion_Version_Layout!]
   stripeProductID: String
@@ -4714,6 +4752,7 @@ input versionsProduct_where {
   version__stock: versionsProduct_version__stock_operator
   version__sku: versionsProduct_version__sku_operator
   version__productPrice: versionsProduct_version__productPrice_operator
+  version__originalProductPrice: versionsProduct_version__originalProductPrice_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
@@ -4788,6 +4827,15 @@ input versionsProduct_version__sku_operator {
 }
 
 input versionsProduct_version__productPrice_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input versionsProduct_version__originalProductPrice_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -4974,6 +5022,7 @@ input versionsProduct_where_and {
   version__stock: versionsProduct_version__stock_operator
   version__sku: versionsProduct_version__sku_operator
   version__productPrice: versionsProduct_version__productPrice_operator
+  version__originalProductPrice: versionsProduct_version__originalProductPrice_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
@@ -5003,6 +5052,7 @@ input versionsProduct_where_or {
   version__stock: versionsProduct_version__stock_operator
   version__sku: versionsProduct_version__sku_operator
   version__productPrice: versionsProduct_version__productPrice_operator
+  version__originalProductPrice: versionsProduct_version__originalProductPrice_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
@@ -10267,6 +10317,7 @@ type ProductsFields {
   stock: ProductsFields_stock
   sku: ProductsFields_sku
   productPrice: ProductsFields_productPrice
+  originalProductPrice: ProductsFields_originalProductPrice
   publishedOn: ProductsFields_publishedOn
   layout: ProductsFields_layout
   stripeProductID: ProductsFields_stripeProductID
@@ -10395,6 +10446,29 @@ type ProductsFields_productPrice_Update {
 }
 
 type ProductsFields_productPrice_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_originalProductPrice {
+  create: ProductsFields_originalProductPrice_Create
+  read: ProductsFields_originalProductPrice_Read
+  update: ProductsFields_originalProductPrice_Update
+  delete: ProductsFields_originalProductPrice_Delete
+}
+
+type ProductsFields_originalProductPrice_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_originalProductPrice_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_originalProductPrice_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_originalProductPrice_Delete {
   permission: Boolean!
 }
 
@@ -13831,6 +13905,7 @@ input mutationProductInput {
   stock: Float
   sku: String
   productPrice: Float!
+  originalProductPrice: Float!
   publishedOn: String
   layout: JSON
   stripeProductID: String
@@ -13864,6 +13939,7 @@ input mutationProductUpdateInput {
   stock: Float
   sku: String
   productPrice: Float
+  originalProductPrice: Float
   publishedOn: String
   layout: JSON
   stripeProductID: String

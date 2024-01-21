@@ -64,6 +64,12 @@ const Products: CollectionConfig = {
       defaultValue: 0,
     },
     {
+      name: 'originalProductPrice',
+      type: 'number',
+      required: true,
+      defaultValue: 0,
+    },
+    {
       name: 'publishedOn',
       type: 'date',
       admin: {

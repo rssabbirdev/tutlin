@@ -23,6 +23,7 @@ export const ProductHero: React.FC<{
     layout,
     sku,
     warranty,
+    originalProductPrice,
     meta: { image: metaImage, description } = {},
   } = product
 
@@ -61,7 +62,14 @@ export const ProductHero: React.FC<{
             <p className={classes.stock}>In Stock</p>
           </div>
 
-          <Price product={product} button={false} />
+          <div className={classes.priceSection}>
+            <Price product={product} button={false} />
+            {originalProductPrice !== 0 && (
+              <span className={classes.price}>
+                <del>BDT {originalProductPrice}.00</del>
+              </span>
+            )}
+          </div>
           <div className={classes.description}>
             <strong>Description</strong>
             <p>{description}</p>

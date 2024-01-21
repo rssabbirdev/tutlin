@@ -46,7 +46,7 @@ export const Card: React.FC<{
     showCategories,
     title: titleFromProps,
     doc,
-    doc: { slug, title, categories, meta, priceJSON, productPrice, sku } = {},
+    doc: { slug, title, categories, meta, priceJSON, productPrice, sku, originalProductPrice } = {},
     className,
   } = props
   const [loading, setLoading] = useState<Boolean>(false)
@@ -109,7 +109,16 @@ export const Card: React.FC<{
             {description && <p className={classes.description}>{sanitizedDescription}</p>}
           </div>
         )}
-        {doc && <Price product={doc} />}
+        {doc && (
+          <div className={classes.priceSection}>
+            <Price product={doc} />{' '}
+            {originalProductPrice !== 0 && (
+              <span className={classes.price}>
+                <del>BDT {originalProductPrice}.00</del>
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </Link>
   )
