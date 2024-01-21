@@ -13,7 +13,7 @@
 .media {
   width: calc(100% + var(--gutter-h));
   left: calc(var(--gutter-h) / -2);
-  margin-top: calc(var(--base) * 3);
+  margin-top: calc(var(--base));
   position: relative;
 
   @include mid-break {
