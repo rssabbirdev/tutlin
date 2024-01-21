@@ -49,6 +49,7 @@ export const Card: React.FC<{
     doc: { slug, title, categories, meta, priceJSON, productPrice, sku } = {},
     className,
   } = props
+  const [loading, setLoading] = useState<Boolean>(false)
 
   const { description, image: metaImage } = meta || {}
 
@@ -67,8 +68,13 @@ export const Card: React.FC<{
   }, [priceJSON])
 
   return (
-    <Link href={href} className={[classes.card, className].filter(Boolean).join(' ')}>
+    <Link
+      href={href}
+      className={[classes.card, className].filter(Boolean).join(' ')}
+      onClick={() => setLoading(true)}
+    >
       <div className={classes.mediaWrapper}>
+        {loading && <div className={classes.loading}>Loading...</div>}
         {!metaImage && <div className={classes.placeholder}>No image</div>}
         {metaImage && typeof metaImage !== 'string' && (
           <Media imgClassName={classes.image} resource={metaImage} fill />

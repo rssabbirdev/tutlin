@@ -27,7 +27,7 @@ export const CartPage: React.FC<{
 
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart()
   const InitiateCheckout = () => {
-    setLoading(true)
+    setLoading(false)
     sendGTMEvent({
       event: 'InitiateCheckout',
       // @ts-expect-error
@@ -53,10 +53,10 @@ export const CartPage: React.FC<{
       ),
     })
     if (user) {
-      setLoading(false)
+      setLoading(true)
       router.push('/checkout')
     } else {
-      setLoading(false)
+      setLoading(true)
       router.push('/login?redirect=%2Fcheckout')
     }
   }
@@ -155,6 +155,7 @@ export const CartPage: React.FC<{
                       ? `${loading ? 'Processing' : 'Checkout'}`
                       : `${loading ? 'Processing' : 'Login to checkout'}`
                   }
+                  disabled={loading}
                   appearance="primary"
                 />
               </div>

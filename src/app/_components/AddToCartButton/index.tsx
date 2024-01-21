@@ -65,6 +65,7 @@ export const AddToCartButton: React.FC<{
         .filter(Boolean)
         .join(' ')}
       onClick={handleAddToCart}
+      disabled={loading}
     />
   )
 }
