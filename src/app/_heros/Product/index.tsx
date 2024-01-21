@@ -37,9 +37,7 @@ export const ProductHero: React.FC<{
           )}
         </div>
         <div className={classes.details}>
-          <h1 className={classes.title} style={{ fontSize: '26px' }}>
-            {title}
-          </h1>
+          <h1 className={classes.title}>{title}</h1>
           <div className={classes.categoryWrapper}>
             <div className={classes.categories}>
               {categories?.map((category, index) => {
