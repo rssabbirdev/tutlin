@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -28,16 +28,19 @@ const LoginForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm<FormData>()
+  const [loading, setLoading] = useState(false)
 
   const onSubmit = useCallback(
     async (data: FormData) => {
       try {
+        setLoading(true)
         await login(data)
         if (redirect?.current) router.push(redirect.current as string)
         else router.push('/')
       } catch (_) {
+        setLoading(false)
         setError('There was an error with the credentials provided. Please try again.')
       }
     },
@@ -66,8 +69,8 @@ const LoginForm: React.FC = () => {
       <Button
         type="submit"
         appearance="primary"
-        label={isLoading ? 'Processing' : 'Login'}
-        disabled={isLoading}
+        label={loading ? 'Processing' : 'Login'}
+        disabled={loading}
         className={classes.submit}
       />
       <div className={classes.links}>

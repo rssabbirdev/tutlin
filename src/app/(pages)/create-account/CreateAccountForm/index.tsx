@@ -42,6 +42,7 @@ const CreateAccountForm: React.FC = () => {
 
   const onSubmit = useCallback(
     async (data: FormData) => {
+      setLoading(true)
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -53,6 +54,7 @@ const CreateAccountForm: React.FC = () => {
       if (!response.ok) {
         const message = response.statusText || 'There was an error creating the account.'
         setError(message)
+        setLoading(false)
         return
       }
 

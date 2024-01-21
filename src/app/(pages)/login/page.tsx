@@ -20,13 +20,14 @@ export default async function Login() {
     <section className={classes.login}>
       <div className={classes.heroImg}>
         <Link href="/">
-          <Image
+          {/* <Image
             src="/logo-black.svg"
             alt="logo"
             width={250}
             height={23}
             className={classes.logo}
-          />
+          /> */}
+          <h4 style={{ fontWeight: 'bold', padding: '20px' }}>TUTLIN.COM</h4>
         </Link>
       </div>
       <div className={classes.formWrapper}>
