@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { sendGTMEvent } from '@next/third-parties/google'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -23,9 +23,11 @@ export const CartPage: React.FC<{
 
   const { user } = useAuth()
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
 
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart()
   const InitiateCheckout = () => {
+    setLoading(true)
     sendGTMEvent({
       event: 'InitiateCheckout',
       // @ts-expect-error
@@ -51,8 +53,10 @@ export const CartPage: React.FC<{
       ),
     })
     if (user) {
+      setLoading(false)
       router.push('/checkout')
     } else {
+      setLoading(false)
       router.push('/login?redirect=%2Fcheckout')
     }
   }
@@ -146,7 +150,11 @@ export const CartPage: React.FC<{
                   onClick={InitiateCheckout}
                   el="button"
                   className={classes.checkoutButton}
-                  label={user ? 'Checkout' : 'Login to checkout'}
+                  label={
+                    user
+                      ? `${loading ? 'Processing' : 'Checkout'}`
+                      : `${loading ? 'Processing' : 'Login to checkout'}`
+                  }
                   appearance="primary"
                 />
               </div>

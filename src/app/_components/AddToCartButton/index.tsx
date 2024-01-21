@@ -23,21 +23,27 @@ export const AddToCartButton: React.FC<{
 
   const [isInCart, setIsInCart] = useState<boolean>()
   const router = useRouter()
+  const [loading, setLoading] = useState<boolean>(false)
 
   const handleAddToCart = () => {
-    addItemToCart({
-      product,
-      quantity,
-    })
-    sendGTMEvent({
-      event: 'AddToCart',
-      content_ids: product?.sku,
-      content_name: product?.title,
-      content_type: 'product',
-      currency: 'BDT',
-      value: product?.productPrice,
-    })
-    // router.push('/cart')
+    setLoading(false)
+    if (!isInCart) {
+      addItemToCart({
+        product,
+        quantity,
+      })
+      sendGTMEvent({
+        event: 'AddToCart',
+        content_ids: product?.sku,
+        content_name: product?.title,
+        content_type: 'product',
+        currency: 'BDT',
+        value: product?.productPrice,
+      })
+    } else {
+      setLoading(true)
+      router.push('/cart')
+    }
   }
 
   useEffect(() => {
@@ -46,10 +52,9 @@ export const AddToCartButton: React.FC<{
 
   return (
     <Button
-      href={isInCart ? '/cart' : undefined}
-      type={!isInCart ? 'button' : undefined}
-      label={isInCart ? `✓ View in cart` : `Add to cart`}
-      el={isInCart ? 'link' : undefined}
+      type={'button'}
+      label={isInCart ? `${loading ? 'Processing' : '✓ View in cart'}` : `Add to cart`}
+      el={'button'}
       appearance={appearance}
       className={[
         className,
@@ -59,7 +64,7 @@ export const AddToCartButton: React.FC<{
       ]
         .filter(Boolean)
         .join(' ')}
-      onClick={!isInCart ? handleAddToCart : undefined}
+      onClick={handleAddToCart}
     />
   )
 }
