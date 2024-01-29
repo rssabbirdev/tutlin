@@ -70,7 +70,7 @@ function FooterComponent({ footer }: { footer: Footer }) {
         <Gutter>
           <div className={classes.payment}>
             <Image
-              src={`/assets/images/sslcommerz-payment-options.png`}
+              src={`/assets/images/sslcommerz-payment-options.avif`}
               alt="sslcommerz payment options"
               width={500}
               height={200}
