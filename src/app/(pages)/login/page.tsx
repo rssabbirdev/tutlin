@@ -35,7 +35,12 @@ export default async function Login() {
           <RenderParams className={classes.params} />
           <div className={classes.formTitle}>
             <h3>Welcome</h3>
-            <Image src="/assets/icons/hand.png" alt="hand" width={30} height={30} />
+            <Image
+              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/assets/icons/hand.png`}
+              alt="hand"
+              width={30}
+              height={30}
+            />
           </div>
           <p>Please login here</p>
           <LoginForm />

@@ -43,7 +43,7 @@ function CartItem({ product, title, metaImage, qty, addItemToCart, index }) {
         <div className={classes.quantity}>
           <div className={classes.quantityBtn} onClick={decrementQty}>
             <Image
-              src="/assets/icons/minus.svg"
+              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/assets/icons/minus.svg`}
               alt="minus"
               width={24}
               height={24}
@@ -58,7 +58,7 @@ function CartItem({ product, title, metaImage, qty, addItemToCart, index }) {
           />
           <div className={classes.quantityBtn} onClick={incrementQty}>
             <Image
-              src="/assets/icons/plus.svg"
+              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/assets/icons/plus.svg`}
               alt="plus"
               width={24}
               height={24}
