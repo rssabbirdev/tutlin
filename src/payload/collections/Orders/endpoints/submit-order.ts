@@ -101,10 +101,10 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
     } else if (body?.paymentOption === 'SSLCommerz') {
       const transactionId = crypto.randomUUID()
       const paymentData = {
-        total_amount: orderProducts.reduce((acc, item) => acc + item.price, 0),
+        total_amount: totalAmountWithDeliveryCharge,
         currency: 'BDT',
         tran_id: transactionId, // use unique tran_id for each api call
-        success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/success?user_id=${fullUser?.id}&order_id=${orderId}&transaction_id=${transactionId}`,
+        success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/sslcommerz-success?user_id=${fullUser?.id}&order_id=${orderId}&transaction_id=${transactionId}`,
         fail_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/fail`,
         cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/cancel`,
         ipn_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/ipn`,
@@ -142,7 +142,33 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         console.log('Redirecting to: ', GatewayPageURL)
         res.send({ GatewayPageURL })
       })
-    } else if (body.paymentOption === 'Bkash') {
+    } else if (body?.paymentOption === 'Bkash') {
+    } else if (body?.paymentOption === 'UddoktaPay') {
+      const transactionId = crypto.randomUUID()
+      const paymentData = {
+        full_name: fullUser.name,
+        email: fullUser.email,
+        amount: totalAmountWithDeliveryCharge,
+        metadata: { user_id: fullUser?.id, order_id: orderId, transaction_id: transactionId },
+        return_type: 'POST',
+        redirect_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/uddoktapay-success?user_id=${fullUser?.id}&order_id=${orderId}&transaction_id=${transactionId}`,
+        cancel_url: 'https://your-domain.com/cancel',
+        webhook_url: 'https://your-domain.com/ipn',
+      }
+      fetch(`${process.env.UDDOKTAPAY_BASE_URL}/api/checkout-v2`, {
+        method: 'POST',
+        headers: {
+          accept: 'application/json',
+          'RT-UDDOKTAPAY-API-KEY': process.env.UDDOKTAPAY_API_KEY,
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(paymentData),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          res.send({ GatewayPageURL: data?.payment_url })
+        })
     }
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Unknown error'
@@ -150,11 +176,3 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
     res.json({ error: message })
   }
 }
-// {
-//   name: 'Sabbir Hossain',
-//   phoneNumber: '01830868259',
-//   district: 'Cumilla',
-//   deliveryFullAddress: 'Chouddagram,Korpaty',
-//   deliveryOption: { key: 'insideDhaka', value: 60 },
-//   paymentOption: 'CashOnDelivery'
-// }

@@ -1,9 +1,9 @@
 import payload from 'payload'
 import type { PayloadHandler } from 'payload/config'
 
-import { sslcz } from '../../../sslcommerz/sslcz'
+import { sslcz } from '../../../../sslcommerz/sslcz'
 
-export const successHandler: PayloadHandler = async (req, res): Promise<void> => {
+export const sslcommerzSuccessHandler: PayloadHandler = async (req, res): Promise<void> => {
   const { user_id, order_id, transaction_id } = req.query
   const { tran_id, val_id, status, amount } = req.body
   if (!user_id && !order_id && !transaction_id) {

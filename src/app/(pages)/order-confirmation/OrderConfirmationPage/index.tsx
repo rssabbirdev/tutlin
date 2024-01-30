@@ -45,7 +45,7 @@ export const OrderConfirmationPage: React.FC<{}> = () => {
           <h1>Thank you for your order!</h1>
           {paymentStatus !== 'Unpaid' && <p>{`We received your payment`}</p>}
           <p>
-            {`Your order has been ${orderStatus.toLowerCase()}. You will receive an email confirmation shortly.`}
+            {`Your order has been ${orderStatus?.toLowerCase()}. You will receive an email confirmation shortly.`}
           </p>
           <div>
             <h4>Order Details</h4>

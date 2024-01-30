@@ -109,6 +109,8 @@ export const CheckoutPage: React.FC<{
         } else if (paymentOption === 'SSLCommerz') {
           window.location.href = data.GatewayPageURL
         } else if (paymentOption === 'Bkash') {
+        } else if (paymentOption === 'UddoktaPay') {
+          window.location.href = data.GatewayPageURL
         }
       })
   }

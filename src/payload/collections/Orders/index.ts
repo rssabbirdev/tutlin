@@ -4,8 +4,9 @@ import { admins } from '../../access/admins'
 import { adminsOrLoggedIn } from '../../access/adminsOrLoggedIn'
 import { adminsOrOrderedBy } from './access/adminsOrOrderedBy'
 import { ipnHandler } from './endpoints/ipn'
+import { sslcommerzSuccessHandler } from './endpoints/sslcommerz/sslcommerz-success'
 import { submitOrder } from './endpoints/submit-order'
-import { successHandler } from './endpoints/success'
+import { uddoktapaySuccessHandler } from './endpoints/uddoktapay/uddoktapay-success'
 import { clearUserCart } from './hooks/clearUserCart'
 import { populateOrderedBy } from './hooks/populateOrderedBy'
 import { updateUserPurchases } from './hooks/updateUserPurchases'
@@ -25,9 +26,14 @@ export const Orders: CollectionConfig = {
       handler: ipnHandler,
     },
     {
-      path: '/success',
+      path: '/sslcommerz-success',
       method: 'post',
-      handler: successHandler,
+      handler: sslcommerzSuccessHandler,
+    },
+    {
+      path: '/uddoktapay-success',
+      method: 'post',
+      handler: uddoktapaySuccessHandler,
     },
   ],
   admin: {
