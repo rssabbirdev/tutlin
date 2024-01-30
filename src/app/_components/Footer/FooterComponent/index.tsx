@@ -56,7 +56,7 @@ function FooterComponent({ footer }: { footer: Footer }) {
                   className={classes.socialLinkItem}
                 >
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}${icon?.url}`}
+                    src={icon?.url}
                     alt={icon?.alt}
                     height={24}
                     width={24}
