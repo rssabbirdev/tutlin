@@ -56,7 +56,7 @@ function FooterComponent({ footer }: { footer: Footer }) {
                   className={classes.socialLinkItem}
                 >
                   <Image
-                    src={icon?.url}
+                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}${icon?.url}`}
                     alt={icon?.alt}
                     height={24}
                     width={24}
@@ -70,7 +70,7 @@ function FooterComponent({ footer }: { footer: Footer }) {
         <Gutter>
           <div className={classes.payment}>
             <Image
-              src="/assets/images/sslcommerz-payment-options.avif"
+              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/assets/images/sslcommerz-payment-options.avif`}
               alt="sslcommerz payment options"
               width={500}
               height={200}
