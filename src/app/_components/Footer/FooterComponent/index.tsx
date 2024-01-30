@@ -21,16 +21,16 @@ function FooterComponent({ footer }: { footer: Footer }) {
       <Gutter>
         <ul className={classes.inclusions}>
           {inclusions.map((inclusion, index) => (
-            <li key={inclusion.title} className={classes.box}>
+            <li key={inclusion?.title} className={classes.box}>
               <Image
-                src={inclusion.icon}
-                alt={inclusion.title}
+                src={inclusion?.icon}
+                alt={inclusion?.title}
                 height={36}
                 width={36}
                 className={classes.icon}
               />
-              <h5 className={classes.title}>{inclusion.title}</h5>
-              <p>{inclusion.description}</p>
+              <h5 className={classes.title}>{inclusion?.title}</h5>
+              <p>{inclusion?.description}</p>
             </li>
           ))}
         </ul>
@@ -49,9 +49,9 @@ function FooterComponent({ footer }: { footer: Footer }) {
               const icon = item?.link?.icon as Media
               return (
                 <Button
-                  key={item.link.label}
+                  key={item?.link?.label}
                   el="link"
-                  href={item.link.url}
+                  href={item?.link?.url}
                   newTab={true}
                   className={classes.socialLinkItem}
                 >
