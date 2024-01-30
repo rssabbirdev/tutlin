@@ -55,6 +55,10 @@ export const Settings: GlobalConfig = {
           label: 'Bkash',
           value: 'Bkash',
         },
+        {
+          label: 'UddoktaPay',
+          value: 'UddoktaPay',
+        },
       ],
     },
   ],

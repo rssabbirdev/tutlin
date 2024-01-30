@@ -8394,6 +8394,7 @@ enum Settings_paymentOptions {
   CashOnDelivery
   SSLCommerz
   Bkash
+  UddoktaPay
 }
 
 type settingsDocAccess {
@@ -14305,6 +14306,7 @@ enum Settings_paymentOptions_MutationInput {
   CashOnDelivery
   SSLCommerz
   Bkash
+  UddoktaPay
 }
 
 input mutationHeaderInput {
