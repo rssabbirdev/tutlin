@@ -24,35 +24,6 @@ export const uddoktapaySuccessHandler: PayloadHandler = async (req, res): Promis
 
   const orders = payload.db.collections.orders
   const order = await orders.findOne({ orderId: order_id })
-  //   sslcz.validate({ val_id }).then(async data => {
-  //     if (
-  //       data.status !== status &&
-  //       tran_id !== data.tran_id &&
-  //       val_id !== data.val_id &&
-  //       order?.paidAmount !== data.amount
-  //     ) {
-  //       res.status(401).json({ error: 'Invalid Transaction, Please contact with us.' })
-  //       return
-  //     }
-  //     await orders.updateOne(
-  //       { orderId: order_id },
-  //       {
-  //         $set: {
-  //           valId: data.val_id,
-  //           transactionId: data.tran_id,
-  //           paidAmount: Number(order.paidAmount) + Number(data.amount),
-  //           dueAmount: Number(order.total) - (Number(order.paidAmount) + Number(data.amount)),
-  //           paymentStatus:
-  //             Number(order.total) - (Number(order.paidAmount) + Number(data.amount)) === 0
-  //               ? 'Paid'
-  //               : 'Partial Paid',
-  //           orderStatus: Number(order.paidAmount) ? order.orderStatus : 'Processing',
-  //         },
-  //       },
-  //       { upsert: false },
-  //     )
-  //     return
-  //   })
 
   fetch(`${process.env.UDDOKTAPAY_BASE_URL}/api/verify-payment`, {
     method: 'POST',
@@ -94,7 +65,9 @@ export const uddoktapaySuccessHandler: PayloadHandler = async (req, res): Promis
       res.redirect(
         `${
           process.env.PAYLOAD_PUBLIC_SERVER_URL
-        }/order-confirmation?order_id=${order_id}&transaction_id=${transaction_id}&order_status=${
+        }/order-confirmation?order_id=${order_id}&transaction_id=${
+          data.transaction_id
+        }&order_status=${
           Number(order.paidAmount) ? order.orderStatus : 'Processing'
         }&payment_status=${
           Number(order.total) - (Number(order.paidAmount) + Number(data.amount)) === 0

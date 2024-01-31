@@ -8385,6 +8385,7 @@ type Settings {
   insideDhaka: Float!
   outsideDhaka: Float!
   freeShippingAmount: Float
+  advancedPaymentAmount: Float!
   paymentOptions: [Settings_paymentOptions!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -8408,6 +8409,7 @@ type SettingsDocAccessFields {
   insideDhaka: SettingsDocAccessFields_insideDhaka
   outsideDhaka: SettingsDocAccessFields_outsideDhaka
   freeShippingAmount: SettingsDocAccessFields_freeShippingAmount
+  advancedPaymentAmount: SettingsDocAccessFields_advancedPaymentAmount
   paymentOptions: SettingsDocAccessFields_paymentOptions
   updatedAt: SettingsDocAccessFields_updatedAt
   createdAt: SettingsDocAccessFields_createdAt
@@ -8502,6 +8504,29 @@ type SettingsDocAccessFields_freeShippingAmount_Update {
 }
 
 type SettingsDocAccessFields_freeShippingAmount_Delete {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_advancedPaymentAmount {
+  create: SettingsDocAccessFields_advancedPaymentAmount_Create
+  read: SettingsDocAccessFields_advancedPaymentAmount_Read
+  update: SettingsDocAccessFields_advancedPaymentAmount_Update
+  delete: SettingsDocAccessFields_advancedPaymentAmount_Delete
+}
+
+type SettingsDocAccessFields_advancedPaymentAmount_Create {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_advancedPaymentAmount_Read {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_advancedPaymentAmount_Update {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_advancedPaymentAmount_Delete {
   permission: Boolean!
 }
 
@@ -12943,6 +12968,7 @@ type SettingsFields {
   insideDhaka: SettingsFields_insideDhaka
   outsideDhaka: SettingsFields_outsideDhaka
   freeShippingAmount: SettingsFields_freeShippingAmount
+  advancedPaymentAmount: SettingsFields_advancedPaymentAmount
   paymentOptions: SettingsFields_paymentOptions
   updatedAt: SettingsFields_updatedAt
   createdAt: SettingsFields_createdAt
@@ -13037,6 +13063,29 @@ type SettingsFields_freeShippingAmount_Update {
 }
 
 type SettingsFields_freeShippingAmount_Delete {
+  permission: Boolean!
+}
+
+type SettingsFields_advancedPaymentAmount {
+  create: SettingsFields_advancedPaymentAmount_Create
+  read: SettingsFields_advancedPaymentAmount_Read
+  update: SettingsFields_advancedPaymentAmount_Update
+  delete: SettingsFields_advancedPaymentAmount_Delete
+}
+
+type SettingsFields_advancedPaymentAmount_Create {
+  permission: Boolean!
+}
+
+type SettingsFields_advancedPaymentAmount_Read {
+  permission: Boolean!
+}
+
+type SettingsFields_advancedPaymentAmount_Update {
+  permission: Boolean!
+}
+
+type SettingsFields_advancedPaymentAmount_Delete {
   permission: Boolean!
 }
 
@@ -14297,6 +14346,7 @@ input mutationSettingsInput {
   insideDhaka: Float!
   outsideDhaka: Float!
   freeShippingAmount: Float
+  advancedPaymentAmount: Float!
   paymentOptions: [Settings_paymentOptions_MutationInput]
   updatedAt: String
   createdAt: String

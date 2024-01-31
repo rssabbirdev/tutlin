@@ -148,7 +148,9 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
       const paymentData = {
         full_name: fullUser.name,
         email: fullUser.email,
-        amount: totalAmountWithDeliveryCharge,
+        amount: body?.isAdvancedPayment
+          ? settings?.advancedPaymentAmount
+          : totalAmountWithDeliveryCharge,
         metadata: { user_id: fullUser?.id, order_id: orderId, transaction_id: transactionId },
         return_type: 'POST',
         redirect_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/uddoktapay-success?user_id=${fullUser?.id}&order_id=${orderId}&transaction_id=${transactionId}`,

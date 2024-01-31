@@ -10,6 +10,7 @@ import { Settings } from '../../../../payload/payload-types'
 import { calculateDeliveryFee } from '../../../../payload/utilities/calculateDeliveryFee'
 import { getFirstNameLastName } from '../../../../payload/utilities/getFirstNameLastName'
 import { Button } from '../../../_components/Button'
+import { HR } from '../../../_components/HR'
 import { Input } from '../../../_components/Input'
 import { LoadingShimmer } from '../../../_components/LoadingShimmer'
 import { RadioButton } from '../../../_components/Radio'
@@ -32,7 +33,14 @@ export const CheckoutPage: React.FC<{
   settings: Settings
 }> = props => {
   const {
-    settings: { productsPage, outsideDhaka, insideDhaka, paymentOptions, freeShippingAmount },
+    settings: {
+      productsPage,
+      outsideDhaka,
+      insideDhaka,
+      paymentOptions,
+      freeShippingAmount,
+      advancedPaymentAmount,
+    },
   } = props
   const { user } = useAuth()
   const {
@@ -48,14 +56,15 @@ export const CheckoutPage: React.FC<{
     key: 'insideDhaka',
     value: insideDhaka,
   })
-  const [paymentOption, setPaymentOption] = useState<string>('CashOnDelivery')
+  const [paymentOption, setPaymentOption] = useState<string>('UddoktaPay')
+  const [isAdvancedPayment, setIsAdvancedPayment] = useState<boolean>(true)
   const { theme } = useTheme()
 
   const { cart, cartIsEmpty, cartTotal } = useCart()
   const [loading, setLoading] = useState(false)
 
   const handleOrderSubmit = (data: FormData) => {
-    const order = { ...data, deliveryOption, paymentOption }
+    const order = { ...data, deliveryOption, paymentOption, isAdvancedPayment }
     setLoading(true)
     fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/submit-order`, {
       method: 'POST',
@@ -269,7 +278,7 @@ export const CheckoutPage: React.FC<{
               </div>
               <div className={classes.deliveryOption}>
                 <h6>Payment Option</h6>
-                {paymentOptions?.map(option => (
+                {/* {paymentOptions?.map(option => (
                   <RadioButton
                     groupName="paymentOptions"
                     isSelected={paymentOption === option}
@@ -277,7 +286,21 @@ export const CheckoutPage: React.FC<{
                     value={option}
                     onRadioChange={() => setPaymentOption(option)}
                   />
-                ))}
+                ))} */}
+                <RadioButton
+                  groupName="isAdvancedPayment"
+                  isSelected={isAdvancedPayment}
+                  label={'Advanced Payment'}
+                  value={'1'}
+                  onRadioChange={() => setIsAdvancedPayment(true)}
+                />
+                <RadioButton
+                  groupName="isAdvancedPayment"
+                  isSelected={!isAdvancedPayment}
+                  label={'Full Payment'}
+                  value={'2'}
+                  onRadioChange={() => setIsAdvancedPayment(false)}
+                />
               </div>
               <div className={classes.billing}>
                 <div className={classes.orderTotal}>
@@ -288,9 +311,27 @@ export const CheckoutPage: React.FC<{
                   <p>Delivery Charge</p>
                   <p>{deliveryFee} ৳</p>
                 </div>
+                {isAdvancedPayment && (
+                  <div className={classes.orderTotal}>
+                    <p>Total</p>
+                    <p>{Number(cartTotal.raw) + deliveryFee} ৳</p>
+                  </div>
+                )}
+                {isAdvancedPayment && (
+                  <div className={`${classes.orderTotal}`}>
+                    <p>Advanced</p>
+                    <p>-{advancedPaymentAmount} ৳</p>
+                  </div>
+                )}
+                {isAdvancedPayment && <hr />}
                 <div className={`${classes.orderTotal} ${classes.grandTotal}`}>
-                  <p>Grand Total</p>
-                  <p>{Number(cartTotal.raw) + deliveryFee} ৳</p>
+                  <p>{isAdvancedPayment ? 'Pay with Cash On Delivery' : 'Grand Total'}</p>
+                  <p>
+                    {isAdvancedPayment
+                      ? Number(cartTotal.raw) + deliveryFee - advancedPaymentAmount
+                      : Number(cartTotal.raw) + deliveryFee}{' '}
+                    ৳
+                  </p>
                 </div>
               </div>
             </ul>
@@ -306,7 +347,11 @@ export const CheckoutPage: React.FC<{
                   : `${
                       paymentOption === 'CashOnDelivery'
                         ? `Place Order ${Number(cartTotal.raw) + deliveryFee} ৳`
-                        : `Pay ${Number(cartTotal.raw) + deliveryFee} ৳ with ${paymentOption}`
+                        : `Pay ${
+                            isAdvancedPayment
+                              ? advancedPaymentAmount
+                              : Number(cartTotal.raw) + deliveryFee
+                          } ৳ with ${paymentOption}`
                     }`
               }
               disabled={loading}

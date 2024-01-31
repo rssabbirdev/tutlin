@@ -35,6 +35,7 @@ export const SETTINGS = `
     insideDhaka
     paymentOptions
     freeShippingAmount
+    advancedPaymentAmount
     productsPage {
       slug
     }

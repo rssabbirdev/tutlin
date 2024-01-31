@@ -507,6 +507,7 @@ export interface Settings {
   insideDhaka: number;
   outsideDhaka: number;
   freeShippingAmount?: number | null;
+  advancedPaymentAmount: number;
   paymentOptions?: ('Cash On Delivery' | 'SSLCommerz' | 'Bkash' | 'UddoktaPay')[] | null;
   updatedAt?: string | null;
   createdAt?: string | null;
