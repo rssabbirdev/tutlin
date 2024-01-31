@@ -217,6 +217,10 @@ export const Orders: CollectionConfig = {
       },
       options: [
         {
+          label: 'Pending',
+          value: 'Pending',
+        },
+        {
           label: 'Unpaid',
           value: 'Unpaid',
         },

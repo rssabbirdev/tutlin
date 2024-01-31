@@ -5159,6 +5159,7 @@ enum Order_orderStatus {
 }
 
 enum Order_paymentStatus {
+  Pending
   Unpaid
   PartialPaid
   Paid
@@ -5410,6 +5411,7 @@ input Order_paymentStatus_operator {
 }
 
 enum Order_paymentStatus_Input {
+  Pending
   Unpaid
   PartialPaid
   Paid
@@ -14055,6 +14057,7 @@ enum Order_orderStatus_MutationInput {
 }
 
 enum Order_paymentStatus_MutationInput {
+  Pending
   Unpaid
   PartialPaid
   Paid
@@ -14098,6 +14101,7 @@ enum OrderUpdate_orderStatus_MutationInput {
 }
 
 enum OrderUpdate_paymentStatus_MutationInput {
+  Pending
   Unpaid
   PartialPaid
   Paid

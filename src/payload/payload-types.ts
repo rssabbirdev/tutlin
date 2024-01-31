@@ -426,7 +426,7 @@ export interface Order {
   transactionId?: string | null;
   orderId: string;
   valId?: string | null;
-  paymentStatus?: ('Unpaid' | 'Partial Paid' | 'Paid') | null;
+  paymentStatus?: ('Pending' | 'Unpaid' | 'Partial Paid' | 'Paid') | null;
   updatedAt: string;
   createdAt: string;
 }
