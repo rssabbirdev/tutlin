@@ -3,6 +3,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { sendGTMEvent } from '@next/third-parties/google'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -294,6 +295,7 @@ export const CheckoutPage: React.FC<{
                   value={'1'}
                   onRadioChange={() => setIsAdvancedPayment(true)}
                 />
+
                 <RadioButton
                   groupName="isAdvancedPayment"
                   isSelected={!isAdvancedPayment}
@@ -301,6 +303,11 @@ export const CheckoutPage: React.FC<{
                   value={'2'}
                   onRadioChange={() => setIsAdvancedPayment(false)}
                 />
+                {isAdvancedPayment && (
+                  <p className={classes.billing}>
+                    আমাদের গেজেট এবং এক্সেসরিজ আইটেম অর্ডারের ক্ষেত্রে আংশিক পেমেন্ট বাধ্যতামূলক।
+                  </p>
+                )}
               </div>
               <div className={classes.billing}>
                 <div className={classes.orderTotal}>
@@ -351,12 +358,23 @@ export const CheckoutPage: React.FC<{
                             isAdvancedPayment
                               ? advancedPaymentAmount
                               : Number(cartTotal.raw) + deliveryFee
-                          } ৳ with ${paymentOption}`
+                          } ৳ with ${paymentOption !== 'UddoktaPay' ? paymentOption : ''}`
                     }`
               }
               disabled={loading}
               appearance="primary"
-            />
+            >
+              <div style={{ marginLeft: '5px' }}>
+                {!loading && (
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}/assets/images/uddoktapay-logo.png`}
+                    height={40}
+                    width={110}
+                    alt="uddoktapay logo"
+                  />
+                )}
+              </div>
+            </Button>
           </Fragment>
         </form>
       )}
