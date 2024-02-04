@@ -154,7 +154,7 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         metadata: { user_id: fullUser?.id, order_id: orderId, transaction_id: transactionId },
         return_type: 'POST',
         redirect_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/uddoktapay-success?user_id=${fullUser?.id}&order_id=${orderId}&transaction_id=${transactionId}`,
-        cancel_url: 'https://your-domain.com/cancel',
+        cancel_url: process.env.NEXT_PUBLIC_SERVER_URL,
         webhook_url: 'https://your-domain.com/ipn',
       }
       fetch(`${process.env.UDDOKTAPAY_BASE_URL}/api/checkout-v2`, {
