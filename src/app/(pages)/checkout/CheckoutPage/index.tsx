@@ -120,6 +120,39 @@ export const CheckoutPage: React.FC<{
           window.location.href = data.GatewayPageURL
         } else if (paymentOption === 'Bkash') {
         } else if (paymentOption === 'UddoktaPay') {
+          sendGTMEvent({
+            event: 'Purchase',
+            content_category: cart?.items?.map(
+              // @ts-expect-error
+              (p, i) => p.product?.categories?.map(c => c?.title)[i],
+            ),
+            // @ts-expect-error
+            content_ids: cart?.items?.map(p => p.product?.sku),
+            // @ts-expect-error
+            content_name: cart?.items?.map(p => p.product?.title),
+            contents: cart?.items?.map(p => {
+              return {
+                // @ts-expect-error
+                content_name: p?.product?.title,
+                num_items: p?.quantity,
+                currency: 'BDT',
+                // @ts-expect-error
+                value: p?.product?.productPrice,
+              }
+            }),
+            currency: 'BDT',
+            num_items: cart?.items?.reduce((acc, item) => acc + item?.quantity, 0),
+            value: cart?.items?.reduce(
+              // @ts-expect-error
+              (acc, item) => acc + item?.product?.productPrice * item?.quantity,
+              0,
+            ),
+            city: order?.district,
+            email: user?.email,
+            firstName: getFirstNameLastName(user?.name, 0),
+            lastName: getFirstNameLastName(user?.name, 1),
+            phoneNumber: order?.phoneNumber,
+          })
           window.location.href = data.GatewayPageURL
         }
       })
