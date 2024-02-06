@@ -52,13 +52,15 @@ export const CartPage: React.FC<{
         0,
       ),
     })
-    if (user) {
-      setLoading(true)
-      router.push('/checkout')
-    } else {
-      setLoading(true)
-      router.push('/login?redirect=%2Fcheckout')
-    }
+    // if (user) {
+    //   setLoading(true)
+    //   router.push('/checkout')
+    // } else {
+    //   setLoading(true)
+    //   router.push('/login?redirect=%2Fcheckout')
+    // }
+    setLoading(true)
+    router.push('/guest-checkout')
   }
 
   return (
@@ -150,11 +152,12 @@ export const CartPage: React.FC<{
                   onClick={InitiateCheckout}
                   el="button"
                   className={classes.checkoutButton}
-                  label={
-                    user
-                      ? `${loading ? 'Processing' : 'Checkout'}`
-                      : `${loading ? 'Processing' : 'Login to checkout'}`
-                  }
+                  // label={
+                  //   user
+                  //     ? `${loading ? 'Processing' : 'Checkout'}`
+                  //     : `${loading ? 'Processing' : 'Login to checkout'}`
+                  // }
+                  label={loading ? 'Processing' : 'Checkout'}
                   disabled={loading}
                   appearance="primary"
                 />
