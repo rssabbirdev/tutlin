@@ -1,6 +1,7 @@
 import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 
 import type { Config } from '../../payload/payload-types'
+import { GUESTORDER } from '../_graphql/guestorders'
 import { ORDER } from '../_graphql/orders'
 import { PAGE } from '../_graphql/pages'
 import { PRODUCT } from '../_graphql/products'
@@ -18,6 +19,10 @@ const queryMap = {
   },
   orders: {
     query: ORDER,
+    key: 'Orders',
+  },
+  guestorders: {
+    query: GUESTORDER,
     key: 'Orders',
   },
 }

@@ -22,6 +22,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    guestorders: Guestorder;
     redirects: Redirect;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -455,6 +456,34 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password: string | null;
+}
+export interface Guestorder {
+  id: string;
+  orderedBy?: string | null;
+  total: number;
+  paidAmount: number;
+  dueAmount: number;
+  phoneNumber: string;
+  district: string;
+  deliveryFullAddress: string;
+  deliveryOption: string;
+  deliveryFee: number;
+  paymentOption: string;
+  items?:
+    | {
+        product: string | Product;
+        price?: number | null;
+        quantity?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  orderStatus?: ('Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled') | null;
+  transactionId?: string | null;
+  orderId: string;
+  valId?: string | null;
+  paymentStatus?: ('Pending' | 'Unpaid' | 'Partial Paid' | 'Paid') | null;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface Redirect {
   id: string;

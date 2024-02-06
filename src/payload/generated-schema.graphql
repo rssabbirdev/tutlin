@@ -23,6 +23,9 @@ type Query {
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
+  Guestorder(id: String!, draft: Boolean): Guestorder
+  Guestorders(draft: Boolean, where: Guestorder_where, limit: Int, page: Int, sort: String): Guestorders
+  docAccessGuestorder(id: String!): guestordersDocAccess
   Redirect(id: String!, draft: Boolean): Redirect
   Redirects(draft: Boolean, where: Redirect_where, limit: Int, page: Int, sort: String): Redirects
   docAccessRedirect(id: String!): redirectsDocAccess
@@ -7741,6 +7744,942 @@ type usersMe {
   user: User
 }
 
+type Guestorder {
+  id: String
+  orderedBy: String
+  total: Float!
+  paidAmount: Float!
+  dueAmount: Float!
+  phoneNumber: String!
+  district: String!
+  deliveryFullAddress: String!
+  deliveryOption: String!
+  deliveryFee: Float!
+  paymentOption: String!
+  items: [Guestorder_Items!]
+  orderStatus: Guestorder_orderStatus
+  transactionId: String
+  orderId: String!
+  valId: String
+  paymentStatus: Guestorder_paymentStatus
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Guestorder_Items {
+  product: Product
+  price: Float
+  quantity: Float
+  id: String
+}
+
+enum Guestorder_orderStatus {
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
+}
+
+enum Guestorder_paymentStatus {
+  Pending
+  Unpaid
+  PartialPaid
+  Paid
+}
+
+type Guestorders {
+  docs: [Guestorder]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Guestorder_where {
+  orderedBy: Guestorder_orderedBy_operator
+  total: Guestorder_total_operator
+  paidAmount: Guestorder_paidAmount_operator
+  dueAmount: Guestorder_dueAmount_operator
+  phoneNumber: Guestorder_phoneNumber_operator
+  district: Guestorder_district_operator
+  deliveryFullAddress: Guestorder_deliveryFullAddress_operator
+  deliveryOption: Guestorder_deliveryOption_operator
+  deliveryFee: Guestorder_deliveryFee_operator
+  paymentOption: Guestorder_paymentOption_operator
+  items__product: Guestorder_items__product_operator
+  items__price: Guestorder_items__price_operator
+  items__quantity: Guestorder_items__quantity_operator
+  items__id: Guestorder_items__id_operator
+  orderStatus: Guestorder_orderStatus_operator
+  transactionId: Guestorder_transactionId_operator
+  orderId: Guestorder_orderId_operator
+  valId: Guestorder_valId_operator
+  paymentStatus: Guestorder_paymentStatus_operator
+  updatedAt: Guestorder_updatedAt_operator
+  createdAt: Guestorder_createdAt_operator
+  id: Guestorder_id_operator
+  AND: [Guestorder_where_and]
+  OR: [Guestorder_where_or]
+}
+
+input Guestorder_orderedBy_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Guestorder_total_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Guestorder_paidAmount_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Guestorder_dueAmount_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Guestorder_phoneNumber_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Guestorder_district_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Guestorder_deliveryFullAddress_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Guestorder_deliveryOption_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Guestorder_deliveryFee_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Guestorder_paymentOption_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Guestorder_items__product_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Guestorder_items__price_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Guestorder_items__quantity_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Guestorder_items__id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Guestorder_orderStatus_operator {
+  equals: Guestorder_orderStatus_Input
+  not_equals: Guestorder_orderStatus_Input
+  in: [Guestorder_orderStatus_Input]
+  not_in: [Guestorder_orderStatus_Input]
+  all: [Guestorder_orderStatus_Input]
+  exists: Boolean
+}
+
+enum Guestorder_orderStatus_Input {
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
+}
+
+input Guestorder_transactionId_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Guestorder_orderId_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Guestorder_valId_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Guestorder_paymentStatus_operator {
+  equals: Guestorder_paymentStatus_Input
+  not_equals: Guestorder_paymentStatus_Input
+  in: [Guestorder_paymentStatus_Input]
+  not_in: [Guestorder_paymentStatus_Input]
+  all: [Guestorder_paymentStatus_Input]
+  exists: Boolean
+}
+
+enum Guestorder_paymentStatus_Input {
+  Pending
+  Unpaid
+  PartialPaid
+  Paid
+}
+
+input Guestorder_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Guestorder_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Guestorder_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Guestorder_where_and {
+  orderedBy: Guestorder_orderedBy_operator
+  total: Guestorder_total_operator
+  paidAmount: Guestorder_paidAmount_operator
+  dueAmount: Guestorder_dueAmount_operator
+  phoneNumber: Guestorder_phoneNumber_operator
+  district: Guestorder_district_operator
+  deliveryFullAddress: Guestorder_deliveryFullAddress_operator
+  deliveryOption: Guestorder_deliveryOption_operator
+  deliveryFee: Guestorder_deliveryFee_operator
+  paymentOption: Guestorder_paymentOption_operator
+  items__product: Guestorder_items__product_operator
+  items__price: Guestorder_items__price_operator
+  items__quantity: Guestorder_items__quantity_operator
+  items__id: Guestorder_items__id_operator
+  orderStatus: Guestorder_orderStatus_operator
+  transactionId: Guestorder_transactionId_operator
+  orderId: Guestorder_orderId_operator
+  valId: Guestorder_valId_operator
+  paymentStatus: Guestorder_paymentStatus_operator
+  updatedAt: Guestorder_updatedAt_operator
+  createdAt: Guestorder_createdAt_operator
+  id: Guestorder_id_operator
+  AND: [Guestorder_where_and]
+  OR: [Guestorder_where_or]
+}
+
+input Guestorder_where_or {
+  orderedBy: Guestorder_orderedBy_operator
+  total: Guestorder_total_operator
+  paidAmount: Guestorder_paidAmount_operator
+  dueAmount: Guestorder_dueAmount_operator
+  phoneNumber: Guestorder_phoneNumber_operator
+  district: Guestorder_district_operator
+  deliveryFullAddress: Guestorder_deliveryFullAddress_operator
+  deliveryOption: Guestorder_deliveryOption_operator
+  deliveryFee: Guestorder_deliveryFee_operator
+  paymentOption: Guestorder_paymentOption_operator
+  items__product: Guestorder_items__product_operator
+  items__price: Guestorder_items__price_operator
+  items__quantity: Guestorder_items__quantity_operator
+  items__id: Guestorder_items__id_operator
+  orderStatus: Guestorder_orderStatus_operator
+  transactionId: Guestorder_transactionId_operator
+  orderId: Guestorder_orderId_operator
+  valId: Guestorder_valId_operator
+  paymentStatus: Guestorder_paymentStatus_operator
+  updatedAt: Guestorder_updatedAt_operator
+  createdAt: Guestorder_createdAt_operator
+  id: Guestorder_id_operator
+  AND: [Guestorder_where_and]
+  OR: [Guestorder_where_or]
+}
+
+type guestordersDocAccess {
+  fields: GuestordersDocAccessFields
+  create: GuestordersCreateDocAccess
+  read: GuestordersReadDocAccess
+  update: GuestordersUpdateDocAccess
+  delete: GuestordersDeleteDocAccess
+}
+
+type GuestordersDocAccessFields {
+  orderedBy: GuestordersDocAccessFields_orderedBy
+  total: GuestordersDocAccessFields_total
+  paidAmount: GuestordersDocAccessFields_paidAmount
+  dueAmount: GuestordersDocAccessFields_dueAmount
+  phoneNumber: GuestordersDocAccessFields_phoneNumber
+  district: GuestordersDocAccessFields_district
+  deliveryFullAddress: GuestordersDocAccessFields_deliveryFullAddress
+  deliveryOption: GuestordersDocAccessFields_deliveryOption
+  deliveryFee: GuestordersDocAccessFields_deliveryFee
+  paymentOption: GuestordersDocAccessFields_paymentOption
+  items: GuestordersDocAccessFields_items
+  orderStatus: GuestordersDocAccessFields_orderStatus
+  transactionId: GuestordersDocAccessFields_transactionId
+  orderId: GuestordersDocAccessFields_orderId
+  valId: GuestordersDocAccessFields_valId
+  paymentStatus: GuestordersDocAccessFields_paymentStatus
+  updatedAt: GuestordersDocAccessFields_updatedAt
+  createdAt: GuestordersDocAccessFields_createdAt
+}
+
+type GuestordersDocAccessFields_orderedBy {
+  create: GuestordersDocAccessFields_orderedBy_Create
+  read: GuestordersDocAccessFields_orderedBy_Read
+  update: GuestordersDocAccessFields_orderedBy_Update
+  delete: GuestordersDocAccessFields_orderedBy_Delete
+}
+
+type GuestordersDocAccessFields_orderedBy_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderedBy_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderedBy_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderedBy_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_total {
+  create: GuestordersDocAccessFields_total_Create
+  read: GuestordersDocAccessFields_total_Read
+  update: GuestordersDocAccessFields_total_Update
+  delete: GuestordersDocAccessFields_total_Delete
+}
+
+type GuestordersDocAccessFields_total_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_total_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_total_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_total_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paidAmount {
+  create: GuestordersDocAccessFields_paidAmount_Create
+  read: GuestordersDocAccessFields_paidAmount_Read
+  update: GuestordersDocAccessFields_paidAmount_Update
+  delete: GuestordersDocAccessFields_paidAmount_Delete
+}
+
+type GuestordersDocAccessFields_paidAmount_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paidAmount_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paidAmount_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paidAmount_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_dueAmount {
+  create: GuestordersDocAccessFields_dueAmount_Create
+  read: GuestordersDocAccessFields_dueAmount_Read
+  update: GuestordersDocAccessFields_dueAmount_Update
+  delete: GuestordersDocAccessFields_dueAmount_Delete
+}
+
+type GuestordersDocAccessFields_dueAmount_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_dueAmount_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_dueAmount_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_dueAmount_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_phoneNumber {
+  create: GuestordersDocAccessFields_phoneNumber_Create
+  read: GuestordersDocAccessFields_phoneNumber_Read
+  update: GuestordersDocAccessFields_phoneNumber_Update
+  delete: GuestordersDocAccessFields_phoneNumber_Delete
+}
+
+type GuestordersDocAccessFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_district {
+  create: GuestordersDocAccessFields_district_Create
+  read: GuestordersDocAccessFields_district_Read
+  update: GuestordersDocAccessFields_district_Update
+  delete: GuestordersDocAccessFields_district_Delete
+}
+
+type GuestordersDocAccessFields_district_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_district_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_district_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_district_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryFullAddress {
+  create: GuestordersDocAccessFields_deliveryFullAddress_Create
+  read: GuestordersDocAccessFields_deliveryFullAddress_Read
+  update: GuestordersDocAccessFields_deliveryFullAddress_Update
+  delete: GuestordersDocAccessFields_deliveryFullAddress_Delete
+}
+
+type GuestordersDocAccessFields_deliveryFullAddress_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryFullAddress_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryFullAddress_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryFullAddress_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryOption {
+  create: GuestordersDocAccessFields_deliveryOption_Create
+  read: GuestordersDocAccessFields_deliveryOption_Read
+  update: GuestordersDocAccessFields_deliveryOption_Update
+  delete: GuestordersDocAccessFields_deliveryOption_Delete
+}
+
+type GuestordersDocAccessFields_deliveryOption_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryOption_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryOption_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryOption_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryFee {
+  create: GuestordersDocAccessFields_deliveryFee_Create
+  read: GuestordersDocAccessFields_deliveryFee_Read
+  update: GuestordersDocAccessFields_deliveryFee_Update
+  delete: GuestordersDocAccessFields_deliveryFee_Delete
+}
+
+type GuestordersDocAccessFields_deliveryFee_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryFee_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryFee_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_deliveryFee_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paymentOption {
+  create: GuestordersDocAccessFields_paymentOption_Create
+  read: GuestordersDocAccessFields_paymentOption_Read
+  update: GuestordersDocAccessFields_paymentOption_Update
+  delete: GuestordersDocAccessFields_paymentOption_Delete
+}
+
+type GuestordersDocAccessFields_paymentOption_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paymentOption_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paymentOption_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paymentOption_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items {
+  create: GuestordersDocAccessFields_items_Create
+  read: GuestordersDocAccessFields_items_Read
+  update: GuestordersDocAccessFields_items_Update
+  delete: GuestordersDocAccessFields_items_Delete
+  fields: GuestordersDocAccessFields_items_Fields
+}
+
+type GuestordersDocAccessFields_items_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_Fields {
+  product: GuestordersDocAccessFields_items_product
+  price: GuestordersDocAccessFields_items_price
+  quantity: GuestordersDocAccessFields_items_quantity
+  id: GuestordersDocAccessFields_items_id
+}
+
+type GuestordersDocAccessFields_items_product {
+  create: GuestordersDocAccessFields_items_product_Create
+  read: GuestordersDocAccessFields_items_product_Read
+  update: GuestordersDocAccessFields_items_product_Update
+  delete: GuestordersDocAccessFields_items_product_Delete
+}
+
+type GuestordersDocAccessFields_items_product_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_product_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_product_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_product_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_price {
+  create: GuestordersDocAccessFields_items_price_Create
+  read: GuestordersDocAccessFields_items_price_Read
+  update: GuestordersDocAccessFields_items_price_Update
+  delete: GuestordersDocAccessFields_items_price_Delete
+}
+
+type GuestordersDocAccessFields_items_price_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_price_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_price_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_price_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_quantity {
+  create: GuestordersDocAccessFields_items_quantity_Create
+  read: GuestordersDocAccessFields_items_quantity_Read
+  update: GuestordersDocAccessFields_items_quantity_Update
+  delete: GuestordersDocAccessFields_items_quantity_Delete
+}
+
+type GuestordersDocAccessFields_items_quantity_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_quantity_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_quantity_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_quantity_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_id {
+  create: GuestordersDocAccessFields_items_id_Create
+  read: GuestordersDocAccessFields_items_id_Read
+  update: GuestordersDocAccessFields_items_id_Update
+  delete: GuestordersDocAccessFields_items_id_Delete
+}
+
+type GuestordersDocAccessFields_items_id_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_id_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_id_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_items_id_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderStatus {
+  create: GuestordersDocAccessFields_orderStatus_Create
+  read: GuestordersDocAccessFields_orderStatus_Read
+  update: GuestordersDocAccessFields_orderStatus_Update
+  delete: GuestordersDocAccessFields_orderStatus_Delete
+}
+
+type GuestordersDocAccessFields_orderStatus_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderStatus_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderStatus_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderStatus_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_transactionId {
+  create: GuestordersDocAccessFields_transactionId_Create
+  read: GuestordersDocAccessFields_transactionId_Read
+  update: GuestordersDocAccessFields_transactionId_Update
+  delete: GuestordersDocAccessFields_transactionId_Delete
+}
+
+type GuestordersDocAccessFields_transactionId_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_transactionId_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_transactionId_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_transactionId_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderId {
+  create: GuestordersDocAccessFields_orderId_Create
+  read: GuestordersDocAccessFields_orderId_Read
+  update: GuestordersDocAccessFields_orderId_Update
+  delete: GuestordersDocAccessFields_orderId_Delete
+}
+
+type GuestordersDocAccessFields_orderId_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderId_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderId_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_orderId_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_valId {
+  create: GuestordersDocAccessFields_valId_Create
+  read: GuestordersDocAccessFields_valId_Read
+  update: GuestordersDocAccessFields_valId_Update
+  delete: GuestordersDocAccessFields_valId_Delete
+}
+
+type GuestordersDocAccessFields_valId_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_valId_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_valId_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_valId_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paymentStatus {
+  create: GuestordersDocAccessFields_paymentStatus_Create
+  read: GuestordersDocAccessFields_paymentStatus_Read
+  update: GuestordersDocAccessFields_paymentStatus_Update
+  delete: GuestordersDocAccessFields_paymentStatus_Delete
+}
+
+type GuestordersDocAccessFields_paymentStatus_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paymentStatus_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paymentStatus_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_paymentStatus_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_updatedAt {
+  create: GuestordersDocAccessFields_updatedAt_Create
+  read: GuestordersDocAccessFields_updatedAt_Read
+  update: GuestordersDocAccessFields_updatedAt_Update
+  delete: GuestordersDocAccessFields_updatedAt_Delete
+}
+
+type GuestordersDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_createdAt {
+  create: GuestordersDocAccessFields_createdAt_Create
+  read: GuestordersDocAccessFields_createdAt_Read
+  update: GuestordersDocAccessFields_createdAt_Update
+  delete: GuestordersDocAccessFields_createdAt_Delete
+}
+
+type GuestordersDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type GuestordersCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type GuestordersReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type GuestordersUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type GuestordersDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Redirect {
   id: String
   from: String!
@@ -9622,6 +10561,7 @@ type Access {
   media: mediaAccess
   categories: categoriesAccess
   users: usersAccess
+  guestorders: guestordersAccess
   redirects: redirectsAccess
   payload_preferences: payload_preferencesAccess
   settings: settingsAccess
@@ -12605,6 +13545,569 @@ type UsersUnlockAccess {
   where: JSONObject
 }
 
+type guestordersAccess {
+  fields: GuestordersFields
+  create: GuestordersCreateAccess
+  read: GuestordersReadAccess
+  update: GuestordersUpdateAccess
+  delete: GuestordersDeleteAccess
+}
+
+type GuestordersFields {
+  orderedBy: GuestordersFields_orderedBy
+  total: GuestordersFields_total
+  paidAmount: GuestordersFields_paidAmount
+  dueAmount: GuestordersFields_dueAmount
+  phoneNumber: GuestordersFields_phoneNumber
+  district: GuestordersFields_district
+  deliveryFullAddress: GuestordersFields_deliveryFullAddress
+  deliveryOption: GuestordersFields_deliveryOption
+  deliveryFee: GuestordersFields_deliveryFee
+  paymentOption: GuestordersFields_paymentOption
+  items: GuestordersFields_items
+  orderStatus: GuestordersFields_orderStatus
+  transactionId: GuestordersFields_transactionId
+  orderId: GuestordersFields_orderId
+  valId: GuestordersFields_valId
+  paymentStatus: GuestordersFields_paymentStatus
+  updatedAt: GuestordersFields_updatedAt
+  createdAt: GuestordersFields_createdAt
+}
+
+type GuestordersFields_orderedBy {
+  create: GuestordersFields_orderedBy_Create
+  read: GuestordersFields_orderedBy_Read
+  update: GuestordersFields_orderedBy_Update
+  delete: GuestordersFields_orderedBy_Delete
+}
+
+type GuestordersFields_orderedBy_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderedBy_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderedBy_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderedBy_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_total {
+  create: GuestordersFields_total_Create
+  read: GuestordersFields_total_Read
+  update: GuestordersFields_total_Update
+  delete: GuestordersFields_total_Delete
+}
+
+type GuestordersFields_total_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_total_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_total_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_total_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_paidAmount {
+  create: GuestordersFields_paidAmount_Create
+  read: GuestordersFields_paidAmount_Read
+  update: GuestordersFields_paidAmount_Update
+  delete: GuestordersFields_paidAmount_Delete
+}
+
+type GuestordersFields_paidAmount_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_paidAmount_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_paidAmount_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_paidAmount_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_dueAmount {
+  create: GuestordersFields_dueAmount_Create
+  read: GuestordersFields_dueAmount_Read
+  update: GuestordersFields_dueAmount_Update
+  delete: GuestordersFields_dueAmount_Delete
+}
+
+type GuestordersFields_dueAmount_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_dueAmount_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_dueAmount_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_dueAmount_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_phoneNumber {
+  create: GuestordersFields_phoneNumber_Create
+  read: GuestordersFields_phoneNumber_Read
+  update: GuestordersFields_phoneNumber_Update
+  delete: GuestordersFields_phoneNumber_Delete
+}
+
+type GuestordersFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_district {
+  create: GuestordersFields_district_Create
+  read: GuestordersFields_district_Read
+  update: GuestordersFields_district_Update
+  delete: GuestordersFields_district_Delete
+}
+
+type GuestordersFields_district_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_district_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_district_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_district_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryFullAddress {
+  create: GuestordersFields_deliveryFullAddress_Create
+  read: GuestordersFields_deliveryFullAddress_Read
+  update: GuestordersFields_deliveryFullAddress_Update
+  delete: GuestordersFields_deliveryFullAddress_Delete
+}
+
+type GuestordersFields_deliveryFullAddress_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryFullAddress_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryFullAddress_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryFullAddress_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryOption {
+  create: GuestordersFields_deliveryOption_Create
+  read: GuestordersFields_deliveryOption_Read
+  update: GuestordersFields_deliveryOption_Update
+  delete: GuestordersFields_deliveryOption_Delete
+}
+
+type GuestordersFields_deliveryOption_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryOption_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryOption_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryOption_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryFee {
+  create: GuestordersFields_deliveryFee_Create
+  read: GuestordersFields_deliveryFee_Read
+  update: GuestordersFields_deliveryFee_Update
+  delete: GuestordersFields_deliveryFee_Delete
+}
+
+type GuestordersFields_deliveryFee_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryFee_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryFee_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_deliveryFee_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_paymentOption {
+  create: GuestordersFields_paymentOption_Create
+  read: GuestordersFields_paymentOption_Read
+  update: GuestordersFields_paymentOption_Update
+  delete: GuestordersFields_paymentOption_Delete
+}
+
+type GuestordersFields_paymentOption_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_paymentOption_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_paymentOption_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_paymentOption_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_items {
+  create: GuestordersFields_items_Create
+  read: GuestordersFields_items_Read
+  update: GuestordersFields_items_Update
+  delete: GuestordersFields_items_Delete
+  fields: GuestordersFields_items_Fields
+}
+
+type GuestordersFields_items_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_Fields {
+  product: GuestordersFields_items_product
+  price: GuestordersFields_items_price
+  quantity: GuestordersFields_items_quantity
+  id: GuestordersFields_items_id
+}
+
+type GuestordersFields_items_product {
+  create: GuestordersFields_items_product_Create
+  read: GuestordersFields_items_product_Read
+  update: GuestordersFields_items_product_Update
+  delete: GuestordersFields_items_product_Delete
+}
+
+type GuestordersFields_items_product_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_product_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_product_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_product_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_price {
+  create: GuestordersFields_items_price_Create
+  read: GuestordersFields_items_price_Read
+  update: GuestordersFields_items_price_Update
+  delete: GuestordersFields_items_price_Delete
+}
+
+type GuestordersFields_items_price_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_price_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_price_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_price_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_quantity {
+  create: GuestordersFields_items_quantity_Create
+  read: GuestordersFields_items_quantity_Read
+  update: GuestordersFields_items_quantity_Update
+  delete: GuestordersFields_items_quantity_Delete
+}
+
+type GuestordersFields_items_quantity_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_quantity_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_quantity_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_quantity_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_id {
+  create: GuestordersFields_items_id_Create
+  read: GuestordersFields_items_id_Read
+  update: GuestordersFields_items_id_Update
+  delete: GuestordersFields_items_id_Delete
+}
+
+type GuestordersFields_items_id_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_id_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_id_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_items_id_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderStatus {
+  create: GuestordersFields_orderStatus_Create
+  read: GuestordersFields_orderStatus_Read
+  update: GuestordersFields_orderStatus_Update
+  delete: GuestordersFields_orderStatus_Delete
+}
+
+type GuestordersFields_orderStatus_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderStatus_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderStatus_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderStatus_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_transactionId {
+  create: GuestordersFields_transactionId_Create
+  read: GuestordersFields_transactionId_Read
+  update: GuestordersFields_transactionId_Update
+  delete: GuestordersFields_transactionId_Delete
+}
+
+type GuestordersFields_transactionId_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_transactionId_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_transactionId_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_transactionId_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderId {
+  create: GuestordersFields_orderId_Create
+  read: GuestordersFields_orderId_Read
+  update: GuestordersFields_orderId_Update
+  delete: GuestordersFields_orderId_Delete
+}
+
+type GuestordersFields_orderId_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderId_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderId_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_orderId_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_valId {
+  create: GuestordersFields_valId_Create
+  read: GuestordersFields_valId_Read
+  update: GuestordersFields_valId_Update
+  delete: GuestordersFields_valId_Delete
+}
+
+type GuestordersFields_valId_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_valId_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_valId_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_valId_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_paymentStatus {
+  create: GuestordersFields_paymentStatus_Create
+  read: GuestordersFields_paymentStatus_Read
+  update: GuestordersFields_paymentStatus_Update
+  delete: GuestordersFields_paymentStatus_Delete
+}
+
+type GuestordersFields_paymentStatus_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_paymentStatus_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_paymentStatus_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_paymentStatus_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_updatedAt {
+  create: GuestordersFields_updatedAt_Create
+  read: GuestordersFields_updatedAt_Read
+  update: GuestordersFields_updatedAt_Update
+  delete: GuestordersFields_updatedAt_Delete
+}
+
+type GuestordersFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_createdAt {
+  create: GuestordersFields_createdAt_Create
+  read: GuestordersFields_createdAt_Read
+  update: GuestordersFields_createdAt_Update
+  delete: GuestordersFields_createdAt_Delete
+}
+
+type GuestordersFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type GuestordersCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type GuestordersReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type GuestordersUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type GuestordersDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type redirectsAccess {
   fields: RedirectsFields
   create: RedirectsCreateAccess
@@ -13804,6 +15307,9 @@ type Mutation {
   forgotPasswordUser(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
+  createGuestorder(data: mutationGuestorderInput!, draft: Boolean): Guestorder
+  updateGuestorder(id: String!, autosave: Boolean, data: mutationGuestorderUpdateInput!, draft: Boolean): Guestorder
+  deleteGuestorder(id: String!): Guestorder
   createRedirect(data: mutationRedirectInput!, draft: Boolean): Redirect
   updateRedirect(id: String!, autosave: Boolean, data: mutationRedirectUpdateInput!, draft: Boolean): Redirect
   deleteRedirect(id: String!): Redirect
@@ -14263,6 +15769,92 @@ type usersLoginResult {
 type usersResetPassword {
   token: String
   user: User
+}
+
+input mutationGuestorderInput {
+  orderedBy: String
+  total: Float!
+  paidAmount: Float!
+  dueAmount: Float!
+  phoneNumber: String!
+  district: String!
+  deliveryFullAddress: String!
+  deliveryOption: String!
+  deliveryFee: Float!
+  paymentOption: String!
+  items: [mutationGuestorder_ItemsInput]
+  orderStatus: Guestorder_orderStatus_MutationInput
+  transactionId: String
+  orderId: String!
+  valId: String
+  paymentStatus: Guestorder_paymentStatus_MutationInput
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationGuestorder_ItemsInput {
+  product: String
+  price: Float
+  quantity: Float
+  id: String
+}
+
+enum Guestorder_orderStatus_MutationInput {
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
+}
+
+enum Guestorder_paymentStatus_MutationInput {
+  Pending
+  Unpaid
+  PartialPaid
+  Paid
+}
+
+input mutationGuestorderUpdateInput {
+  orderedBy: String
+  total: Float
+  paidAmount: Float
+  dueAmount: Float
+  phoneNumber: String
+  district: String
+  deliveryFullAddress: String
+  deliveryOption: String
+  deliveryFee: Float
+  paymentOption: String
+  items: [mutationGuestorderUpdate_ItemsInput]
+  orderStatus: GuestorderUpdate_orderStatus_MutationInput
+  transactionId: String
+  orderId: String
+  valId: String
+  paymentStatus: GuestorderUpdate_paymentStatus_MutationInput
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationGuestorderUpdate_ItemsInput {
+  product: String
+  price: Float
+  quantity: Float
+  id: String
+}
+
+enum GuestorderUpdate_orderStatus_MutationInput {
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
+}
+
+enum GuestorderUpdate_paymentStatus_MutationInput {
+  Pending
+  Unpaid
+  PartialPaid
+  Paid
 }
 
 input mutationRedirectInput {
