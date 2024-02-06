@@ -2,8 +2,8 @@ import payload from 'payload'
 import type { PayloadHandler } from 'payload/config'
 
 export const uddoktapaySuccessHandler: PayloadHandler = async (req, res): Promise<void> => {
-  const { user_id, order_id, transaction_id } = req.query
-  if (!user_id && !order_id && !transaction_id) {
+  const { order_id, transaction_id } = req.query
+  if (!order_id && !transaction_id) {
     res.status(401).send('Invalid Request')
     return
   }
@@ -11,16 +11,8 @@ export const uddoktapaySuccessHandler: PayloadHandler = async (req, res): Promis
   //     res.status(401).send('Invalid Transaction ID')
   //     return
   //   }
-  const fullUser = await payload.findByID({
-    collection: 'users',
-    id: user_id.toString(),
-  })
-  if (!fullUser) {
-    res.status(404).json({ error: 'User not found' })
-    return
-  }
 
-  const orders = payload.db.collections.orders
+  const orders = payload.db.collections.guestorders
   const order = await orders.findOne({ orderId: order_id })
 
   fetch(`${process.env.UDDOKTAPAY_BASE_URL}/api/verify-payment`, {
@@ -103,10 +95,3 @@ export const uddoktapaySuccessHandler: PayloadHandler = async (req, res): Promis
     res.json({ error: message })
   }
 }
-
-// query {
-//   user_id: '6592e9a03fcec8de4a940ce1',
-//   order_id: '1706640924073',
-//   transaction_id: '624fc29e-3a98-4cad-b216-efd724547f48'
-// }
-// body { invoice_id: 'sXrL5d3lLkRCYXxQX1BM' }

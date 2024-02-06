@@ -36,7 +36,6 @@ export const GuestOrders: CollectionConfig = {
     preview: doc => `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/orders/${doc.id}`,
   },
   access: {
-    update: admins,
     delete: admins,
   },
   fields: [

@@ -1,0 +1,71 @@
+@import '../../../_css/common';
+
+.items {
+  margin: 30px 0;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 80px 5fr 1fr;
+  gap: 24px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-dark-50);
+
+  @include small-break {
+    display: none;
+  }
+}
+
+.headerItemDetails {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+}
+
+.headersubtotal {
+  text-align: end;
+}
+
+.subtotal {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.billing {
+  margin-top: var(--base);
+  padding: 24px;
+  margin-bottom: 60px;
+  background-color: var(--color-dark-50);
+  border-radius: 10px;
+}
+.orderTotal {
+  text-align: end;
+  display: flex;
+  justify-content: space-between;
+}
+.grandTotal {
+  font-weight: 600;
+}
+
+.payment {
+  margin-bottom: 40px;
+}
+
+.loading,
+.error {
+  margin-top: calc(var(--block-padding) - var(--base));
+}
+.paymentButton{
+  width: 100%
+}
+.shippingInputs{
+  display:grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 20px;
+
+  @include small-break {
+    display: block;
+  }
+}
+.deliveryOption{
+  margin-top: 10px;
+}
