@@ -20,6 +20,7 @@ import { useCart } from '../../../_providers/Cart'
 import { useTheme } from '../../../_providers/Theme'
 import cssVariables from '../../../cssVariables'
 import { CheckoutItem } from '../CheckoutItem'
+import CheckoutItemWithQtyControl from '../CheckoutItemWithQtyControl'
 
 import classes from './index.module.scss'
 
@@ -68,7 +69,7 @@ export const CheckoutPage: React.FC<{
   const [isAdvancedPayment, setIsAdvancedPayment] = useState<boolean>(true)
   const { theme } = useTheme()
 
-  const { cart, cartIsEmpty, cartTotal } = useCart()
+  const { cart, cartIsEmpty, cartTotal, addItemToCart } = useCart()
   const [loading, setLoading] = useState(false)
 
   const handleOrderSubmit = (data: FormData) => {
@@ -267,11 +268,6 @@ export const CheckoutPage: React.FC<{
           <div className={classes.items}>
             <div className={classes.header}>
               <p>Products</p>
-              <div className={classes.headerItemDetails}>
-                <p></p>
-                <p className={classes.quantity}>Quantity</p>
-              </div>
-              <p className={classes.subtotal}>Subtotal</p>
             </div>
 
             <ul>
@@ -286,14 +282,14 @@ export const CheckoutPage: React.FC<{
                   if (!quantity) return null
 
                   const metaImage = meta?.image
-                  console.log(product)
                   return (
                     <Fragment key={index}>
-                      <CheckoutItem
+                      <CheckoutItemWithQtyControl
                         product={product}
                         title={title}
                         metaImage={metaImage}
-                        quantity={quantity}
+                        qty={quantity}
+                        addItemToCart={addItemToCart}
                         index={index}
                       />
                     </Fragment>
