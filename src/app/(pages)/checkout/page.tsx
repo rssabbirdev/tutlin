@@ -15,7 +15,7 @@ import classes from './index.module.scss'
 export default async function Checkout() {
   await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
-      'You must be logged in to checkout.',
+      'Checkout করতে লগিন করুন, অথবা Home এ ফিরে গিয়ে Guest Checkout করুন!',
     )}&redirect=${encodeURIComponent('/checkout')}`,
   })
 

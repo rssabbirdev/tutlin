@@ -188,139 +188,156 @@ export const CheckoutPage: React.FC<{
         </div>
       )}
       {!cartIsEmpty && (
-        <form onSubmit={handleSubmit(handleOrderSubmit)}>
-          <div>
-            <h4>Shipping Details</h4>
-            <div className={classes.shippingInputs}>
-              <Input
-                name="name"
-                label="Full Name"
-                required
-                register={register}
-                error={errors.name}
-                type="text"
-                placeholder="আপনার পুরো নাম *"
-                hideLabel={true}
-                errorMsg="আপনার পুরো নাম্বার লিখুন"
-                maxLength={15}
-                minLength={4}
-                maxLengthErrorMsg="১৫ অক্ষরের বেশি নাম দেওয়া যাবে নাহ"
-                minLengthErrorMsg="নুন্যতম ৪ অক্ষরে নাম লিখুন"
-              />
-              <Input
-                name="phoneNumber"
-                label="Phone Number"
-                required
-                register={register}
-                error={errors.phoneNumber}
-                type="text"
-                placeholder="মোবাইল নাম্বার *"
-                hideLabel={true}
-                errorMsg="আপনার মোবাইল নাম্বার লিখুন"
-                maxLength={11}
-                minLength={11}
-                maxLengthErrorMsg="01819XXXXXX এভাবে নাম্বারটি লিখুন"
-                minLengthErrorMsg="01819XXXXXX এভাবে নাম্বারটি লিখুন"
-              />
-              <Input
-                name="email"
-                label="Email Address"
-                required
-                register={register}
-                error={errors.email}
-                type="email"
-                placeholder="ইমেইল এড্রেস *"
-                hideLabel={true}
-                errorMsg="আপনার ইমেইল এড্রেস লিখুন"
-              />
-              <Input
-                name="district"
-                label="District"
-                required
-                register={register}
-                error={errors.district}
-                type="text"
-                placeholder="আপনার জেলার *"
-                hideLabel={true}
-                errorMsg="আপনার জেলার নাম লিখুন"
-                maxLength={15}
-                minLength={4}
-                maxLengthErrorMsg="১৫ অক্ষরের বেশি লেখা যাবে নাহ"
-                minLengthErrorMsg="নুন্যতম ৪ অক্ষরে লিখুন"
-              />
-              <Input
-                name="deliveryFullAddress"
-                label="Delivery Full Address"
-                required
-                register={register}
-                error={errors.deliveryFullAddress}
-                type="text"
-                placeholder="আপনার সম্পুর্ণ ঠিকানা *"
-                hideLabel={true}
-                errorMsg="আপনার সম্পুর্ণ ঠিকানা লিখুন"
-                maxLength={100}
-                minLength={15}
-                maxLengthErrorMsg="১০০ অক্ষরের বেশি ঠিকানা লেখা যাবে নাহ"
-                minLengthErrorMsg="নুন্যতম ১৫ অক্ষরে ঠিকানা লিখুন"
-              />
-            </div>
-          </div>
-          <div className={classes.items}>
-            <div className={classes.header}>
-              <p>Products</p>
-            </div>
-
-            <ul>
-              {cart?.items?.map((item, index) => {
-                if (typeof item.product === 'object') {
-                  const {
-                    quantity,
-                    product,
-                    product: { title, meta },
-                  } = item
-
-                  if (!quantity) return null
-
-                  const metaImage = meta?.image
-                  return (
-                    <Fragment key={index}>
-                      <CheckoutItemWithQtyControl
-                        product={product}
-                        title={title}
-                        metaImage={metaImage}
-                        qty={quantity}
-                        addItemToCart={addItemToCart}
-                        index={index}
-                      />
-                    </Fragment>
-                  )
-                }
-                return null
-              })}
-              <div className={classes.deliveryOption}>
-                <h6>Delivery Option</h6>
-                <RadioButton
-                  groupName="deliveryOption"
-                  isSelected={deliveryOption.key === 'insideDhaka'}
-                  label={`Inside Dhaka : ${insideDhaka} ৳`}
-                  value="insideDhaka"
-                  onRadioChange={() =>
-                    setDeliveryOption({ key: 'insideDhaka', value: insideDhaka })
-                  }
+        <>
+          <p className={classes.billing}>
+            <span
+              style={{
+                color: 'red',
+                fontSize: '12px',
+                fontStyle: 'italic',
+                textDecoration: 'underline',
+              }}
+            >
+              Note:
+            </span>
+            <br />
+            <Link href={`/login?redirect=${encodeURIComponent('/checkout')}`}>লগিন</Link> করে
+            Checkout করলে অডার ট্রেকিং করতে পারবেন, এবং পরবর্তিতে পন্য ক্রয় করতে সহজ হবে! <br />{' '}
+            <Link href={`/login?redirect=${encodeURIComponent('/checkout')}`}>Login Here</Link>
+          </p>
+          <form onSubmit={handleSubmit(handleOrderSubmit)}>
+            <div>
+              <h4>Shipping Details</h4>
+              <div className={classes.shippingInputs}>
+                <Input
+                  name="name"
+                  label="Full Name"
+                  required
+                  register={register}
+                  error={errors.name}
+                  type="text"
+                  placeholder="আপনার পুরো নাম *"
+                  hideLabel={true}
+                  errorMsg="আপনার পুরো নাম্বার লিখুন"
+                  maxLength={15}
+                  minLength={4}
+                  maxLengthErrorMsg="১৫ অক্ষরের বেশি নাম দেওয়া যাবে নাহ"
+                  minLengthErrorMsg="নুন্যতম ৪ অক্ষরে নাম লিখুন"
                 />
-                <RadioButton
-                  groupName="deliveryOption"
-                  isSelected={deliveryOption.key === 'outsideDhaka'}
-                  label={`Outside Dhaka : ${outsideDhaka} ৳`}
-                  value="outsideDhaka"
-                  onRadioChange={() =>
-                    setDeliveryOption({ key: 'outsideDhaka', value: outsideDhaka })
-                  }
+                <Input
+                  name="phoneNumber"
+                  label="Phone Number"
+                  required
+                  register={register}
+                  error={errors.phoneNumber}
+                  type="text"
+                  placeholder="মোবাইল নাম্বার *"
+                  hideLabel={true}
+                  errorMsg="আপনার মোবাইল নাম্বার লিখুন"
+                  maxLength={11}
+                  minLength={11}
+                  maxLengthErrorMsg="01819XXXXXX এভাবে নাম্বারটি লিখুন"
+                  minLengthErrorMsg="01819XXXXXX এভাবে নাম্বারটি লিখুন"
+                />
+                <Input
+                  name="email"
+                  label="Email Address"
+                  required
+                  register={register}
+                  error={errors.email}
+                  type="email"
+                  placeholder="ইমেইল এড্রেস *"
+                  hideLabel={true}
+                  errorMsg="আপনার ইমেইল এড্রেস লিখুন"
+                />
+                <Input
+                  name="district"
+                  label="District"
+                  required
+                  register={register}
+                  error={errors.district}
+                  type="text"
+                  placeholder="আপনার জেলার *"
+                  hideLabel={true}
+                  errorMsg="আপনার জেলার নাম লিখুন"
+                  maxLength={15}
+                  minLength={4}
+                  maxLengthErrorMsg="১৫ অক্ষরের বেশি লেখা যাবে নাহ"
+                  minLengthErrorMsg="নুন্যতম ৪ অক্ষরে লিখুন"
+                />
+                <Input
+                  name="deliveryFullAddress"
+                  label="Delivery Full Address"
+                  required
+                  register={register}
+                  error={errors.deliveryFullAddress}
+                  type="text"
+                  placeholder="আপনার সম্পুর্ণ ঠিকানা *"
+                  hideLabel={true}
+                  errorMsg="আপনার সম্পুর্ণ ঠিকানা লিখুন"
+                  maxLength={100}
+                  minLength={15}
+                  maxLengthErrorMsg="১০০ অক্ষরের বেশি ঠিকানা লেখা যাবে নাহ"
+                  minLengthErrorMsg="নুন্যতম ১৫ অক্ষরে ঠিকানা লিখুন"
                 />
               </div>
-              <div className={classes.deliveryOption}>
-                <h6>Payment Option</h6>
-                {/* {paymentOptions?.map(option => (
+            </div>
+            <div className={classes.items}>
+              <div className={classes.header}>
+                <p>Products</p>
+              </div>
+
+              <ul>
+                {cart?.items?.map((item, index) => {
+                  if (typeof item.product === 'object') {
+                    const {
+                      quantity,
+                      product,
+                      product: { title, meta },
+                    } = item
+
+                    if (!quantity) return null
+
+                    const metaImage = meta?.image
+                    return (
+                      <Fragment key={index}>
+                        <CheckoutItemWithQtyControl
+                          product={product}
+                          title={title}
+                          metaImage={metaImage}
+                          qty={quantity}
+                          addItemToCart={addItemToCart}
+                          index={index}
+                        />
+                      </Fragment>
+                    )
+                  }
+                  return null
+                })}
+                <div className={classes.deliveryOption}>
+                  <h6>Delivery Option</h6>
+                  <RadioButton
+                    groupName="deliveryOption"
+                    isSelected={deliveryOption.key === 'insideDhaka'}
+                    label={`Inside Dhaka : ${insideDhaka} ৳`}
+                    value="insideDhaka"
+                    onRadioChange={() =>
+                      setDeliveryOption({ key: 'insideDhaka', value: insideDhaka })
+                    }
+                  />
+                  <RadioButton
+                    groupName="deliveryOption"
+                    isSelected={deliveryOption.key === 'outsideDhaka'}
+                    label={`Outside Dhaka : ${outsideDhaka} ৳`}
+                    value="outsideDhaka"
+                    onRadioChange={() =>
+                      setDeliveryOption({ key: 'outsideDhaka', value: outsideDhaka })
+                    }
+                  />
+                </div>
+                <div className={classes.deliveryOption}>
+                  <h6>Payment Option</h6>
+                  {/* {paymentOptions?.map(option => (
                   <RadioButton
                     groupName="paymentOptions"
                     isSelected={paymentOption === option}
@@ -329,95 +346,96 @@ export const CheckoutPage: React.FC<{
                     onRadioChange={() => setPaymentOption(option)}
                   />
                 ))} */}
-                <RadioButton
-                  groupName="isAdvancedPayment"
-                  isSelected={isAdvancedPayment}
-                  label={'Advanced Payment'}
-                  value={'1'}
-                  onRadioChange={() => setIsAdvancedPayment(true)}
-                />
-
-                <RadioButton
-                  groupName="isAdvancedPayment"
-                  isSelected={!isAdvancedPayment}
-                  label={'Full Payment'}
-                  value={'2'}
-                  onRadioChange={() => setIsAdvancedPayment(false)}
-                />
-                {isAdvancedPayment && (
-                  <p className={classes.billing}>
-                    আমাদের গেজেট এবং এক্সেসরিজ আইটেম অর্ডারের ক্ষেত্রে আংশিক পেমেন্ট বাধ্যতামূলক।
-                  </p>
-                )}
-              </div>
-              <div className={classes.billing}>
-                <div className={classes.orderTotal}>
-                  <p>Subtotal</p>
-                  <p>{Number(cartTotal.raw)} ৳</p>
-                </div>
-                <div className={classes.orderTotal}>
-                  <p>Delivery Charge</p>
-                  <p>{deliveryFee} ৳</p>
-                </div>
-                {isAdvancedPayment && (
-                  <div className={classes.orderTotal}>
-                    <p>Total</p>
-                    <p>{Number(cartTotal.raw) + deliveryFee} ৳</p>
-                  </div>
-                )}
-                {isAdvancedPayment && (
-                  <div className={`${classes.orderTotal}`}>
-                    <p>Advanced</p>
-                    <p>-{advancedPaymentAmount} ৳</p>
-                  </div>
-                )}
-                {isAdvancedPayment && <hr />}
-                <div className={`${classes.orderTotal} ${classes.grandTotal}`}>
-                  <p>{isAdvancedPayment ? 'Pay with Cash On Delivery' : 'Grand Total'}</p>
-                  <p>
-                    {isAdvancedPayment
-                      ? Number(cartTotal.raw) + deliveryFee - advancedPaymentAmount
-                      : Number(cartTotal.raw) + deliveryFee}{' '}
-                    ৳
-                  </p>
-                </div>
-              </div>
-            </ul>
-          </div>
-          <Fragment>
-            {error && <p>{`Error: ${error}`}</p>}
-            <Button
-              type="submit"
-              className={classes.paymentButton}
-              label={
-                loading
-                  ? 'Processing'
-                  : `${
-                      paymentOption === 'CashOnDelivery'
-                        ? `Place Order ${Number(cartTotal.raw) + deliveryFee} ৳`
-                        : `Pay ${
-                            isAdvancedPayment
-                              ? advancedPaymentAmount
-                              : Number(cartTotal.raw) + deliveryFee
-                          } ৳ with ${paymentOption !== 'UddoktaPay' ? paymentOption : ''}`
-                    }`
-              }
-              disabled={loading}
-              appearance="primary"
-            >
-              <div style={{ marginLeft: '5px' }}>
-                {!loading && (
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}/assets/images/uddoktapay-logo.png`}
-                    height={40}
-                    width={110}
-                    alt="uddoktapay logo"
+                  <RadioButton
+                    groupName="isAdvancedPayment"
+                    isSelected={isAdvancedPayment}
+                    label={'Advanced Payment'}
+                    value={'1'}
+                    onRadioChange={() => setIsAdvancedPayment(true)}
                   />
-                )}
-              </div>
-            </Button>
-          </Fragment>
-        </form>
+
+                  <RadioButton
+                    groupName="isAdvancedPayment"
+                    isSelected={!isAdvancedPayment}
+                    label={'Full Payment'}
+                    value={'2'}
+                    onRadioChange={() => setIsAdvancedPayment(false)}
+                  />
+                  {isAdvancedPayment && (
+                    <p className={classes.billing}>
+                      আমাদের গেজেট এবং এক্সেসরিজ আইটেম অর্ডারের ক্ষেত্রে আংশিক পেমেন্ট বাধ্যতামূলক।
+                    </p>
+                  )}
+                </div>
+                <div className={classes.billing}>
+                  <div className={classes.orderTotal}>
+                    <p>Subtotal</p>
+                    <p>{Number(cartTotal.raw)} ৳</p>
+                  </div>
+                  <div className={classes.orderTotal}>
+                    <p>Delivery Charge</p>
+                    <p>{deliveryFee} ৳</p>
+                  </div>
+                  {isAdvancedPayment && (
+                    <div className={classes.orderTotal}>
+                      <p>Total</p>
+                      <p>{Number(cartTotal.raw) + deliveryFee} ৳</p>
+                    </div>
+                  )}
+                  {isAdvancedPayment && (
+                    <div className={`${classes.orderTotal}`}>
+                      <p>Advanced</p>
+                      <p>-{advancedPaymentAmount} ৳</p>
+                    </div>
+                  )}
+                  {isAdvancedPayment && <hr />}
+                  <div className={`${classes.orderTotal} ${classes.grandTotal}`}>
+                    <p>{isAdvancedPayment ? 'Pay with Cash On Delivery' : 'Grand Total'}</p>
+                    <p>
+                      {isAdvancedPayment
+                        ? Number(cartTotal.raw) + deliveryFee - advancedPaymentAmount
+                        : Number(cartTotal.raw) + deliveryFee}{' '}
+                      ৳
+                    </p>
+                  </div>
+                </div>
+              </ul>
+            </div>
+            <Fragment>
+              {error && <p>{`Error: ${error}`}</p>}
+              <Button
+                type="submit"
+                className={classes.paymentButton}
+                label={
+                  loading
+                    ? 'Processing'
+                    : `${
+                        paymentOption === 'CashOnDelivery'
+                          ? `Place Order ${Number(cartTotal.raw) + deliveryFee} ৳`
+                          : `Pay ${
+                              isAdvancedPayment
+                                ? advancedPaymentAmount
+                                : Number(cartTotal.raw) + deliveryFee
+                            } ৳ with ${paymentOption !== 'UddoktaPay' ? paymentOption : ''}`
+                      }`
+                }
+                disabled={loading}
+                appearance="primary"
+              >
+                <div style={{ marginLeft: '5px' }}>
+                  {!loading && (
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_SERVER_URL}/assets/images/uddoktapay-logo.png`}
+                      height={40}
+                      width={110}
+                      alt="uddoktapay logo"
+                    />
+                  )}
+                </div>
+              </Button>
+            </Fragment>
+          </form>
+        </>
       )}
       {/* {!clientSecret && !error && (
         <div className={classes.loading}>

@@ -95,78 +95,99 @@ export const CartPage: React.FC<{
               )}
             </div>
           ) : (
-            <div className={classes.cartWrapper}>
-              <div>
-                {/* CART LIST HEADER */}
-                <div className={classes.header}>
-                  <p>Products</p>
-                  <div className={classes.headerItemDetails}>
-                    <p></p>
-                    <p></p>
-                    <p>Quantity</p>
+            <>
+              {status !== 'loggedIn' && (
+                <p className={classes.billing}>
+                  <span
+                    style={{
+                      color: 'red',
+                      fontSize: '12px',
+                      fontStyle: 'italic',
+                      textDecoration: 'underline',
+                    }}
+                  >
+                    Note:
+                  </span>
+                  <br />
+                  <Link href={`/login?redirect=${encodeURIComponent('/cart')}`}>লগিন</Link> করে
+                  Checkout করলে অডার ট্রেকিং করতে পারবেন, এবং পরবর্তিতে পন্য ক্রয় করতে সহজ হবে!{' '}
+                  <br />{' '}
+                  <Link href={`/login?redirect=${encodeURIComponent('/cart')}`}>Login Here</Link>
+                </p>
+              )}
+              <div className={classes.cartWrapper}>
+                <div>
+                  {/* CART LIST HEADER */}
+                  <div className={classes.header}>
+                    <p>Products</p>
+                    <div className={classes.headerItemDetails}>
+                      <p></p>
+                      <p></p>
+                      <p>Quantity</p>
+                    </div>
+                    <p className={classes.headersubtotal}>Subtotal</p>
                   </div>
-                  <p className={classes.headersubtotal}>Subtotal</p>
-                </div>
-                {/* CART ITEM LIST */}
-                <ul className={classes.itemsList}>
-                  {cart?.items?.map((item, index) => {
-                    if (typeof item.product === 'object') {
-                      const {
-                        quantity,
-                        product,
-                        product: { id, title, meta, stripeProductID },
-                      } = item
+                  {/* CART ITEM LIST */}
+                  <ul className={classes.itemsList}>
+                    {cart?.items?.map((item, index) => {
+                      if (typeof item.product === 'object') {
+                        const {
+                          quantity,
+                          product,
+                          product: { id, title, meta, stripeProductID },
+                        } = item
 
-                      const isLast = index === (cart?.items?.length || 0) - 1
+                        const isLast = index === (cart?.items?.length || 0) - 1
 
-                      const metaImage = meta?.image
+                        const metaImage = meta?.image
 
-                      return (
-                        <CartItem
-                          product={product}
-                          title={title}
-                          metaImage={metaImage}
-                          qty={quantity}
-                          addItemToCart={addItemToCart}
-                          index={index}
-                        />
-                      )
-                    }
-                    return null
-                  })}
-                </ul>
-              </div>
-
-              <div className={classes.summary}>
-                <div className={classes.row}>
-                  <h6 className={classes.cartTotal}>Summary</h6>
+                        return (
+                          <CartItem
+                            product={product}
+                            title={title}
+                            metaImage={metaImage}
+                            qty={quantity}
+                            addItemToCart={addItemToCart}
+                            index={index}
+                          />
+                        )
+                      }
+                      return null
+                    })}
+                  </ul>
                 </div>
 
-                {/* <div className={classes.row}>
+                <div className={classes.summary}>
+                  <div className={classes.row}>
+                    <h6 className={classes.cartTotal}>Summary</h6>
+                  </div>
+
+                  {/* <div className={classes.row}>
                   <p className={classes.cartTotal}>Delivery Charge</p>
                   <p className={classes.cartTotal}>$0</p>
                 </div> */}
 
-                <div className={classes.row}>
-                  <p className={classes.cartTotal}>Subtotal</p>
-                  <p className={classes.cartTotal}>{cartTotal.formatted}</p>
-                </div>
+                  <div className={classes.row}>
+                    <p className={classes.cartTotal}>Subtotal</p>
+                    <p className={classes.cartTotal}>{cartTotal.formatted}</p>
+                  </div>
 
-                <Button
-                  onClick={InitiateCheckout}
-                  el="button"
-                  className={classes.checkoutButton}
-                  // label={
-                  //   user
-                  //     ? `${loading ? 'Processing' : 'Checkout'}`
-                  //     : `${loading ? 'Processing' : 'Login to checkout'}`
-                  // }
-                  label={loading ? 'Processing' : 'Checkout'}
-                  disabled={loading}
-                  appearance="primary"
-                />
+                  <Button
+                    onClick={InitiateCheckout}
+                    el="button"
+                    className={classes.checkoutButton}
+                    // label={
+                    //   user
+                    //     ? `${loading ? 'Processing' : 'Checkout'}`
+                    //     : `${loading ? 'Processing' : 'Login to checkout'}`
+                    // }
+                    label={loading ? 'Processing' : 'Checkout'}
+                    disabled={loading}
+                    appearance="primary"
+                  />
+                </div>
               </div>
-            </div>
+            </>
           )}
         </Fragment>
       )}
