@@ -55,12 +55,28 @@ export const AddToCartButton: React.FC<{
         quantity,
       })
       sendGTMEvent({
-        event: 'AddToCart',
-        content_ids: product?.sku,
-        content_name: product?.title,
-        content_type: 'product',
+        event: 'InitiateCheckout',
+        // @ts-expect-error
+        content_category: cart?.items?.map((p, i) => p.product?.categories?.map(c => c?.title)[i]),
+        // @ts-expect-error
+        content_ids: cart?.items?.map(p => p.product?.sku),
+        contents: cart?.items?.map(p => {
+          return {
+            // @ts-expect-error
+            content_name: p?.product?.title,
+            num_items: p?.quantity,
+            currency: 'BDT',
+            // @ts-expect-error
+            value: p?.product?.productPrice,
+          }
+        }),
         currency: 'BDT',
-        value: product?.productPrice,
+        num_items: cart?.items?.reduce((acc, item) => acc + item?.quantity, 0),
+        value: cart?.items?.reduce(
+          // @ts-expect-error
+          (acc, item) => acc + item?.product?.productPrice * item?.quantity,
+          0,
+        ),
       })
       setIsBuyNowLoading(true)
       if (status === 'loggedIn') {
