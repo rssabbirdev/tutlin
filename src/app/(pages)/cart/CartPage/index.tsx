@@ -21,7 +21,7 @@ export const CartPage: React.FC<{
   const { settings } = props
   const { productsPage } = settings || {}
 
-  const { user } = useAuth()
+  const { user, status } = useAuth()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
@@ -60,7 +60,11 @@ export const CartPage: React.FC<{
     //   router.push('/login?redirect=%2Fcheckout')
     // }
     setLoading(true)
-    router.push('/guest-checkout')
+    if (status === 'loggedIn') {
+      router.push('/checkout')
+    } else {
+      router.push('/guest-checkout')
+    }
   }
 
   return (

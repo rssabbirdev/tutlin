@@ -77,7 +77,19 @@ export const ProductHero: React.FC<{
             <p style={{ fontSize: '15px' }}>SKU : {sku}</p>
           </div>
 
-          <AddToCartButton product={product} className={classes.addToCartButton} />
+          <div className={classes.buttons}>
+            <AddToCartButton
+              product={product}
+              className={classes.addToCartButton}
+              isBuyNow={false}
+              appearance="secondary"
+            />
+            <AddToCartButton
+              product={product}
+              className={classes.addToCartButton}
+              isBuyNow={true}
+            />
+          </div>
         </div>
       </Gutter>
       <Blocks blocks={layout} />
