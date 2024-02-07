@@ -2,11 +2,10 @@
 
 .item {
   display: grid;
-  grid-template-columns: 100px auto;
+  grid-template-columns: 100px auto 100px;
   padding: 24px 0;
   gap: 24px;
   border-bottom: 1px solid var(--color-dark-50);
-  align-items: center;
 }
 
 .mediaWrapper {
@@ -32,7 +31,6 @@
   grid-template-columns: 2fr 1fr;
   gap: 16px;
   align-items: center;
-  align-content: space-between;
 
   @include small-break {
     grid-template-columns: 1fr;
@@ -78,4 +76,22 @@
   outline: none;
   font-size: 16px;
   font-weight: 700;
+}
+
+.subtotalWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 60px;
+
+  @include small-break {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+  }
+}
+.deleteBtn{
+  @include small-break {
+    margin-bottom: 14px;
+  }
 }

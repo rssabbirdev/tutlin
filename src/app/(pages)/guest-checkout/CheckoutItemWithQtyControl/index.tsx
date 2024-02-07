@@ -30,7 +30,7 @@ function CheckoutItemWithQtyControl({ product, title, metaImage, qty, addItemToC
   return (
     <li className={classes.item} key={index}>
       <Link href={`/products/${product.slug}`} className={classes.mediaWrapper}>
-        {!metaImage && <span>No Image</span>}
+        {!metaImage && <span>No image</span>}
         {metaImage && typeof metaImage !== 'string' && (
           <Media className={classes.media} imgClassName={classes.image} resource={metaImage} fill />
         )}
@@ -66,6 +66,10 @@ function CheckoutItemWithQtyControl({ product, title, metaImage, qty, addItemToC
             />
           </div>
         </div>
+      </div>
+      <div className={classes.subtotalWrapper}>
+        <div></div>
+        <RemoveFromCartButton product={product} className={classes.deleteBtn} />
       </div>
     </li>
   )
