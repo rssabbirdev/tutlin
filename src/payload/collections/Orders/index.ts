@@ -100,6 +100,12 @@ export const Orders: CollectionConfig = {
       required: true,
     },
     {
+      label: 'Email Address',
+      name: 'email',
+      type: 'email',
+      required: true,
+    },
+    {
       label: 'District',
       name: 'district',
       type: 'text',

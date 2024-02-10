@@ -16,6 +16,8 @@ export const ORDER = `
       docs {
         id
         orderedBy
+        phoneNumber
+        email
         orderStatus
         paymentStatus
         paidAmount
