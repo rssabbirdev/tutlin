@@ -58,6 +58,7 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         paidAmount: 0,
         dueAmount: totalAmountWithDeliveryCharge,
         phoneNumber: body?.phoneNumber,
+        email: body?.email,
         district: body?.district,
         deliveryFullAddress: body?.deliveryFullAddress,
         paymentOption: body?.paymentOption,

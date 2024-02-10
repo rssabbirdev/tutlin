@@ -65,7 +65,7 @@ export const CheckoutPage: React.FC<{
   const [loading, setLoading] = useState(false)
 
   const handleOrderSubmit = (data: FormData) => {
-    const order = { ...data, deliveryOption, paymentOption, isAdvancedPayment }
+    const order = { ...data, email: user?.email, deliveryOption, paymentOption, isAdvancedPayment }
     setLoading(true)
     fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/submit-order`, {
       method: 'POST',

@@ -5086,6 +5086,7 @@ type Order {
   paidAmount: Float!
   dueAmount: Float!
   phoneNumber: String!
+  email: EmailAddress!
   district: String!
   deliveryFullAddress: String!
   deliveryOption: String!
@@ -5189,6 +5190,7 @@ input Order_where {
   paidAmount: Order_paidAmount_operator
   dueAmount: Order_dueAmount_operator
   phoneNumber: Order_phoneNumber_operator
+  email: Order_email_operator
   district: Order_district_operator
   deliveryFullAddress: Order_deliveryFullAddress_operator
   deliveryOption: Order_deliveryOption_operator
@@ -5265,6 +5267,16 @@ input Order_phoneNumber_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input Order_email_operator {
+  equals: EmailAddress
+  not_equals: EmailAddress
+  like: EmailAddress
+  contains: EmailAddress
+  in: [EmailAddress]
+  not_in: [EmailAddress]
+  all: [EmailAddress]
 }
 
 input Order_district_operator {
@@ -5460,6 +5472,7 @@ input Order_where_and {
   paidAmount: Order_paidAmount_operator
   dueAmount: Order_dueAmount_operator
   phoneNumber: Order_phoneNumber_operator
+  email: Order_email_operator
   district: Order_district_operator
   deliveryFullAddress: Order_deliveryFullAddress_operator
   deliveryOption: Order_deliveryOption_operator
@@ -5488,6 +5501,7 @@ input Order_where_or {
   paidAmount: Order_paidAmount_operator
   dueAmount: Order_dueAmount_operator
   phoneNumber: Order_phoneNumber_operator
+  email: Order_email_operator
   district: Order_district_operator
   deliveryFullAddress: Order_deliveryFullAddress_operator
   deliveryOption: Order_deliveryOption_operator
@@ -5524,6 +5538,7 @@ type OrdersDocAccessFields {
   paidAmount: OrdersDocAccessFields_paidAmount
   dueAmount: OrdersDocAccessFields_dueAmount
   phoneNumber: OrdersDocAccessFields_phoneNumber
+  email: OrdersDocAccessFields_email
   district: OrdersDocAccessFields_district
   deliveryFullAddress: OrdersDocAccessFields_deliveryFullAddress
   deliveryOption: OrdersDocAccessFields_deliveryOption
@@ -5674,6 +5689,29 @@ type OrdersDocAccessFields_phoneNumber_Update {
 }
 
 type OrdersDocAccessFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_email {
+  create: OrdersDocAccessFields_email_Create
+  read: OrdersDocAccessFields_email_Read
+  update: OrdersDocAccessFields_email_Update
+  delete: OrdersDocAccessFields_email_Delete
+}
+
+type OrdersDocAccessFields_email_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_email_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_email_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_email_Delete {
   permission: Boolean!
 }
 
@@ -7751,6 +7789,7 @@ type Guestorder {
   paidAmount: Float!
   dueAmount: Float!
   phoneNumber: String!
+  email: EmailAddress!
   district: String!
   deliveryFullAddress: String!
   deliveryOption: String!
@@ -7808,6 +7847,7 @@ input Guestorder_where {
   paidAmount: Guestorder_paidAmount_operator
   dueAmount: Guestorder_dueAmount_operator
   phoneNumber: Guestorder_phoneNumber_operator
+  email: Guestorder_email_operator
   district: Guestorder_district_operator
   deliveryFullAddress: Guestorder_deliveryFullAddress_operator
   deliveryOption: Guestorder_deliveryOption_operator
@@ -7875,6 +7915,16 @@ input Guestorder_phoneNumber_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input Guestorder_email_operator {
+  equals: EmailAddress
+  not_equals: EmailAddress
+  like: EmailAddress
+  contains: EmailAddress
+  in: [EmailAddress]
+  not_in: [EmailAddress]
+  all: [EmailAddress]
 }
 
 input Guestorder_district_operator {
@@ -8069,6 +8119,7 @@ input Guestorder_where_and {
   paidAmount: Guestorder_paidAmount_operator
   dueAmount: Guestorder_dueAmount_operator
   phoneNumber: Guestorder_phoneNumber_operator
+  email: Guestorder_email_operator
   district: Guestorder_district_operator
   deliveryFullAddress: Guestorder_deliveryFullAddress_operator
   deliveryOption: Guestorder_deliveryOption_operator
@@ -8096,6 +8147,7 @@ input Guestorder_where_or {
   paidAmount: Guestorder_paidAmount_operator
   dueAmount: Guestorder_dueAmount_operator
   phoneNumber: Guestorder_phoneNumber_operator
+  email: Guestorder_email_operator
   district: Guestorder_district_operator
   deliveryFullAddress: Guestorder_deliveryFullAddress_operator
   deliveryOption: Guestorder_deliveryOption_operator
@@ -8131,6 +8183,7 @@ type GuestordersDocAccessFields {
   paidAmount: GuestordersDocAccessFields_paidAmount
   dueAmount: GuestordersDocAccessFields_dueAmount
   phoneNumber: GuestordersDocAccessFields_phoneNumber
+  email: GuestordersDocAccessFields_email
   district: GuestordersDocAccessFields_district
   deliveryFullAddress: GuestordersDocAccessFields_deliveryFullAddress
   deliveryOption: GuestordersDocAccessFields_deliveryOption
@@ -8258,6 +8311,29 @@ type GuestordersDocAccessFields_phoneNumber_Update {
 }
 
 type GuestordersDocAccessFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_email {
+  create: GuestordersDocAccessFields_email_Create
+  read: GuestordersDocAccessFields_email_Read
+  update: GuestordersDocAccessFields_email_Update
+  delete: GuestordersDocAccessFields_email_Delete
+}
+
+type GuestordersDocAccessFields_email_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_email_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_email_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_email_Delete {
   permission: Boolean!
 }
 
@@ -11926,6 +12002,7 @@ type OrdersFields {
   paidAmount: OrdersFields_paidAmount
   dueAmount: OrdersFields_dueAmount
   phoneNumber: OrdersFields_phoneNumber
+  email: OrdersFields_email
   district: OrdersFields_district
   deliveryFullAddress: OrdersFields_deliveryFullAddress
   deliveryOption: OrdersFields_deliveryOption
@@ -12076,6 +12153,29 @@ type OrdersFields_phoneNumber_Update {
 }
 
 type OrdersFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_email {
+  create: OrdersFields_email_Create
+  read: OrdersFields_email_Read
+  update: OrdersFields_email_Update
+  delete: OrdersFields_email_Delete
+}
+
+type OrdersFields_email_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_email_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_email_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_email_Delete {
   permission: Boolean!
 }
 
@@ -13559,6 +13659,7 @@ type GuestordersFields {
   paidAmount: GuestordersFields_paidAmount
   dueAmount: GuestordersFields_dueAmount
   phoneNumber: GuestordersFields_phoneNumber
+  email: GuestordersFields_email
   district: GuestordersFields_district
   deliveryFullAddress: GuestordersFields_deliveryFullAddress
   deliveryOption: GuestordersFields_deliveryOption
@@ -13686,6 +13787,29 @@ type GuestordersFields_phoneNumber_Update {
 }
 
 type GuestordersFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_email {
+  create: GuestordersFields_email_Create
+  read: GuestordersFields_email_Read
+  update: GuestordersFields_email_Update
+  delete: GuestordersFields_email_Delete
+}
+
+type GuestordersFields_email_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_email_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_email_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_email_Delete {
   permission: Boolean!
 }
 
@@ -15532,6 +15656,7 @@ input mutationOrderInput {
   paidAmount: Float!
   dueAmount: Float!
   phoneNumber: String!
+  email: String!
   district: String!
   deliveryFullAddress: String!
   deliveryOption: String!
@@ -15576,6 +15701,7 @@ input mutationOrderUpdateInput {
   paidAmount: Float
   dueAmount: Float
   phoneNumber: String
+  email: String
   district: String
   deliveryFullAddress: String
   deliveryOption: String
@@ -15777,6 +15903,7 @@ input mutationGuestorderInput {
   paidAmount: Float!
   dueAmount: Float!
   phoneNumber: String!
+  email: String!
   district: String!
   deliveryFullAddress: String!
   deliveryOption: String!
@@ -15820,6 +15947,7 @@ input mutationGuestorderUpdateInput {
   paidAmount: Float
   dueAmount: Float
   phoneNumber: String
+  email: String
   district: String
   deliveryFullAddress: String
   deliveryOption: String

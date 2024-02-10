@@ -410,6 +410,7 @@ export interface Order {
   paidAmount: number;
   dueAmount: number;
   phoneNumber: string;
+  email: string;
   district: string;
   deliveryFullAddress: string;
   deliveryOption: string;
@@ -464,6 +465,7 @@ export interface Guestorder {
   paidAmount: number;
   dueAmount: number;
   phoneNumber: string;
+  email: string;
   district: string;
   deliveryFullAddress: string;
   deliveryOption: string;
