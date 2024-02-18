@@ -36,6 +36,7 @@ export const SETTINGS = `
     paymentOptions
     freeShippingAmount
     advancedPaymentAmount
+    advancedPaymentDiscount
     productsPage {
       slug
     }

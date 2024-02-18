@@ -45,6 +45,13 @@ export const Settings: GlobalConfig = {
       defaultValue: 0,
     },
     {
+      label: 'Advanced Payment Discount',
+      name: 'advancedPaymentDiscount',
+      type: 'number',
+      required: true,
+      defaultValue: 0,
+    },
+    {
       name: 'paymentOptions',
       label: 'Payment Options',
       type: 'select',

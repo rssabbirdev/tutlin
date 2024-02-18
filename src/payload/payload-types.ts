@@ -470,6 +470,7 @@ export interface Guestorder {
   deliveryFullAddress: string;
   deliveryOption: string;
   deliveryFee: number;
+  extraCharge?: number | null;
   paymentOption: string;
   items?:
     | {
@@ -539,6 +540,7 @@ export interface Settings {
   outsideDhaka: number;
   freeShippingAmount?: number | null;
   advancedPaymentAmount: number;
+  advancedPaymentDiscount: number;
   paymentOptions?: ('Cash On Delivery' | 'SSLCommerz' | 'Bkash' | 'UddoktaPay')[] | null;
   updatedAt?: string | null;
   createdAt?: string | null;
