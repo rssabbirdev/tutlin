@@ -415,6 +415,7 @@ export interface Order {
   deliveryFullAddress: string;
   deliveryOption: string;
   deliveryFee: number;
+  extraCharge?: number | null;
   paymentOption: string;
   items?:
     | {

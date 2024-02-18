@@ -53,10 +53,16 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         orderId: orderId.toString(),
         items: orderProducts,
         orderStatus: 'Pending',
-        total: totalAmountWithDeliveryCharge + settings?.advancedPaymentDiscount,
+        total:
+          body?.paymentOption === 'CashOnDelivery'
+            ? totalAmountWithDeliveryCharge + settings?.advancedPaymentDiscount
+            : totalAmountWithDeliveryCharge,
         paymentStatus: 'Unpaid',
         paidAmount: 0,
-        dueAmount: totalAmountWithDeliveryCharge + settings?.advancedPaymentDiscount,
+        dueAmount:
+          body?.paymentOption === 'CashOnDelivery'
+            ? totalAmountWithDeliveryCharge + settings?.advancedPaymentDiscount
+            : totalAmountWithDeliveryCharge,
         phoneNumber: body?.phoneNumber,
         email: body?.email,
         district: body?.district,

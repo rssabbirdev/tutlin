@@ -41,6 +41,7 @@ export const CheckoutPage: React.FC<{
       paymentOptions,
       freeShippingAmount,
       advancedPaymentAmount,
+      advancedPaymentDiscount,
     },
   } = props
   const { user } = useAuth()
@@ -57,7 +58,7 @@ export const CheckoutPage: React.FC<{
     key: 'insideDhaka',
     value: insideDhaka,
   })
-  const [paymentOption, setPaymentOption] = useState<string>('UddoktaPay')
+  const [paymentOption, setPaymentOption] = useState<string>('1')
   const [isAdvancedPayment, setIsAdvancedPayment] = useState<boolean>(true)
   const { theme } = useTheme()
 
@@ -294,7 +295,7 @@ export const CheckoutPage: React.FC<{
                 <RadioButton
                   groupName="deliveryOption"
                   isSelected={deliveryOption.key === 'insideDhaka'}
-                  label={`Inside Dhaka : ${insideDhaka} ৳`}
+                  label={`ঢাকার ভিতরে`}
                   value="insideDhaka"
                   onRadioChange={() =>
                     setDeliveryOption({ key: 'insideDhaka', value: insideDhaka })
@@ -303,7 +304,7 @@ export const CheckoutPage: React.FC<{
                 <RadioButton
                   groupName="deliveryOption"
                   isSelected={deliveryOption.key === 'outsideDhaka'}
-                  label={`Outside Dhaka : ${outsideDhaka} ৳`}
+                  label={`ঢাকার বাহিরে`}
                   value="outsideDhaka"
                   onRadioChange={() =>
                     setDeliveryOption({ key: 'outsideDhaka', value: outsideDhaka })
@@ -312,33 +313,54 @@ export const CheckoutPage: React.FC<{
               </div>
               <div className={classes.deliveryOption}>
                 <h6>Payment Option</h6>
-                {/* {paymentOptions?.map(option => (
+                {paymentOptions?.map(option => (
                   <RadioButton
                     groupName="paymentOptions"
                     isSelected={paymentOption === option}
-                    label={option}
+                    // @ts-expect-error
+                    label={option === 'CashOnDelivery' ? 'ক্যাশ অন ডেলিভারি' : option}
                     value={option}
-                    onRadioChange={() => setPaymentOption(option)}
+                    onRadioChange={() => {
+                      setIsAdvancedPayment(false)
+                      setPaymentOption(option)
+                    }}
                   />
-                ))} */}
+                ))}
                 <RadioButton
-                  groupName="isAdvancedPayment"
-                  isSelected={isAdvancedPayment}
-                  label={'Advanced Payment'}
+                  groupName="paymentOptions"
+                  isSelected={paymentOption === '1'}
+                  label={'আংশিক পেমেন্ট'}
                   value={'1'}
-                  onRadioChange={() => setIsAdvancedPayment(true)}
+                  onRadioChange={() => {
+                    setIsAdvancedPayment(true)
+                    setPaymentOption('1')
+                  }}
                 />
 
                 <RadioButton
-                  groupName="isAdvancedPayment"
-                  isSelected={!isAdvancedPayment}
-                  label={'Full Payment'}
+                  groupName="paymentOptions"
+                  isSelected={paymentOption === '2'}
+                  label={'ফুল পেমেন্ট'}
                   value={'2'}
-                  onRadioChange={() => setIsAdvancedPayment(false)}
+                  onRadioChange={() => {
+                    setIsAdvancedPayment(false)
+                    setPaymentOption('2')
+                  }}
                 />
                 {isAdvancedPayment && (
                   <p className={classes.billing}>
-                    আমাদের গেজেট এবং এক্সেসরিজ আইটেম অর্ডারের ক্ষেত্রে আংশিক পেমেন্ট বাধ্যতামূলক।
+                    আংশিক পেমেন্টের ক্ষেত্রে অতিরিক্ত {advancedPaymentDiscount} টাকার প্রয়োজন নেই!
+                  </p>
+                )}
+                {!isAdvancedPayment && paymentOption !== 'CashOnDelivery' && (
+                  <p className={classes.billing}>
+                    ফুল পেমেন্ট এর ক্ষেত্রে অতিরিক্ত {advancedPaymentDiscount} টাকার প্রয়োজন নেই!
+                  </p>
+                )}
+                {paymentOption === 'CashOnDelivery' && (
+                  <p className={classes.billing}>
+                    অগ্রিম ছাড়া ক্যাশ অন ডেলিভারির ক্ষেত্রে অতিরিক্ত {advancedPaymentDiscount} টাকা
+                    দিতে হবে!
                   </p>
                 )}
               </div>
@@ -349,27 +371,44 @@ export const CheckoutPage: React.FC<{
                 </div>
                 <div className={classes.orderTotal}>
                   <p>Delivery Charge</p>
-                  <p>{deliveryFee} ৳</p>
+                  <p>+{deliveryFee} ৳</p>
                 </div>
-                {isAdvancedPayment && (
-                  <div className={classes.orderTotal}>
-                    <p>Total</p>
-                    <p>{Number(cartTotal.raw) + deliveryFee} ৳</p>
-                  </div>
-                )}
+                {isAdvancedPayment ||
+                  (paymentOption === 'CashOnDelivery' && (
+                    <div className={classes.orderTotal}>
+                      <p>Total</p>
+                      <p>{Number(cartTotal.raw) + deliveryFee} ৳</p>
+                    </div>
+                  ))}
                 {isAdvancedPayment && (
                   <div className={`${classes.orderTotal}`}>
                     <p>Advanced</p>
                     <p>-{advancedPaymentAmount} ৳</p>
                   </div>
                 )}
-                {isAdvancedPayment && <hr />}
+                {paymentOption === 'CashOnDelivery' && (
+                  <div className={`${classes.orderTotal}`}>
+                    <p>Extra</p>
+                    <p>+{advancedPaymentDiscount} ৳</p>
+                  </div>
+                )}
+                <hr />
                 <div className={`${classes.orderTotal} ${classes.grandTotal}`}>
-                  <p>{isAdvancedPayment ? 'Pay with Cash On Delivery' : 'Grand Total'}</p>
                   <p>
-                    {isAdvancedPayment
-                      ? Number(cartTotal.raw) + deliveryFee - advancedPaymentAmount
-                      : Number(cartTotal.raw) + deliveryFee}{' '}
+                    {isAdvancedPayment || paymentOption === 'CashOnDelivery'
+                      ? 'Pay with Cash On Delivery'
+                      : 'Grand Total'}
+                  </p>
+                  <p>
+                    {isAdvancedPayment &&
+                      paymentOption !== 'CashOnDelivery' &&
+                      Number(cartTotal.raw) + deliveryFee - advancedPaymentAmount}{' '}
+                    {!isAdvancedPayment &&
+                      paymentOption === 'CashOnDelivery' &&
+                      Number(cartTotal.raw) + deliveryFee + advancedPaymentDiscount}
+                    {!isAdvancedPayment &&
+                      paymentOption !== 'CashOnDelivery' &&
+                      Number(cartTotal.raw) + deliveryFee}
                     ৳
                   </p>
                 </div>
@@ -386,12 +425,16 @@ export const CheckoutPage: React.FC<{
                   ? 'Processing'
                   : `${
                       paymentOption === 'CashOnDelivery'
-                        ? `Place Order ${Number(cartTotal.raw) + deliveryFee} ৳`
+                        ? `Place Order ${
+                            !isAdvancedPayment && paymentOption === 'CashOnDelivery'
+                              ? Number(cartTotal.raw) + deliveryFee + advancedPaymentDiscount
+                              : Number(cartTotal.raw) + deliveryFee
+                          } ৳`
                         : `Pay ${
                             isAdvancedPayment
                               ? advancedPaymentAmount
                               : Number(cartTotal.raw) + deliveryFee
-                          } ৳ with ${paymentOption !== 'UddoktaPay' ? paymentOption : ''}`
+                          } ৳ with`
                     }`
               }
               disabled={loading}
@@ -399,12 +442,16 @@ export const CheckoutPage: React.FC<{
             >
               <div style={{ marginLeft: '5px' }}>
                 {!loading && (
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}/assets/images/uddoktapay-logo.png`}
-                    height={40}
-                    width={110}
-                    alt="uddoktapay logo"
-                  />
+                  <>
+                    {paymentOption !== 'CashOnDelivery' && (
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_SERVER_URL}/assets/images/uddoktapay-logo.png`}
+                        height={40}
+                        width={110}
+                        alt="uddoktapay logo"
+                      />
+                    )}
+                  </>
                 )}
               </div>
             </Button>
