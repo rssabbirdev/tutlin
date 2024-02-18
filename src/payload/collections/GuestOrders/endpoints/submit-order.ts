@@ -53,10 +53,16 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         orderId: orderId.toString(),
         items: orderProducts,
         orderStatus: 'Pending',
-        total: totalAmountWithDeliveryCharge,
+        total:
+          body?.paymentOption === 'CashOnDelivery'
+            ? totalAmountWithDeliveryCharge + settings?.advancedPaymentDiscount
+            : totalAmountWithDeliveryCharge,
         paymentStatus: 'Unpaid',
         paidAmount: 0,
-        dueAmount: totalAmountWithDeliveryCharge,
+        dueAmount:
+          body?.paymentOption === 'CashOnDelivery'
+            ? totalAmountWithDeliveryCharge + settings?.advancedPaymentDiscount
+            : totalAmountWithDeliveryCharge,
         phoneNumber: body?.phoneNumber,
         email: body?.email,
         district: body?.district,
@@ -66,16 +72,17 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         deliveryFee:
           (body?.deliveryOption?.key === 'insideDhaka' && settings?.insideDhaka) ||
           (body?.deliveryOption?.key === 'outsideDhaka' && settings?.outsideDhaka),
+        extraCharge: settings?.advancedPaymentDiscount,
       },
     })
     if (body?.paymentOption === 'CashOnDelivery') {
       res.send({
         orderId,
-        total: totalAmountWithDeliveryCharge,
+        total: totalAmountWithDeliveryCharge + settings?.advancedPaymentDiscount,
         paymentStatus: 'Unpaid',
         orderStatus: 'Pending',
         paidAmount: 0,
-        dueAmount: totalAmountWithDeliveryCharge,
+        dueAmount: totalAmountWithDeliveryCharge + settings?.advancedPaymentDiscount,
       })
     } else if (body?.paymentOption === 'SSLCommerz') {
       // const transactionId = crypto.randomUUID()
@@ -151,7 +158,6 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
       })
         .then(response => response.json())
         .then(data => {
-          console.log(data)
           res.send({ GatewayPageURL: data?.payment_url })
         })
     }

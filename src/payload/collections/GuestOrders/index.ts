@@ -103,6 +103,11 @@ export const GuestOrders: CollectionConfig = {
       required: true,
     },
     {
+      label: 'Extra Charge',
+      name: 'extraCharge',
+      type: 'number',
+    },
+    {
       label: 'Payment Option',
       name: 'paymentOption',
       type: 'text',

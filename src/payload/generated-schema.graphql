@@ -5091,6 +5091,7 @@ type Order {
   deliveryFullAddress: String!
   deliveryOption: String!
   deliveryFee: Float!
+  extraCharge: Float
   paymentOption: String!
   items: [Order_Items!]
   orderStatus: Order_orderStatus
@@ -5195,6 +5196,7 @@ input Order_where {
   deliveryFullAddress: Order_deliveryFullAddress_operator
   deliveryOption: Order_deliveryOption_operator
   deliveryFee: Order_deliveryFee_operator
+  extraCharge: Order_extraCharge_operator
   paymentOption: Order_paymentOption_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
@@ -5316,6 +5318,16 @@ input Order_deliveryFee_operator {
   greater_than: Float
   less_than_equal: Float
   less_than: Float
+}
+
+input Order_extraCharge_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
 }
 
 input Order_paymentOption_operator {
@@ -5477,6 +5489,7 @@ input Order_where_and {
   deliveryFullAddress: Order_deliveryFullAddress_operator
   deliveryOption: Order_deliveryOption_operator
   deliveryFee: Order_deliveryFee_operator
+  extraCharge: Order_extraCharge_operator
   paymentOption: Order_paymentOption_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
@@ -5506,6 +5519,7 @@ input Order_where_or {
   deliveryFullAddress: Order_deliveryFullAddress_operator
   deliveryOption: Order_deliveryOption_operator
   deliveryFee: Order_deliveryFee_operator
+  extraCharge: Order_extraCharge_operator
   paymentOption: Order_paymentOption_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
@@ -5543,6 +5557,7 @@ type OrdersDocAccessFields {
   deliveryFullAddress: OrdersDocAccessFields_deliveryFullAddress
   deliveryOption: OrdersDocAccessFields_deliveryOption
   deliveryFee: OrdersDocAccessFields_deliveryFee
+  extraCharge: OrdersDocAccessFields_extraCharge
   paymentOption: OrdersDocAccessFields_paymentOption
   items: OrdersDocAccessFields_items
   orderStatus: OrdersDocAccessFields_orderStatus
@@ -5804,6 +5819,29 @@ type OrdersDocAccessFields_deliveryFee_Update {
 }
 
 type OrdersDocAccessFields_deliveryFee_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_extraCharge {
+  create: OrdersDocAccessFields_extraCharge_Create
+  read: OrdersDocAccessFields_extraCharge_Read
+  update: OrdersDocAccessFields_extraCharge_Update
+  delete: OrdersDocAccessFields_extraCharge_Delete
+}
+
+type OrdersDocAccessFields_extraCharge_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_extraCharge_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_extraCharge_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_extraCharge_Delete {
   permission: Boolean!
 }
 
@@ -7794,6 +7832,7 @@ type Guestorder {
   deliveryFullAddress: String!
   deliveryOption: String!
   deliveryFee: Float!
+  extraCharge: Float
   paymentOption: String!
   items: [Guestorder_Items!]
   orderStatus: Guestorder_orderStatus
@@ -7852,6 +7891,7 @@ input Guestorder_where {
   deliveryFullAddress: Guestorder_deliveryFullAddress_operator
   deliveryOption: Guestorder_deliveryOption_operator
   deliveryFee: Guestorder_deliveryFee_operator
+  extraCharge: Guestorder_extraCharge_operator
   paymentOption: Guestorder_paymentOption_operator
   items__product: Guestorder_items__product_operator
   items__price: Guestorder_items__price_operator
@@ -7964,6 +8004,16 @@ input Guestorder_deliveryFee_operator {
   greater_than: Float
   less_than_equal: Float
   less_than: Float
+}
+
+input Guestorder_extraCharge_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
 }
 
 input Guestorder_paymentOption_operator {
@@ -8124,6 +8174,7 @@ input Guestorder_where_and {
   deliveryFullAddress: Guestorder_deliveryFullAddress_operator
   deliveryOption: Guestorder_deliveryOption_operator
   deliveryFee: Guestorder_deliveryFee_operator
+  extraCharge: Guestorder_extraCharge_operator
   paymentOption: Guestorder_paymentOption_operator
   items__product: Guestorder_items__product_operator
   items__price: Guestorder_items__price_operator
@@ -8152,6 +8203,7 @@ input Guestorder_where_or {
   deliveryFullAddress: Guestorder_deliveryFullAddress_operator
   deliveryOption: Guestorder_deliveryOption_operator
   deliveryFee: Guestorder_deliveryFee_operator
+  extraCharge: Guestorder_extraCharge_operator
   paymentOption: Guestorder_paymentOption_operator
   items__product: Guestorder_items__product_operator
   items__price: Guestorder_items__price_operator
@@ -8188,6 +8240,7 @@ type GuestordersDocAccessFields {
   deliveryFullAddress: GuestordersDocAccessFields_deliveryFullAddress
   deliveryOption: GuestordersDocAccessFields_deliveryOption
   deliveryFee: GuestordersDocAccessFields_deliveryFee
+  extraCharge: GuestordersDocAccessFields_extraCharge
   paymentOption: GuestordersDocAccessFields_paymentOption
   items: GuestordersDocAccessFields_items
   orderStatus: GuestordersDocAccessFields_orderStatus
@@ -8426,6 +8479,29 @@ type GuestordersDocAccessFields_deliveryFee_Update {
 }
 
 type GuestordersDocAccessFields_deliveryFee_Delete {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_extraCharge {
+  create: GuestordersDocAccessFields_extraCharge_Create
+  read: GuestordersDocAccessFields_extraCharge_Read
+  update: GuestordersDocAccessFields_extraCharge_Update
+  delete: GuestordersDocAccessFields_extraCharge_Delete
+}
+
+type GuestordersDocAccessFields_extraCharge_Create {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_extraCharge_Read {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_extraCharge_Update {
+  permission: Boolean!
+}
+
+type GuestordersDocAccessFields_extraCharge_Delete {
   permission: Boolean!
 }
 
@@ -9403,6 +9479,7 @@ type Settings {
   outsideDhaka: Float!
   freeShippingAmount: Float
   advancedPaymentAmount: Float!
+  advancedPaymentDiscount: Float!
   paymentOptions: [Settings_paymentOptions!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -9427,6 +9504,7 @@ type SettingsDocAccessFields {
   outsideDhaka: SettingsDocAccessFields_outsideDhaka
   freeShippingAmount: SettingsDocAccessFields_freeShippingAmount
   advancedPaymentAmount: SettingsDocAccessFields_advancedPaymentAmount
+  advancedPaymentDiscount: SettingsDocAccessFields_advancedPaymentDiscount
   paymentOptions: SettingsDocAccessFields_paymentOptions
   updatedAt: SettingsDocAccessFields_updatedAt
   createdAt: SettingsDocAccessFields_createdAt
@@ -9544,6 +9622,29 @@ type SettingsDocAccessFields_advancedPaymentAmount_Update {
 }
 
 type SettingsDocAccessFields_advancedPaymentAmount_Delete {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_advancedPaymentDiscount {
+  create: SettingsDocAccessFields_advancedPaymentDiscount_Create
+  read: SettingsDocAccessFields_advancedPaymentDiscount_Read
+  update: SettingsDocAccessFields_advancedPaymentDiscount_Update
+  delete: SettingsDocAccessFields_advancedPaymentDiscount_Delete
+}
+
+type SettingsDocAccessFields_advancedPaymentDiscount_Create {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_advancedPaymentDiscount_Read {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_advancedPaymentDiscount_Update {
+  permission: Boolean!
+}
+
+type SettingsDocAccessFields_advancedPaymentDiscount_Delete {
   permission: Boolean!
 }
 
@@ -12007,6 +12108,7 @@ type OrdersFields {
   deliveryFullAddress: OrdersFields_deliveryFullAddress
   deliveryOption: OrdersFields_deliveryOption
   deliveryFee: OrdersFields_deliveryFee
+  extraCharge: OrdersFields_extraCharge
   paymentOption: OrdersFields_paymentOption
   items: OrdersFields_items
   orderStatus: OrdersFields_orderStatus
@@ -12268,6 +12370,29 @@ type OrdersFields_deliveryFee_Update {
 }
 
 type OrdersFields_deliveryFee_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_extraCharge {
+  create: OrdersFields_extraCharge_Create
+  read: OrdersFields_extraCharge_Read
+  update: OrdersFields_extraCharge_Update
+  delete: OrdersFields_extraCharge_Delete
+}
+
+type OrdersFields_extraCharge_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_extraCharge_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_extraCharge_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_extraCharge_Delete {
   permission: Boolean!
 }
 
@@ -13664,6 +13789,7 @@ type GuestordersFields {
   deliveryFullAddress: GuestordersFields_deliveryFullAddress
   deliveryOption: GuestordersFields_deliveryOption
   deliveryFee: GuestordersFields_deliveryFee
+  extraCharge: GuestordersFields_extraCharge
   paymentOption: GuestordersFields_paymentOption
   items: GuestordersFields_items
   orderStatus: GuestordersFields_orderStatus
@@ -13902,6 +14028,29 @@ type GuestordersFields_deliveryFee_Update {
 }
 
 type GuestordersFields_deliveryFee_Delete {
+  permission: Boolean!
+}
+
+type GuestordersFields_extraCharge {
+  create: GuestordersFields_extraCharge_Create
+  read: GuestordersFields_extraCharge_Read
+  update: GuestordersFields_extraCharge_Update
+  delete: GuestordersFields_extraCharge_Delete
+}
+
+type GuestordersFields_extraCharge_Create {
+  permission: Boolean!
+}
+
+type GuestordersFields_extraCharge_Read {
+  permission: Boolean!
+}
+
+type GuestordersFields_extraCharge_Update {
+  permission: Boolean!
+}
+
+type GuestordersFields_extraCharge_Delete {
   permission: Boolean!
 }
 
@@ -14598,6 +14747,7 @@ type SettingsFields {
   outsideDhaka: SettingsFields_outsideDhaka
   freeShippingAmount: SettingsFields_freeShippingAmount
   advancedPaymentAmount: SettingsFields_advancedPaymentAmount
+  advancedPaymentDiscount: SettingsFields_advancedPaymentDiscount
   paymentOptions: SettingsFields_paymentOptions
   updatedAt: SettingsFields_updatedAt
   createdAt: SettingsFields_createdAt
@@ -14715,6 +14865,29 @@ type SettingsFields_advancedPaymentAmount_Update {
 }
 
 type SettingsFields_advancedPaymentAmount_Delete {
+  permission: Boolean!
+}
+
+type SettingsFields_advancedPaymentDiscount {
+  create: SettingsFields_advancedPaymentDiscount_Create
+  read: SettingsFields_advancedPaymentDiscount_Read
+  update: SettingsFields_advancedPaymentDiscount_Update
+  delete: SettingsFields_advancedPaymentDiscount_Delete
+}
+
+type SettingsFields_advancedPaymentDiscount_Create {
+  permission: Boolean!
+}
+
+type SettingsFields_advancedPaymentDiscount_Read {
+  permission: Boolean!
+}
+
+type SettingsFields_advancedPaymentDiscount_Update {
+  permission: Boolean!
+}
+
+type SettingsFields_advancedPaymentDiscount_Delete {
   permission: Boolean!
 }
 
@@ -15661,6 +15834,7 @@ input mutationOrderInput {
   deliveryFullAddress: String!
   deliveryOption: String!
   deliveryFee: Float!
+  extraCharge: Float
   paymentOption: String!
   items: [mutationOrder_ItemsInput]
   orderStatus: Order_orderStatus_MutationInput
@@ -15706,6 +15880,7 @@ input mutationOrderUpdateInput {
   deliveryFullAddress: String
   deliveryOption: String
   deliveryFee: Float
+  extraCharge: Float
   paymentOption: String
   items: [mutationOrderUpdate_ItemsInput]
   orderStatus: OrderUpdate_orderStatus_MutationInput
@@ -15908,6 +16083,7 @@ input mutationGuestorderInput {
   deliveryFullAddress: String!
   deliveryOption: String!
   deliveryFee: Float!
+  extraCharge: Float
   paymentOption: String!
   items: [mutationGuestorder_ItemsInput]
   orderStatus: Guestorder_orderStatus_MutationInput
@@ -15952,6 +16128,7 @@ input mutationGuestorderUpdateInput {
   deliveryFullAddress: String
   deliveryOption: String
   deliveryFee: Float
+  extraCharge: Float
   paymentOption: String
   items: [mutationGuestorderUpdate_ItemsInput]
   orderStatus: GuestorderUpdate_orderStatus_MutationInput
@@ -16071,6 +16248,7 @@ input mutationSettingsInput {
   outsideDhaka: Float!
   freeShippingAmount: Float
   advancedPaymentAmount: Float!
+  advancedPaymentDiscount: Float!
   paymentOptions: [Settings_paymentOptions_MutationInput]
   updatedAt: String
   createdAt: String
