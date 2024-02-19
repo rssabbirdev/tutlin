@@ -203,6 +203,7 @@ export interface Product {
   sku?: string | null;
   productPrice: number;
   originalProductPrice: number;
+  showDiscountPercentage?: boolean | null;
   publishedOn?: string | null;
   layout?:
     | (

@@ -1277,6 +1277,7 @@ type Product {
   sku: String
   productPrice: Float
   originalProductPrice: Float
+  showDiscountPercentage: Boolean
   publishedOn: DateTime
   layout: [Product_Layout!]
   stripeProductID: String
@@ -3610,6 +3611,7 @@ input Product_where {
   sku: Product_sku_operator
   productPrice: Product_productPrice_operator
   originalProductPrice: Product_originalProductPrice_operator
+  showDiscountPercentage: Product_showDiscountPercentage_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
@@ -3687,6 +3689,12 @@ input Product_originalProductPrice_operator {
   greater_than: Float
   less_than_equal: Float
   less_than: Float
+}
+
+input Product_showDiscountPercentage_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
 }
 
 input Product_publishedOn_operator {
@@ -3839,6 +3847,7 @@ input Product_where_and {
   sku: Product_sku_operator
   productPrice: Product_productPrice_operator
   originalProductPrice: Product_originalProductPrice_operator
+  showDiscountPercentage: Product_showDiscountPercentage_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
@@ -3865,6 +3874,7 @@ input Product_where_or {
   sku: Product_sku_operator
   productPrice: Product_productPrice_operator
   originalProductPrice: Product_originalProductPrice_operator
+  showDiscountPercentage: Product_showDiscountPercentage_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
@@ -3900,6 +3910,7 @@ type ProductsDocAccessFields {
   sku: ProductsDocAccessFields_sku
   productPrice: ProductsDocAccessFields_productPrice
   originalProductPrice: ProductsDocAccessFields_originalProductPrice
+  showDiscountPercentage: ProductsDocAccessFields_showDiscountPercentage
   publishedOn: ProductsDocAccessFields_publishedOn
   layout: ProductsDocAccessFields_layout
   stripeProductID: ProductsDocAccessFields_stripeProductID
@@ -4051,6 +4062,29 @@ type ProductsDocAccessFields_originalProductPrice_Update {
 }
 
 type ProductsDocAccessFields_originalProductPrice_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_showDiscountPercentage {
+  create: ProductsDocAccessFields_showDiscountPercentage_Create
+  read: ProductsDocAccessFields_showDiscountPercentage_Read
+  update: ProductsDocAccessFields_showDiscountPercentage_Update
+  delete: ProductsDocAccessFields_showDiscountPercentage_Delete
+}
+
+type ProductsDocAccessFields_showDiscountPercentage_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_showDiscountPercentage_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_showDiscountPercentage_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_showDiscountPercentage_Delete {
   permission: Boolean!
 }
 
@@ -4541,6 +4575,7 @@ type ProductVersion_Version {
   sku: String
   productPrice: Float
   originalProductPrice: Float
+  showDiscountPercentage: Boolean
   publishedOn: DateTime
   layout: [ProductVersion_Version_Layout!]
   stripeProductID: String
@@ -4756,6 +4791,7 @@ input versionsProduct_where {
   version__sku: versionsProduct_version__sku_operator
   version__productPrice: versionsProduct_version__productPrice_operator
   version__originalProductPrice: versionsProduct_version__originalProductPrice_operator
+  version__showDiscountPercentage: versionsProduct_version__showDiscountPercentage_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
@@ -4845,6 +4881,12 @@ input versionsProduct_version__originalProductPrice_operator {
   greater_than: Float
   less_than_equal: Float
   less_than: Float
+}
+
+input versionsProduct_version__showDiscountPercentage_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
 }
 
 input versionsProduct_version__publishedOn_operator {
@@ -5026,6 +5068,7 @@ input versionsProduct_where_and {
   version__sku: versionsProduct_version__sku_operator
   version__productPrice: versionsProduct_version__productPrice_operator
   version__originalProductPrice: versionsProduct_version__originalProductPrice_operator
+  version__showDiscountPercentage: versionsProduct_version__showDiscountPercentage_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
@@ -5056,6 +5099,7 @@ input versionsProduct_where_or {
   version__sku: versionsProduct_version__sku_operator
   version__productPrice: versionsProduct_version__productPrice_operator
   version__originalProductPrice: versionsProduct_version__originalProductPrice_operator
+  version__showDiscountPercentage: versionsProduct_version__showDiscountPercentage_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
@@ -11463,6 +11507,7 @@ type ProductsFields {
   sku: ProductsFields_sku
   productPrice: ProductsFields_productPrice
   originalProductPrice: ProductsFields_originalProductPrice
+  showDiscountPercentage: ProductsFields_showDiscountPercentage
   publishedOn: ProductsFields_publishedOn
   layout: ProductsFields_layout
   stripeProductID: ProductsFields_stripeProductID
@@ -11614,6 +11659,29 @@ type ProductsFields_originalProductPrice_Update {
 }
 
 type ProductsFields_originalProductPrice_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_showDiscountPercentage {
+  create: ProductsFields_showDiscountPercentage_Create
+  read: ProductsFields_showDiscountPercentage_Read
+  update: ProductsFields_showDiscountPercentage_Update
+  delete: ProductsFields_showDiscountPercentage_Delete
+}
+
+type ProductsFields_showDiscountPercentage_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_showDiscountPercentage_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_showDiscountPercentage_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_showDiscountPercentage_Delete {
   permission: Boolean!
 }
 
@@ -15761,6 +15829,7 @@ input mutationProductInput {
   sku: String
   productPrice: Float!
   originalProductPrice: Float!
+  showDiscountPercentage: Boolean
   publishedOn: String
   layout: JSON
   stripeProductID: String
@@ -15795,6 +15864,7 @@ input mutationProductUpdateInput {
   sku: String
   productPrice: Float
   originalProductPrice: Float
+  showDiscountPercentage: Boolean
   publishedOn: String
   layout: JSON
   stripeProductID: String

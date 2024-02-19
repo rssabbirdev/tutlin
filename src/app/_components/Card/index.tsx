@@ -46,7 +46,17 @@ export const Card: React.FC<{
     showCategories,
     title: titleFromProps,
     doc,
-    doc: { slug, title, categories, meta, priceJSON, productPrice, sku, originalProductPrice } = {},
+    doc: {
+      slug,
+      title,
+      categories,
+      meta,
+      priceJSON,
+      productPrice,
+      sku,
+      originalProductPrice,
+      showDiscountPercentage,
+    } = {},
     className,
   } = props
   const [loading, setLoading] = useState<Boolean>(false)
@@ -58,21 +68,17 @@ export const Card: React.FC<{
   const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
   const href = `/products/${slug}`
 
-  const [
-    price, // eslint-disable-line no-unused-vars
-    setPrice,
-  ] = useState(() => priceFromJSON(priceJSON))
-
-  useEffect(() => {
-    setPrice(priceFromJSON(priceJSON))
-  }, [priceJSON])
-
   return (
     <Link
       href={href}
       className={[classes.card, className].filter(Boolean).join(' ')}
       onClick={() => setLoading(true)}
     >
+      {showDiscountPercentage && (
+        <div className={classes.discountTag}>
+          {Math.round(((originalProductPrice - productPrice) / originalProductPrice) * 100)}% OFF
+        </div>
+      )}
       <div className={classes.mediaWrapper}>
         {loading && <div className={classes.loading}>Loading...</div>}
         {!metaImage && <div className={classes.placeholder}>No image</div>}
