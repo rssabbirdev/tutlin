@@ -16,15 +16,17 @@ function HomeProducts({ products }: { products: Product[] }) {
       </div>
       <HR />
       <div className={classes.products}>
-        {products.map(product => (
-          <Card
-            doc={product}
-            alignItems="center"
-            key={product.id}
-            title={product.title}
-            className={classes.product}
-          />
-        ))}
+        {products
+          .filter(product => product._status === 'published')
+          .map(product => (
+            <Card
+              doc={product}
+              alignItems="center"
+              key={product.id}
+              title={product.title}
+              className={classes.product}
+            />
+          ))}
       </div>
     </div>
   )

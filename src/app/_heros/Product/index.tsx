@@ -25,8 +25,8 @@ export const ProductHero: React.FC<{
     warranty,
     originalProductPrice,
     meta: { image: metaImage, description } = {},
+    _status,
   } = product
-
   return (
     <section>
       <Gutter className={classes.productHero}>
@@ -57,7 +57,11 @@ export const ProductHero: React.FC<{
                 )
               })}
             </div>
-            <p className={classes.stock}>In Stock</p>
+            {_status !== 'published' ? (
+              <p className={classes.stockOut}>Stock Out</p>
+            ) : (
+              <p className={classes.stock}>In Stock</p>
+            )}
           </div>
 
           <div className={classes.priceSection}>
@@ -77,19 +81,23 @@ export const ProductHero: React.FC<{
             <p style={{ fontSize: '15px' }}>SKU : {sku}</p>
           </div>
 
-          <div className={classes.buttons}>
-            <AddToCartButton
-              product={product}
-              className={classes.addToCartButton}
-              isBuyNow={false}
-              appearance="secondary"
-            />
-            <AddToCartButton
-              product={product}
-              className={classes.addToCartButton}
-              isBuyNow={true}
-            />
-          </div>
+          {_status !== 'published' ? (
+            <p className={classes.stockOut}>এই প্রোডাক্টটির স্টক শেষ, খুব শীঘ্রই নতুন স্টক আসবে!</p>
+          ) : (
+            <div className={classes.buttons}>
+              <AddToCartButton
+                product={product}
+                className={classes.addToCartButton}
+                isBuyNow={false}
+                appearance="secondary"
+              />
+              <AddToCartButton
+                product={product}
+                className={classes.addToCartButton}
+                isBuyNow={true}
+              />
+            </div>
+          )}
         </div>
       </Gutter>
       <Blocks blocks={layout} />

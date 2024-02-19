@@ -44,6 +44,7 @@ export const PRODUCT = `
           ${META}
         }
         ${META}
+        _status
       }
     }
   }
