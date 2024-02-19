@@ -5,8 +5,20 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
-
+.discountTag{
+  position: absolute;
+  background-color: red;
+  color:white;
+  font-weight:500;
+  top: 5px;
+  right: 5px;
+  // border-radius: 5px;
+  z-index:2;
+  padding: 2px 5px;
+  font-size:14px;
+}
 .content {
   padding: 8px 0;
   display: flex;

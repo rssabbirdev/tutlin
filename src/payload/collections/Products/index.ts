@@ -70,6 +70,14 @@ const Products: CollectionConfig = {
       defaultValue: 0,
     },
     {
+      label: 'Show Discount Percentage',
+      name: 'showDiscountPercentage',
+      type: 'checkbox',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'publishedOn',
       type: 'date',
       admin: {

@@ -24,6 +24,7 @@ export const PRODUCT = `
         title
         productPrice
         originalProductPrice
+        showDiscountPercentage
         stripeProductID
         ${PRODUCT_CATEGORIES}
         layout {
@@ -43,6 +44,7 @@ export const PRODUCT = `
           ${META}
         }
         ${META}
+        _status
       }
     }
   }

@@ -23,7 +23,6 @@ function Filters({ categories }: { categories: Category[] }) {
   }
   const handleSort = (value: string) => {
     setSort(value)
-    console.log(value)
   }
   return (
     <div className={classes.filters}>

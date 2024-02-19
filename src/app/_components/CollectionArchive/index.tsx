@@ -177,14 +177,16 @@ export const CollectionArchive: React.FC<Props> = props => {
               collection={relationTo}
               currentPage={results.page}
               limit={limit}
-              totalDocs={results.totalDocs}
+              totalDocs={results?.docs?.filter(doc => doc._status === 'published')?.length}
             />
           </div>
         )}
         <div className={classes.grid}>
-          {results.docs?.map((result, index) => {
-            return <Card doc={result} key={result?.id} relationTo={relationTo} showCategories />
-          })}
+          {results.docs
+            ?.filter(result => result._status === 'published')
+            .map((result, index) => {
+              return <Card doc={result} key={result?.id} relationTo={relationTo} showCategories />
+            })}
         </div>
         {results.totalPages > 1 && populateBy !== 'selection' && (
           <Pagination
