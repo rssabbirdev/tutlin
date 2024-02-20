@@ -3,7 +3,6 @@ import type { PayloadHandler } from 'payload/config'
 
 import { fetchSettings } from '../../../../app/_api/fetchGlobals'
 import type { Product, Settings } from '../../../payload-types'
-// import { sslcz } from '../../../sslcommerz/sslcz'
 import { calculateDeliveryFee } from '../../../utilities/calculateDeliveryFee'
 
 interface OrderProductsType {
@@ -145,7 +144,7 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         return_type: 'POST',
         redirect_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/guestorders/uddoktapay-success?order_id=${orderId}&transaction_id=${transactionId}`,
         cancel_url: process.env.NEXT_PUBLIC_SERVER_URL,
-        webhook_url: 'https://your-domain.com/ipn',
+        webhook_url: 'https://tutlin.com/ipn',
       }
       fetch(`${process.env.UDDOKTAPAY_BASE_URL}/api/checkout-v2`, {
         method: 'POST',
