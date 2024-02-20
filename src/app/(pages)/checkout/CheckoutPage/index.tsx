@@ -59,7 +59,8 @@ export const CheckoutPage: React.FC<{
     key: 'insideDhaka',
     value: insideDhaka,
   })
-  const [paymentOption, setPaymentOption] = useState<string>('1')
+  const [paymentOption, setPaymentOption] = useState<string>('UddoktaPay')
+  const [selectedPaymentOption, setSelectedPaymentOption] = useState<string>('1')
   const [isAdvancedPayment, setIsAdvancedPayment] = useState<boolean>(true)
   const { theme } = useTheme()
 
@@ -317,35 +318,38 @@ export const CheckoutPage: React.FC<{
                 {paymentOptions?.map(option => (
                   <RadioButton
                     groupName="paymentOptions"
-                    isSelected={paymentOption === option}
+                    isSelected={selectedPaymentOption === option}
                     // @ts-expect-error
                     label={option === 'CashOnDelivery' ? 'ক্যাশ অন ডেলিভারি' : option}
                     value={option}
                     onRadioChange={() => {
                       setIsAdvancedPayment(false)
                       setPaymentOption(option)
+                      setSelectedPaymentOption(option)
                     }}
                   />
                 ))}
                 <RadioButton
                   groupName="paymentOptions"
-                  isSelected={paymentOption === '1'}
+                  isSelected={selectedPaymentOption === '1'}
                   label={'আংশিক পেমেন্ট'}
                   value={'1'}
                   onRadioChange={() => {
                     setIsAdvancedPayment(true)
-                    setPaymentOption('1')
+                    setPaymentOption('UddoktaPay')
+                    setSelectedPaymentOption('1')
                   }}
                 />
 
                 <RadioButton
                   groupName="paymentOptions"
-                  isSelected={paymentOption === '2'}
+                  isSelected={selectedPaymentOption === '2'}
                   label={'ফুল পেমেন্ট'}
                   value={'2'}
                   onRadioChange={() => {
                     setIsAdvancedPayment(false)
-                    setPaymentOption('2')
+                    setPaymentOption('UddoktaPay')
+                    setSelectedPaymentOption('2')
                   }}
                 />
                 {isAdvancedPayment && (
@@ -365,8 +369,7 @@ export const CheckoutPage: React.FC<{
                 {paymentOption === 'CashOnDelivery' && (
                   <p className={classes.billing}>
                     অগ্রিম ছাড়া ক্যাশ অন ডেলিভারির ক্ষেত্রে অতিরিক্ত{' '}
-                    {advancedPaymentDiscount.toLocaleString('bn-BD', { currency: 'BDT' })} টাকা
-                    প্রযোজ্য!
+                    {advancedPaymentDiscount.toLocaleString('bn-BD', { currency: 'BDT' })} প্রযোজ্য!
                   </p>
                 )}
               </div>

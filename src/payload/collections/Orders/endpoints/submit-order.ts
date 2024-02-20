@@ -147,7 +147,6 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
         // Redirect the user to payment gateway
         let GatewayPageURL = apiResponse.GatewayPageURL
         // res.redirect(GatewayPageURL)
-        console.log('Redirecting to: ', GatewayPageURL)
         res.send({ GatewayPageURL })
       })
     } else if (body?.paymentOption === 'Bkash') {
@@ -176,7 +175,6 @@ export const submitOrder: PayloadHandler = async (req, res): Promise<void> => {
       })
         .then(response => response.json())
         .then(data => {
-          console.log(data)
           res.send({ GatewayPageURL: data?.payment_url })
         })
     }

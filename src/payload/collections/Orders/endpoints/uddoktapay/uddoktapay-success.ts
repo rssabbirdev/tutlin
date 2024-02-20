@@ -34,7 +34,6 @@ export const uddoktapaySuccessHandler: PayloadHandler = async (req, res): Promis
   })
     .then(response => response.json())
     .then(async data => {
-      console.log(data)
       // if (
       //   data?.status !== 'COMPLETED' &&
       //   data?.invoice_id !== req.body.invoice_id &&
