@@ -354,24 +354,26 @@ export const CheckoutPage: React.FC<{
                 />
                 {isAdvancedPayment && (
                   <p className={classes.billing}>
-                    আংশিক পেমেন্টের ক্ষেত্রে অতিরিক্ত{' '}
-                    {advancedPaymentDiscount.toLocaleString('bn-BD', { currency: 'BDT' })} টাকার
-                    প্রয়োজন নেই!
+                    {/* আংশিক পেমেন্টের ক্ষেত্রে অতিরিক্ত{' '}
+                      {advancedPaymentDiscount.toLocaleString('bn-BD', { currency: 'BDT' })} টাকার
+                      প্রয়োজন নেই! */}
+                    আমাদের গেজেট এবং এক্সেসরিজ আইটেম অর্ডারের ক্ষেত্রে আংশিক পেমেন্ট বাধ্যতামূলক।
                   </p>
                 )}
-                {!isAdvancedPayment && paymentOption !== 'CashOnDelivery' && (
-                  <p className={classes.billing}>
-                    ফুল পেমেন্ট এর ক্ষেত্রে অতিরিক্ত{' '}
-                    {advancedPaymentDiscount.toLocaleString('bn-BD', { currency: 'BDT' })} টাকার
-                    প্রয়োজন নেই!
-                  </p>
-                )}
-                {paymentOption === 'CashOnDelivery' && (
-                  <p className={classes.billing}>
-                    অগ্রিম ছাড়া ক্যাশ অন ডেলিভারির ক্ষেত্রে অতিরিক্ত{' '}
-                    {advancedPaymentDiscount.toLocaleString('bn-BD', { currency: 'BDT' })} প্রযোজ্য!
-                  </p>
-                )}
+                {/* {!isAdvancedPayment && paymentOption !== 'CashOnDelivery' && (
+                    <p className={classes.billing}>
+                      ফুল পেমেন্ট এর ক্ষেত্রে অতিরিক্ত{' '}
+                      {advancedPaymentDiscount.toLocaleString('bn-BD', { currency: 'BDT' })} টাকার
+                      প্রয়োজন নেই!
+                    </p>
+                  )} */}
+                {/* {paymentOption === 'CashOnDelivery' && (
+                    <p className={classes.billing}>
+                      অগ্রিম ছাড়া ক্যাশ অন ডেলিভারির ক্ষেত্রে অতিরিক্ত{' '}
+                      {advancedPaymentDiscount.toLocaleString('bn-BD', { currency: 'BDT' })}{' '}
+                      প্রযোজ্য!
+                    </p>
+                  )} */}
               </div>
               <div className={classes.billing}>
                 <div className={classes.orderTotal}>
