@@ -674,6 +674,7 @@ type Content {
 type Content_Columns {
   size: Content_Columns_size
   richText(depth: Int): JSON
+  richText_html: String
   enableLink: Boolean
   link: Content_Columns_Link
   id: String
