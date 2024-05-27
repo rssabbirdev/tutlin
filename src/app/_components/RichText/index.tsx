@@ -1,6 +1,9 @@
 import React from 'react'
+import escapeHTML from 'escape-html'
 
 import serialize from './serialize'
+
+import './richText.css'
 
 import classes from './index.module.scss'
 
@@ -8,10 +11,12 @@ const RichText: React.FC<{ className?: string; content: any }> = ({ className, c
   if (!content) {
     return null
   }
-
+  let text = <span dangerouslySetInnerHTML={{ __html: content }} />
   return (
-    <div className={[classes.richText, className].filter(Boolean).join(' ')}>
-      {serialize(content)}
+    <div className={`richTextCustom`}>
+      {/* {serialize(content)} */}
+      {text}
+      <span />
     </div>
   )
 }

@@ -1,0 +1,119 @@
+
+/* Unordered List with Bullet Points */
+.richTextCustom .bullet {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.richTextCustom ul.bullet li {
+    margin-bottom: 5px;
+}
+
+/* Ordered List with Numbers */
+.richTextCustom ol.number {
+    list-style-type: decimal;
+    padding-left: 20px;
+}
+
+.richTextCustom ol.number li {
+    margin-bottom: 5px;
+}
+
+/* Unordered List with Checkboxes */
+.richTextCustom ul.check {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.richTextCustom  ul.check li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.richTextCustom  ul.check li[aria-checked="false"]::before {
+    content: "☐";
+    margin-right: 10px;
+}
+
+.richTextCustom  ul.check li[aria-checked="true"]::before {
+    content: "☑";
+    margin-right: 10px;
+}
+
+/* Paragraph */
+.richTextCustom p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+/* Headings */
+.richTextCustom h1 {
+    font-size: 2em;
+    margin: 20px 0 10px;
+}
+
+.richTextCustom h2 {
+    font-size: 1.75em;
+    margin: 18px 0 10px;
+}
+
+.richTextCustom h3 {
+    font-size: 1.5em;
+    margin: 16px 0 10px;
+}
+
+.richTextCustom h4 {
+    font-size: 1.25em;
+    margin: 14px 0 10px;
+}
+
+.richTextCustom h5 {
+    font-size: 1em;
+    margin: 12px 0 10px;
+}
+
+.richTextCustom h6 {
+    font-size: 0.875em;
+    margin: 10px 0 10px;
+}
+
+/* Blockquote */
+.richTextCustom blockquote {
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    border-left: 5px solid #111111;
+}
+
+.richTextCustom a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.richTextCustom a:hover {
+    text-decoration: underline;
+}
+
+/* Horizontal Rule */
+.richTextCustom hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.richTextCustom img {
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    image-rendering: optimizeSpeed;
+    border-radius: 10px;
+}
+/* Span with Unknown Node */
+/* .richTextCustom span {
+    display: inline-block;
+    background-color: #e9ecef;
+    padding: 5px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+} */
