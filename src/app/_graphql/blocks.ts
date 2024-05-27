@@ -21,6 +21,7 @@ export const CONTENT = `
   columns {
     size
     richText
+    richText_html
     enableLink
     link ${LINK_FIELDS()}
   }

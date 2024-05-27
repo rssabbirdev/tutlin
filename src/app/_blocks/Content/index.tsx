@@ -15,6 +15,7 @@ export const ContentBlock: React.FC<
   }
 > = props => {
   const { columns } = props
+  console.log(columns[0].richText)
 
   return (
     <Gutter className={classes.content}>
@@ -22,11 +23,11 @@ export const ContentBlock: React.FC<
         {columns &&
           columns.length > 0 &&
           columns.map((col, index) => {
-            const { enableLink, richText, link, size } = col
+            const { enableLink, richText, richText_html, link, size } = col
 
             return (
               <div key={index} className={[classes.column, classes[`column--${size}`]].join(' ')}>
-                <RichText content={richText} />
+                <RichText content={richText_html} />
                 {enableLink && <CMSLink className={classes.link} {...link} />}
               </div>
             )

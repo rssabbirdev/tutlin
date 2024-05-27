@@ -6,7 +6,8 @@ import redirects from '@payloadcms/plugin-redirects'
 import seo from '@payloadcms/plugin-seo'
 import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
 import stripePlugin from '@payloadcms/plugin-stripe'
-import { slateEditor } from '@payloadcms/richtext-slate' // editor-import
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+// import { slateEditor } from '@payloadcms/richtext-slate' // editor-import
 import dotenv from 'dotenv'
 import path from 'path'
 import { buildConfig } from 'payload/config'
@@ -74,7 +75,8 @@ export default buildConfig({
       }
     },
   },
-  editor: slateEditor({}), // editor-config
+  // editor: slateEditor({}), // editor-config\
+  editor: lexicalEditor({}),
   // database-adapter-config-start
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
