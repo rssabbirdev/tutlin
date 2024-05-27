@@ -109,6 +109,12 @@
     image-rendering: optimizeSpeed;
     border-radius: 10px;
 }
+
+.richTextCustom code {
+    background-color: gainsboro;
+    border-radius: 5px;
+    padding:2px
+}
 /* Span with Unknown Node */
 /* .richTextCustom span {
     display: inline-block;
