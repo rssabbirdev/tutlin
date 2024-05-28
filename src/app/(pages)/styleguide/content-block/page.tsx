@@ -18,7 +18,7 @@ export default async function ContentBlockPage() {
         </p>
         <h1>Content Block</h1>
       </Gutter>
-      <VerticalPadding bottom="large" top="none">
+      {/* <VerticalPadding bottom="large" top="none">
         <ContentBlock
           blockType="content"
           columns={[
@@ -32,7 +32,7 @@ export default async function ContentBlockPage() {
             },
           ]}
         />
-      </VerticalPadding>
+      </VerticalPadding> */}
     </Fragment>
   )
 }
