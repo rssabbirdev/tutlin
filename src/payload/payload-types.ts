@@ -211,6 +211,22 @@ export interface Category {
 export interface Product {
   id: string;
   title: string;
+  sort_description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  sort_description_html?: string | null;
   warranty?: string | null;
   stock?: number | null;
   sku?: string | null;

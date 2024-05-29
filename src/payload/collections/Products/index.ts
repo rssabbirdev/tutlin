@@ -1,3 +1,4 @@
+import { HTMLConverterFeature, lexicalEditor, lexicalHTML } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload/types'
 
 import { admins } from '../../access/admins'
@@ -45,6 +46,21 @@ const Products: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'sort_description',
+      label: 'Sort Description',
+      type: 'richText',
+      // Pass the Lexical editor here and override base settings as necessary
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          // The HTMLConverter Feature is the feature which manages the HTML serializers.
+          // If you do not pass any arguments to it, it will use the default serializers.
+          HTMLConverterFeature({}),
+        ],
+      }),
+    },
+    lexicalHTML('sort_description', { name: 'sort_description_html' }),
     {
       name: 'warranty',
       type: 'text',

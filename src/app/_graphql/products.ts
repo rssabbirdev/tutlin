@@ -22,6 +22,8 @@ export const PRODUCT = `
         warranty 
         id
         title
+        sort_description
+        sort_description_html
         productPrice
         originalProductPrice
         showDiscountPercentage
