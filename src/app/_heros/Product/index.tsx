@@ -19,6 +19,7 @@ export const ProductHero: React.FC<{
     id,
     stripeProductID,
     title,
+    sort_description_html,
     categories,
     layout,
     sku,
@@ -74,7 +75,8 @@ export const ProductHero: React.FC<{
           </div>
           <div className={classes.description}>
             <strong>Description</strong>
-            <p>{description}</p>
+            {/* <p>{description}</p> */}
+            <RichText content={sort_description_html} />
           </div>
           <div className={classes.sku}>
             <p style={{ fontSize: '15px' }}>Warranty : {warranty}</p>

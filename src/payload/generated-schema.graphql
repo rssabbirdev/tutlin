@@ -1273,6 +1273,8 @@ union Archive_SelectedDocs = Product
 type Product {
   id: String
   title: String
+  sort_description(depth: Int): JSON
+  sort_description_html: String
   warranty: String
   stock: Float
   sku: String
@@ -3607,6 +3609,8 @@ type Products {
 
 input Product_where {
   title: Product_title_operator
+  sort_description: Product_sort_description_operator
+  sort_description_html: Product_sort_description_html_operator
   warranty: Product_warranty_operator
   stock: Product_stock_operator
   sku: Product_sku_operator
@@ -3640,6 +3644,25 @@ input Product_title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input Product_sort_description_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  exists: Boolean
+}
+
+input Product_sort_description_html_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
 }
 
 input Product_warranty_operator {
@@ -3843,6 +3866,8 @@ input Product_id_operator {
 
 input Product_where_and {
   title: Product_title_operator
+  sort_description: Product_sort_description_operator
+  sort_description_html: Product_sort_description_html_operator
   warranty: Product_warranty_operator
   stock: Product_stock_operator
   sku: Product_sku_operator
@@ -3870,6 +3895,8 @@ input Product_where_and {
 
 input Product_where_or {
   title: Product_title_operator
+  sort_description: Product_sort_description_operator
+  sort_description_html: Product_sort_description_html_operator
   warranty: Product_warranty_operator
   stock: Product_stock_operator
   sku: Product_sku_operator
@@ -3906,6 +3933,8 @@ type productsDocAccess {
 
 type ProductsDocAccessFields {
   title: ProductsDocAccessFields_title
+  sort_description: ProductsDocAccessFields_sort_description
+  sort_description_html: ProductsDocAccessFields_sort_description_html
   warranty: ProductsDocAccessFields_warranty
   stock: ProductsDocAccessFields_stock
   sku: ProductsDocAccessFields_sku
@@ -3948,6 +3977,52 @@ type ProductsDocAccessFields_title_Update {
 }
 
 type ProductsDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sort_description {
+  create: ProductsDocAccessFields_sort_description_Create
+  read: ProductsDocAccessFields_sort_description_Read
+  update: ProductsDocAccessFields_sort_description_Update
+  delete: ProductsDocAccessFields_sort_description_Delete
+}
+
+type ProductsDocAccessFields_sort_description_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sort_description_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sort_description_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sort_description_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sort_description_html {
+  create: ProductsDocAccessFields_sort_description_html_Create
+  read: ProductsDocAccessFields_sort_description_html_Read
+  update: ProductsDocAccessFields_sort_description_html_Update
+  delete: ProductsDocAccessFields_sort_description_html_Delete
+}
+
+type ProductsDocAccessFields_sort_description_html_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sort_description_html_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sort_description_html_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_sort_description_html_Delete {
   permission: Boolean!
 }
 
@@ -4571,6 +4646,8 @@ type ProductVersion {
 
 type ProductVersion_Version {
   title: String
+  sort_description(depth: Int): JSON
+  sort_description_html: String
   warranty: String
   stock: Float
   sku: String
@@ -4787,6 +4864,8 @@ type versionsProducts {
 input versionsProduct_where {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
+  version__sort_description: versionsProduct_version__sort_description_operator
+  version__sort_description_html: versionsProduct_version__sort_description_html_operator
   version__warranty: versionsProduct_version__warranty_operator
   version__stock: versionsProduct_version__stock_operator
   version__sku: versionsProduct_version__sku_operator
@@ -4832,6 +4911,25 @@ input versionsProduct_version__title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input versionsProduct_version__sort_description_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  exists: Boolean
+}
+
+input versionsProduct_version__sort_description_html_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
 }
 
 input versionsProduct_version__warranty_operator {
@@ -5064,6 +5162,8 @@ input versionsProduct_id_operator {
 input versionsProduct_where_and {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
+  version__sort_description: versionsProduct_version__sort_description_operator
+  version__sort_description_html: versionsProduct_version__sort_description_html_operator
   version__warranty: versionsProduct_version__warranty_operator
   version__stock: versionsProduct_version__stock_operator
   version__sku: versionsProduct_version__sku_operator
@@ -5095,6 +5195,8 @@ input versionsProduct_where_and {
 input versionsProduct_where_or {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
+  version__sort_description: versionsProduct_version__sort_description_operator
+  version__sort_description_html: versionsProduct_version__sort_description_html_operator
   version__warranty: versionsProduct_version__warranty_operator
   version__stock: versionsProduct_version__stock_operator
   version__sku: versionsProduct_version__sku_operator
@@ -11503,6 +11605,8 @@ type productsAccess {
 
 type ProductsFields {
   title: ProductsFields_title
+  sort_description: ProductsFields_sort_description
+  sort_description_html: ProductsFields_sort_description_html
   warranty: ProductsFields_warranty
   stock: ProductsFields_stock
   sku: ProductsFields_sku
@@ -11545,6 +11649,52 @@ type ProductsFields_title_Update {
 }
 
 type ProductsFields_title_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_sort_description {
+  create: ProductsFields_sort_description_Create
+  read: ProductsFields_sort_description_Read
+  update: ProductsFields_sort_description_Update
+  delete: ProductsFields_sort_description_Delete
+}
+
+type ProductsFields_sort_description_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_sort_description_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_sort_description_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_sort_description_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_sort_description_html {
+  create: ProductsFields_sort_description_html_Create
+  read: ProductsFields_sort_description_html_Read
+  update: ProductsFields_sort_description_html_Update
+  delete: ProductsFields_sort_description_html_Delete
+}
+
+type ProductsFields_sort_description_html_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_sort_description_html_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_sort_description_html_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_sort_description_html_Delete {
   permission: Boolean!
 }
 
@@ -15825,6 +15975,8 @@ enum PageUpdate__status_MutationInput {
 
 input mutationProductInput {
   title: String!
+  sort_description: JSON
+  sort_description_html: String
   warranty: String
   stock: Float
   sku: String
@@ -15860,6 +16012,8 @@ enum Product__status_MutationInput {
 
 input mutationProductUpdateInput {
   title: String
+  sort_description: JSON
+  sort_description_html: String
   warranty: String
   stock: Float
   sku: String
