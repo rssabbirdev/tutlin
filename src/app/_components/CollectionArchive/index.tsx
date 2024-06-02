@@ -78,7 +78,7 @@ export const CollectionArchive: React.FC<Props> = props => {
   const hasHydrated = useRef(false)
   const isRequesting = useRef(false)
   const [page, setPage] = useState(1)
-  // @ts-expect-error
+  // @ts-ignore
   const categories = (catsFromProps || []).map(cat => cat?.id).join(',')
 
   const scrollToRef = useCallback(() => {
