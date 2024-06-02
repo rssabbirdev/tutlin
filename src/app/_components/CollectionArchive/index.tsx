@@ -26,7 +26,7 @@ type Result = {
 }
 
 export type Props = {
-  categories?: ArchiveBlockProps['categories']
+  categories?: { id: string }[]
   className?: string
   limit?: number
   onResultChange?: (result: Result) => void // eslint-disable-line no-unused-vars
@@ -42,7 +42,6 @@ export type Props = {
 export const CollectionArchive: React.FC<Props> = props => {
   const { categoryFilters, sort } = useFilter()
   const location = usePathname()
-  console.log(location)
   const {
     categories: catsFromProps,
     className,
