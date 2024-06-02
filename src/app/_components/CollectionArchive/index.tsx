@@ -26,7 +26,7 @@ type Result = {
 }
 
 export type Props = {
-  categories?: { id: string }[]
+  categories?: ArchiveBlockProps['categories']
   className?: string
   limit?: number
   onResultChange?: (result: Result) => void // eslint-disable-line no-unused-vars
@@ -78,7 +78,7 @@ export const CollectionArchive: React.FC<Props> = props => {
   const hasHydrated = useRef(false)
   const isRequesting = useRef(false)
   const [page, setPage] = useState(1)
-
+  // @ts-expect-error
   const categories = (catsFromProps || []).map(cat => cat?.id).join(',')
 
   const scrollToRef = useCallback(() => {
