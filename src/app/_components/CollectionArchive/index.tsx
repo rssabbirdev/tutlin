@@ -1,6 +1,7 @@
 'use client'
 
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import qs from 'qs'
 
 import type { Product } from '../../../payload/payload-types'
@@ -40,7 +41,10 @@ export type Props = {
 
 export const CollectionArchive: React.FC<Props> = props => {
   const { categoryFilters, sort } = useFilter()
+  const location = usePathname()
+  console.log(location)
   const {
+    categories: catsFromProps,
     className,
     limit = 10,
     onResultChange,
@@ -76,7 +80,7 @@ export const CollectionArchive: React.FC<Props> = props => {
   const isRequesting = useRef(false)
   const [page, setPage] = useState(1)
 
-  // const categories = (categoryFilters || []).map(cat => cat).join(',')
+  const categories = (catsFromProps || []).map(cat => cat?.id).join(',')
 
   const scrollToRef = useCallback(() => {
     const { current } = scrollRef
@@ -108,7 +112,7 @@ export const CollectionArchive: React.FC<Props> = props => {
         }
       }, 500)
 
-      const searchQuery = qs.stringify(
+      const searchQueryProductsPage = qs.stringify(
         {
           depth: 1,
           limit,
@@ -129,11 +133,31 @@ export const CollectionArchive: React.FC<Props> = props => {
         },
         { encode: false },
       )
+      const searchQuery = qs.stringify(
+        {
+          depth: 1,
+          limit,
+          page,
+          sort,
+          where: {
+            ...(categories
+              ? {
+                  categories: {
+                    in: categories,
+                  },
+                }
+              : {}),
+          },
+        },
+        { encode: false },
+      )
 
       const makeRequest = async () => {
         try {
           const req = await fetch(
-            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${relationTo}?${searchQuery}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${relationTo}?${
+              location === '/products' ? searchQueryProductsPage : searchQuery
+            }`,
           )
 
           const json = await req.json()
@@ -164,7 +188,17 @@ export const CollectionArchive: React.FC<Props> = props => {
     return () => {
       if (timer) clearTimeout(timer)
     }
-  }, [page, relationTo, onResultChange, sort, limit, populateBy, categoryFilters])
+  }, [
+    page,
+    relationTo,
+    onResultChange,
+    sort,
+    limit,
+    populateBy,
+    categoryFilters,
+    categories,
+    location,
+  ])
 
   return (
     <div className={[classes.collectionArchive, className].filter(Boolean).join(' ')}>
