@@ -14,6 +14,7 @@ export const ArchiveBlock: React.FC<
 > = props => {
   const {
     introContent,
+    introContent_html,
     id,
     relationTo,
     populateBy,
@@ -28,7 +29,7 @@ export const ArchiveBlock: React.FC<
     <div id={`block-${id}`} className={classes.archiveBlock}>
       {introContent && (
         <Gutter className={classes.introContent}>
-          <RichText content={introContent} />
+          <RichText content={introContent_html} />
         </Gutter>
       )}
       <CollectionArchive

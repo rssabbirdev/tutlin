@@ -41,6 +41,7 @@ export const ARCHIVE_BLOCK = `
 ...on Archive {
   blockType
   introContent
+  introContent_html
   populateBy
   relationTo
   ${PRODUCT_CATEGORIES}

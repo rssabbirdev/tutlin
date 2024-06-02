@@ -9,12 +9,12 @@ import RichText from '../../_components/RichText'
 import classes from './index.module.scss'
 
 export const MediumImpactHero: React.FC<Page['hero']> = props => {
-  const { richText, media, links } = props
+  const { richText_html, media, links } = props
 
   return (
     <Gutter className={classes.hero}>
       <div className={classes.background}>
-        <RichText className={classes.richText} content={richText} />
+        <RichText className={classes.richText} content={richText_html} />
         {Array.isArray(links) && (
           <ul className={classes.links}>
             {links.map(({ link }, i) => {

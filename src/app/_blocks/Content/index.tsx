@@ -15,8 +15,6 @@ export const ContentBlock: React.FC<
   }
 > = props => {
   const { columns } = props
-  console.log(columns[0].richText)
-
   return (
     <Gutter className={classes.content}>
       <div className={classes.grid}>

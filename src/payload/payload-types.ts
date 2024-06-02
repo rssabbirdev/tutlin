@@ -39,9 +39,22 @@ export interface Page {
   publishedOn?: string | null;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'customHero';
-    richText: {
+    richText?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
       [k: string]: unknown;
-    }[];
+    } | null;
+    richText_html?: string | null;
     links?:
       | {
           link: {
@@ -139,9 +152,22 @@ export interface Page {
             blockType: 'mediaBlock';
           }
         | {
-            introContent: {
+            introContent?: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
               [k: string]: unknown;
-            }[];
+            } | null;
+            introContent_html?: string | null;
             populateBy?: ('collection' | 'selection') | null;
             relationTo?: 'products' | null;
             categories?: (string | Category)[] | null;
@@ -312,9 +338,22 @@ export interface Product {
             blockType: 'mediaBlock';
           }
         | {
-            introContent: {
+            introContent?: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
               [k: string]: unknown;
-            }[];
+            } | null;
+            introContent_html?: string | null;
             populateBy?: ('collection' | 'selection') | null;
             relationTo?: 'products' | null;
             categories?: (string | Category)[] | null;
@@ -419,9 +458,22 @@ export interface Product {
             blockType: 'mediaBlock';
           }
         | {
-            introContent: {
+            introContent?: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
               [k: string]: unknown;
-            }[];
+            } | null;
+            introContent_html?: string | null;
             populateBy?: ('collection' | 'selection') | null;
             relationTo?: 'products' | null;
             categories?: (string | Category)[] | null;

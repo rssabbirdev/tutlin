@@ -12,6 +12,7 @@ const RichText: React.FC<{ className?: string; content: any }> = ({ className, c
     return null
   }
   let text = <span dangerouslySetInnerHTML={{ __html: content }} />
+  // console.log('RichText From RichText Component', text)
   return (
     <div className={`richTextCustom`}>
       {/* {serialize(content)} */}

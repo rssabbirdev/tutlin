@@ -1,9 +1,7 @@
+import { HTMLConverterFeature, lexicalEditor, lexicalHTML } from '@payloadcms/richtext-lexical'
 import type { Field } from 'payload/types'
 
 import linkGroup from './linkGroup'
-import richText from './richText'
-import label from './richText/label'
-import largeBody from './richText/largeBody'
 
 export const hero: Field = {
   name: 'hero',
@@ -39,12 +37,21 @@ export const hero: Field = {
         },
       ],
     },
-    richText({
-      admin: {
-        elements: ['h1', largeBody, label, 'link'],
-        leaves: [],
-      },
-    }),
+    {
+      name: 'richText',
+      label: 'Rich Text',
+      type: 'richText',
+      // Pass the Lexical editor here and override base settings as necessary
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          // The HTMLConverter Feature is the feature which manages the HTML serializers.
+          // If you do not pass any arguments to it, it will use the default serializers.
+          HTMLConverterFeature({}),
+        ],
+      }),
+    },
+    lexicalHTML('richText', { name: 'richText_html' }),
     linkGroup({
       overrides: {
         maxRows: 2,

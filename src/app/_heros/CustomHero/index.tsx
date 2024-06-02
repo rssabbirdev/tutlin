@@ -8,7 +8,7 @@ import RichText from '../../_components/RichText'
 
 import classes from './index.module.scss'
 
-export const CustomHero: React.FC<Page['hero']> = ({ richText, media, links }) => {
+export const CustomHero: React.FC<Page['hero']> = ({ richText_html, media, links }) => {
   const mediaUrl =
     media &&
     typeof media !== 'string' &&
@@ -18,7 +18,7 @@ export const CustomHero: React.FC<Page['hero']> = ({ richText, media, links }) =
       <div className={classes.heroWrapper} style={{ backgroundImage: `url(${mediaUrl})` }}>
         <div className={classes.heroTextBox}>
           <div className={classes.richText}>
-            <RichText content={richText} />
+            <RichText content={richText_html} />
           </div>
           {Array.isArray(links) && links.length > 0 && (
             <ul className={classes.links}>
