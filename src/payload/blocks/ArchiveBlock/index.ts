@@ -1,6 +1,5 @@
+import { HTMLConverterFeature, lexicalEditor, lexicalHTML } from '@payloadcms/richtext-lexical'
 import type { Block } from 'payload/types'
-
-import richText from '../../fields/richText'
 
 export const Archive: Block = {
   slug: 'archive',
@@ -9,10 +8,21 @@ export const Archive: Block = {
     plural: 'Archives',
   },
   fields: [
-    richText({
+    {
       name: 'introContent',
       label: 'Intro Content',
-    }),
+      type: 'richText',
+      // Pass the Lexical editor here and override base settings as necessary
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          // The HTMLConverter Feature is the feature which manages the HTML serializers.
+          // If you do not pass any arguments to it, it will use the default serializers.
+          HTMLConverterFeature({}),
+        ],
+      }),
+    },
+    lexicalHTML('introContent', { name: 'introContent_html' }),
     {
       name: 'populateBy',
       type: 'select',

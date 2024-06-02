@@ -62,6 +62,7 @@ scalar DateTime
 type Page_Hero {
   type: Page_Hero_type
   richText(depth: Int): JSON
+  richText_html: String
   links: [Page_Hero_Links!]
   media(where: Page_Hero_Media_where): Media
 }
@@ -1059,6 +1060,7 @@ input MediaBlock_Media_where_or {
 
 type Archive {
   introContent(depth: Int): JSON
+  introContent_html: String
   populateBy: Archive_populateBy
   relationTo: Archive_relationTo
   categories: [Category!]
@@ -1677,6 +1679,7 @@ input Page_where {
   publishedOn: Page_publishedOn_operator
   hero__type: Page_hero__type_operator
   hero__richText: Page_hero__richText_operator
+  hero__richText_html: Page_hero__richText_html_operator
   hero__links__link__type: Page_hero__links__link__type_operator
   hero__links__link__newTab: Page_hero__links__link__newTab_operator
   hero__links__link__reference: Page_hero__links__link__reference_Relation
@@ -1740,6 +1743,18 @@ input Page_hero__richText_operator {
   not_equals: JSON
   like: JSON
   contains: JSON
+  exists: Boolean
+}
+
+input Page_hero__richText_html_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
 }
 
 input Page_hero__links__link__type_operator {
@@ -1915,6 +1930,7 @@ input Page_where_and {
   publishedOn: Page_publishedOn_operator
   hero__type: Page_hero__type_operator
   hero__richText: Page_hero__richText_operator
+  hero__richText_html: Page_hero__richText_html_operator
   hero__links__link__type: Page_hero__links__link__type_operator
   hero__links__link__newTab: Page_hero__links__link__newTab_operator
   hero__links__link__reference: Page_hero__links__link__reference_Relation
@@ -1941,6 +1957,7 @@ input Page_where_or {
   publishedOn: Page_publishedOn_operator
   hero__type: Page_hero__type_operator
   hero__richText: Page_hero__richText_operator
+  hero__richText_html: Page_hero__richText_html_operator
   hero__links__link__type: Page_hero__links__link__type_operator
   hero__links__link__newTab: Page_hero__links__link__newTab_operator
   hero__links__link__reference: Page_hero__links__link__reference_Relation
@@ -2056,6 +2073,7 @@ type PagesDocAccessFields_hero_Delete {
 type PagesDocAccessFields_hero_Fields {
   type: PagesDocAccessFields_hero_type
   richText: PagesDocAccessFields_hero_richText
+  richText_html: PagesDocAccessFields_hero_richText_html
   links: PagesDocAccessFields_hero_links
   media: PagesDocAccessFields_hero_media
 }
@@ -2103,6 +2121,29 @@ type PagesDocAccessFields_hero_richText_Update {
 }
 
 type PagesDocAccessFields_hero_richText_Delete {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_richText_html {
+  create: PagesDocAccessFields_hero_richText_html_Create
+  read: PagesDocAccessFields_hero_richText_html_Read
+  update: PagesDocAccessFields_hero_richText_html_Update
+  delete: PagesDocAccessFields_hero_richText_html_Delete
+}
+
+type PagesDocAccessFields_hero_richText_html_Create {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_richText_html_Read {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_richText_html_Update {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_richText_html_Delete {
   permission: Boolean!
 }
 
@@ -2692,6 +2733,7 @@ type PageVersion_Version {
 type PageVersion_Version_Hero {
   type: PageVersion_Version_Hero_type
   richText(depth: Int): JSON
+  richText_html: String
   links: [PageVersion_Version_Hero_Links!]
   media(where: PageVersion_Version_Hero_Media_where): Media
 }
@@ -3260,6 +3302,7 @@ input versionsPage_where {
   version__publishedOn: versionsPage_version__publishedOn_operator
   version__hero__type: versionsPage_version__hero__type_operator
   version__hero__richText: versionsPage_version__hero__richText_operator
+  version__hero__richText_html: versionsPage_version__hero__richText_html_operator
   version__hero__links__link__type: versionsPage_version__hero__links__link__type_operator
   version__hero__links__link__newTab: versionsPage_version__hero__links__link__newTab_operator
   version__hero__links__link__reference: versionsPage_version__hero__links__link__reference_Relation
@@ -3335,6 +3378,18 @@ input versionsPage_version__hero__richText_operator {
   not_equals: JSON
   like: JSON
   contains: JSON
+  exists: Boolean
+}
+
+input versionsPage_version__hero__richText_html_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
 }
 
 input versionsPage_version__hero__links__link__type_operator {
@@ -3539,6 +3594,7 @@ input versionsPage_where_and {
   version__publishedOn: versionsPage_version__publishedOn_operator
   version__hero__type: versionsPage_version__hero__type_operator
   version__hero__richText: versionsPage_version__hero__richText_operator
+  version__hero__richText_html: versionsPage_version__hero__richText_html_operator
   version__hero__links__link__type: versionsPage_version__hero__links__link__type_operator
   version__hero__links__link__newTab: versionsPage_version__hero__links__link__newTab_operator
   version__hero__links__link__reference: versionsPage_version__hero__links__link__reference_Relation
@@ -3569,6 +3625,7 @@ input versionsPage_where_or {
   version__publishedOn: versionsPage_version__publishedOn_operator
   version__hero__type: versionsPage_version__hero__type_operator
   version__hero__richText: versionsPage_version__hero__richText_operator
+  version__hero__richText_html: versionsPage_version__hero__richText_html_operator
   version__hero__links__link__type: versionsPage_version__hero__links__link__type_operator
   version__hero__links__link__newTab: versionsPage_version__hero__links__link__newTab_operator
   version__hero__links__link__reference: versionsPage_version__hero__links__link__reference_Relation
@@ -10987,6 +11044,7 @@ type PagesFields_hero_Delete {
 type PagesFields_hero_Fields {
   type: PagesFields_hero_type
   richText: PagesFields_hero_richText
+  richText_html: PagesFields_hero_richText_html
   links: PagesFields_hero_links
   media: PagesFields_hero_media
 }
@@ -11034,6 +11092,29 @@ type PagesFields_hero_richText_Update {
 }
 
 type PagesFields_hero_richText_Delete {
+  permission: Boolean!
+}
+
+type PagesFields_hero_richText_html {
+  create: PagesFields_hero_richText_html_Create
+  read: PagesFields_hero_richText_html_Read
+  update: PagesFields_hero_richText_html_Update
+  delete: PagesFields_hero_richText_html_Delete
+}
+
+type PagesFields_hero_richText_html_Create {
+  permission: Boolean!
+}
+
+type PagesFields_hero_richText_html_Read {
+  permission: Boolean!
+}
+
+type PagesFields_hero_richText_html_Update {
+  permission: Boolean!
+}
+
+type PagesFields_hero_richText_html_Delete {
   permission: Boolean!
 }
 
@@ -15851,7 +15932,8 @@ input mutationPageInput {
 
 input mutationPage_HeroInput {
   type: Page_Hero_type_MutationInput!
-  richText: JSON!
+  richText: JSON
+  richText_html: String
   links: [mutationPage_Hero_LinksInput]
   media: String
 }
@@ -15919,7 +16001,8 @@ input mutationPageUpdateInput {
 
 input mutationPageUpdate_HeroInput {
   type: PageUpdate_Hero_type_MutationInput!
-  richText: JSON!
+  richText: JSON
+  richText_html: String
   links: [mutationPageUpdate_Hero_LinksInput]
   media: String
 }
