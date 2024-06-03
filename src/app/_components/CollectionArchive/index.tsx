@@ -57,13 +57,13 @@ export const CollectionArchive: React.FC<Props> = props => {
   const location = usePathname()
 
   const [results, setResults] = useState<Result>({
-    // docs: (populateBy === 'collection'
-    //   ? populatedDocs
-    //   : populateBy === 'selection'
-    //   ? selectedDocs
-    //   : []
-    // )?.map(doc => doc.value),
-    docs: (populatedDocs?.map(doc => doc.value) || []) as [],
+    docs: (populateBy === 'collection'
+      ? populatedDocs
+      : populateBy === 'selection'
+      ? selectedDocs
+      : []
+    )?.map(doc => doc.value || []) as [],
+    // docs: (populatedDocs?.map(doc => doc.value) || []) as [],
     hasNextPage: false,
     hasPrevPage: false,
     nextPage: 1,
