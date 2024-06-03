@@ -83,20 +83,20 @@ export const CollectionArchive: React.FC<Props> = props => {
   //@ts-expect-error
   const categories = (catsFromProps || []).map(cat => cat?.id).join(',')
 
-  const scrollToRef = useCallback(() => {
-    const { current } = scrollRef
-    if (current) {
-      current.scrollIntoView({
-        behavior: 'smooth',
-      })
-    }
-  }, [])
+  // const scrollToRef = useCallback(() => {
+  //   const { current } = scrollRef
+  //   if (current) {
+  //     // current.scrollIntoView({
+  //     //   behavior: 'smooth',
+  //     // })
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    if (!isLoading && typeof results.page !== 'undefined') {
-      scrollToRef()
-    }
-  }, [isLoading, scrollToRef, results])
+  // useEffect(() => {
+  //   if (!isLoading && typeof results.page !== 'undefined') {
+  //     scrollToRef()
+  //   }
+  // }, [isLoading, scrollToRef, results])
 
   useEffect(() => {
     let timer: NodeJS.Timeout = null
