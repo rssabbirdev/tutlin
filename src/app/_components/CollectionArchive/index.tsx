@@ -85,15 +85,15 @@ export const CollectionArchive: React.FC<Props> = props => {
   const scrollToRef = useCallback(() => {
     const { current } = scrollRef
     if (current) {
-      // current.scrollIntoView({
-      //   behavior: 'smooth',
-      // })
+      current.scrollIntoView({
+        behavior: 'smooth',
+      })
     }
   }, [])
 
   useEffect(() => {
     if (!isLoading && typeof results.page !== 'undefined') {
-      // scrollToRef()
+      scrollToRef()
     }
   }, [isLoading, scrollToRef, results])
 
@@ -209,6 +209,7 @@ export const CollectionArchive: React.FC<Props> = props => {
           <div className={classes.pageRange}>
             <PageRange
               collection={relationTo}
+              collectionLabels={{ plural: 'Products', singular: 'Product' }}
               currentPage={results.page}
               limit={limit}
               totalDocs={results?.docs?.filter(doc => doc._status === 'published')?.length}
