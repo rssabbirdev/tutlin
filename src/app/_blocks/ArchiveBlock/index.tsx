@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { CollectionArchive } from '../../_components/CollectionArchive/CollectionArchive'
+import { CollectionArchive } from '../../_components/CollectionArchive'
 import { Gutter } from '../../_components/Gutter'
 import RichText from '../../_components/RichText'
 import { ArchiveBlockProps } from './types'
