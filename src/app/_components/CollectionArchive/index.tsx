@@ -72,6 +72,7 @@ export const CollectionArchive: React.FC<Props> = props => {
     totalDocs: typeof populatedDocsTotal === 'number' ? populatedDocsTotal : 0,
     totalPages: 1,
   })
+  console.log(results)
 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | undefined>(undefined)
@@ -101,7 +102,8 @@ export const CollectionArchive: React.FC<Props> = props => {
   useEffect(() => {
     let timer: NodeJS.Timeout = null
 
-    if (populateBy === 'collection' && !isRequesting.current) {
+    // if (populateBy === 'collection' && !isRequesting.current) {
+    if (!isRequesting.current) {
       isRequesting.current = true
 
       // hydrate the block with fresh content after first render
