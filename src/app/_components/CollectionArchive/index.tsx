@@ -41,9 +41,7 @@ export type Props = {
 
 export const CollectionArchive: React.FC<Props> = props => {
   const { categoryFilters, sort } = useFilter()
-  const location = usePathname()
   const {
-    categories: catsFromProps,
     className,
     limit = 10,
     onResultChange,
@@ -54,6 +52,8 @@ export const CollectionArchive: React.FC<Props> = props => {
     selectedDocs,
     showPageRange,
   } = props
+  // extract path properties from url
+  const location = usePathname()
 
   const [results, setResults] = useState<Result>({
     // docs: (populateBy === 'collection'
@@ -78,8 +78,9 @@ export const CollectionArchive: React.FC<Props> = props => {
   const hasHydrated = useRef(false)
   const isRequesting = useRef(false)
   const [page, setPage] = useState(1)
-  // @ts-ignore
-  const categories = (catsFromProps || []).map(cat => cat?.id).join(',')
+
+  //@ts-expect-error
+  const categories = (categoryFilters || []).map(cat => cat?.id).join(',')
 
   const scrollToRef = useCallback(() => {
     const { current } = scrollRef
