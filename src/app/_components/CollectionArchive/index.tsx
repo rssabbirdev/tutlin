@@ -42,6 +42,7 @@ export type Props = {
 export const CollectionArchive: React.FC<Props> = props => {
   const { categoryFilters, sort } = useFilter()
   const {
+    categories: catsFromProps,
     className,
     limit = 10,
     onResultChange,
@@ -80,7 +81,7 @@ export const CollectionArchive: React.FC<Props> = props => {
   const [page, setPage] = useState(1)
 
   //@ts-expect-error
-  const categories = (categoryFilters || []).map(cat => cat?.id).join(',')
+  const categories = (catsFromProps || []).map(cat => cat?.id).join(',')
 
   const scrollToRef = useCallback(() => {
     const { current } = scrollRef
