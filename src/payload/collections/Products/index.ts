@@ -8,11 +8,11 @@ import { Content } from '../../blocks/Content'
 import { MediaBlock } from '../../blocks/MediaBlock'
 import { slugField } from '../../fields/slug'
 import { populateArchiveBlock } from '../../hooks/populateArchiveBlock'
-import { checkUserPurchases } from './access/checkUserPurchases'
+// import { checkUserPurchases } from './access/checkUserPurchases'
 import { beforeProductChange } from './hooks/beforeChange'
 import { deleteProductFromCarts } from './hooks/deleteProductFromCarts'
 import { revalidateProduct } from './hooks/revalidateProduct'
-import { ProductSelect } from './ui/ProductSelect'
+// import { ProductSelect } from './ui/ProductSelect'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -61,30 +61,7 @@ const Products: CollectionConfig = {
       }),
     },
     lexicalHTML('sort_description', { name: 'sort_description_html' }),
-    {
-      name: 'warranty',
-      type: 'text',
-    },
-    {
-      name: 'stock',
-      type: 'number',
-    },
-    {
-      name: 'sku',
-      type: 'text',
-    },
-    {
-      name: 'productPrice',
-      type: 'number',
-      required: true,
-      defaultValue: 0,
-    },
-    {
-      name: 'originalProductPrice',
-      type: 'number',
-      required: true,
-      defaultValue: 0,
-    },
+
     {
       label: 'Show Discount Percentage',
       name: 'showDiscountPercentage',
@@ -130,15 +107,37 @@ const Products: CollectionConfig = {
           label: 'Product Details',
           fields: [
             {
-              name: 'stripeProductID',
-              label: 'Stripe Product',
+              name: 'warranty',
               type: 'text',
-              admin: {
-                components: {
-                  Field: ProductSelect,
-                },
-              },
             },
+            {
+              name: 'stock',
+              type: 'number',
+            },
+
+            {
+              name: 'productPrice',
+              type: 'number',
+              required: true,
+              defaultValue: 0,
+            },
+            {
+              name: 'originalProductPrice',
+              type: 'number',
+              required: true,
+              defaultValue: 0,
+            },
+
+            // {
+            //   name: 'stripeProductID',
+            //   label: 'Stripe Product',
+            //   type: 'text',
+            //   admin: {
+            //     components: {
+            //       Field: ProductSelect,
+            //     },
+            //   },
+            // },
             {
               name: 'priceJSON',
               label: 'Price JSON',
@@ -149,20 +148,20 @@ const Products: CollectionConfig = {
                 rows: 10,
               },
             },
-            {
-              name: 'enablePaywall',
-              label: 'Enable Paywall',
-              type: 'checkbox',
-            },
-            {
-              name: 'paywall',
-              label: 'Paywall',
-              type: 'blocks',
-              access: {
-                read: checkUserPurchases,
-              },
-              blocks: [CallToAction, Content, MediaBlock, Archive],
-            },
+            // {
+            //   name: 'enablePaywall',
+            //   label: 'Enable Paywall',
+            //   type: 'checkbox',
+            // },
+            // {
+            //   name: 'paywall',
+            //   label: 'Paywall',
+            //   type: 'blocks',
+            //   access: {
+            //     read: checkUserPurchases,
+            //   },
+            //   blocks: [CallToAction, Content, MediaBlock, Archive],
+            // },
           ],
         },
       ],
@@ -172,6 +171,13 @@ const Products: CollectionConfig = {
       type: 'relationship',
       relationTo: 'categories',
       hasMany: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'sku',
+      type: 'text',
       admin: {
         position: 'sidebar',
       },
