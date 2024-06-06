@@ -72,7 +72,6 @@ export const CollectionArchive: React.FC<Props> = props => {
     totalDocs: typeof populatedDocsTotal === 'number' ? populatedDocsTotal : 0,
     totalPages: 1,
   })
-  console.log(results)
 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | undefined>(undefined)
@@ -102,8 +101,7 @@ export const CollectionArchive: React.FC<Props> = props => {
   useEffect(() => {
     let timer: NodeJS.Timeout = null
 
-    // if (populateBy === 'collection' && !isRequesting.current) {
-    if (!isRequesting.current) {
+    if (populateBy === 'collection' && !isRequesting.current) {
       isRequesting.current = true
 
       // hydrate the block with fresh content after first render
@@ -220,10 +218,19 @@ export const CollectionArchive: React.FC<Props> = props => {
           </div>
         )}
         <div className={classes.grid}>
-          {results.docs
-            ?.filter(result => result._status === 'published')
-            .map((result, index) => {
-              return <Card doc={result} key={result?.id} relationTo={relationTo} showCategories />
+          {populateBy === 'collection' &&
+            results.docs
+              ?.filter(result => result._status === 'published')
+              .map((result, index) => {
+                return <Card doc={result} key={result?.id} relationTo={relationTo} showCategories />
+              })}
+          {populateBy === 'selection' &&
+            selectedDocs?.map((doc, index) => {
+              if (typeof doc.value === 'string') return null
+
+              return (
+                <Card key={doc.value.id} relationTo={relationTo} doc={doc.value} showCategories />
+              )
             })}
         </div>
         {results.totalPages > 1 && populateBy !== 'selection' && (
